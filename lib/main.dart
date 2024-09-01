@@ -1,6 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+const int primaryColor = 0xFFB22331; // Base color #b22331
+const Color btnColor = Color.fromARGB(255, 15, 46, 74); // Base color #b22331
+const Color baseColor = Color(primaryColor); // Base color #b22331
+
+Map<int, Color> colorSwatch = {
+  50: Color(0xFFFDE8E9),
+  100: Color(0xFFF9C5C8),
+  200: Color(0xFFF59FA3),
+  300: Color(0xFFEF787E),
+  400: Color(0xFFEA5A62),
+  500: Color(primaryColor), // Primary shade (#b22331)
+  600: Color(0xFFA71F2C),
+  700: Color(0xFF931B25),
+  800: Color(0xFF7F1720),
+  900: Color(0xFF611116),
+};
+
+// Create a MaterialColor from the swatch
+MaterialColor customSwatch = MaterialColor(primaryColor, colorSwatch);
 void main() {
   runApp(ARApp());
 }
@@ -12,7 +31,7 @@ class ARApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'BetterPainting AR Quote App',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: customSwatch,
         fontFamily: 'Roboto',
       ),
       initialRoute: '/',
@@ -32,7 +51,7 @@ class ARHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: customSwatch,
         elevation: 0,
       ),
       body: Stack(
@@ -46,9 +65,10 @@ class ARHomePage extends StatelessWidget {
 
   Widget _buildBackground() {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
-          colors: [Colors.blueAccent, Colors.indigoAccent],
+          colors: [baseColor, baseColor],
+          // colors: [Color.fromARGB(255, 174, 35, 49), Color.fromARGB(255, 15, 46, 74)],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
@@ -63,7 +83,9 @@ class ARHomePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 200),
+            SizedBox(height: 100),
+            Image.asset('assets/images/roller_brush.png',height: 100,width: double.infinity,),
+            SizedBox(height: 50,),
             Text(
               'Welcome to Your AR Experience',
               style: TextStyle(
@@ -87,7 +109,7 @@ class ARHomePage extends StatelessWidget {
                   Navigator.pushNamed(context, '/serviceSelection');
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.orange,
+                  backgroundColor: btnColor,
                   padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
@@ -116,7 +138,7 @@ class ServiceSelectionScreen extends StatelessWidget {
           Navigator.of(context).pop(false);
         }, icon: Icon(CupertinoIcons.back,color: Colors.white,)),
         title: Text('Choose a Service',style: TextStyle(color: Colors.white),),
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: baseColor,
         elevation: 0,
       ),
       body: Stack(
@@ -140,7 +162,7 @@ class ServiceSelectionScreen extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Colors.blueAccent, Colors.indigoAccent],
+          colors: [baseColor, baseColor],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
@@ -156,7 +178,7 @@ class ServiceSelectionScreen extends StatelessWidget {
           Navigator.pushNamed(context, '/detailedSpecification');
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.orange,
+          backgroundColor: btnColor,
           padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),
@@ -181,7 +203,7 @@ class DetailedSpecificationScreen extends StatelessWidget {
           Navigator.of(context).pop(false);
         }, icon: Icon(CupertinoIcons.back,color: Colors.white,)),
         title: Text('Specify Details',style: TextStyle(color: Colors.white),),
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: baseColor,
         elevation: 0,
       ),
       body: Stack(
@@ -209,7 +231,7 @@ class DetailedSpecificationScreen extends StatelessWidget {
                       Navigator.pushNamed(context, '/arMeasurement');
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.orange,
+                      backgroundColor: btnColor,
                       padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
@@ -233,7 +255,7 @@ class DetailedSpecificationScreen extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Colors.blueAccent, Colors.indigoAccent],
+          colors: [baseColor,baseColor],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
@@ -270,7 +292,7 @@ class ARMeasurementScreen extends StatelessWidget {
           Navigator.of(context).pop(false);
         }, icon: Icon(CupertinoIcons.back,color: Colors.white,)),
         title: Text('AR Measurement',style: TextStyle(color: Colors.white),),
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: baseColor,
         elevation: 0,
       ),
       body: Stack(
@@ -293,7 +315,7 @@ class ARMeasurementScreen extends StatelessWidget {
                       Navigator.pushNamed(context, '/quoteSummary');
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.orange,
+                      backgroundColor: btnColor,
                       padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
@@ -317,7 +339,7 @@ class ARMeasurementScreen extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Colors.blueAccent, Colors.indigoAccent],
+          colors: [baseColor,baseColor],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
@@ -335,7 +357,7 @@ class QuoteSummaryScreen extends StatelessWidget {
           Navigator.of(context).pop(false);
         }, icon: Icon(CupertinoIcons.back,color: Colors.white,)),
         title: Text('Quote Summary',style: TextStyle(color: Colors.white),),
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: baseColor,
         elevation: 0,
       ),
       body: Stack(
@@ -358,7 +380,7 @@ class QuoteSummaryScreen extends StatelessWidget {
                       // Generate quote or restart process
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.orange,
+                      backgroundColor: btnColor,
                       padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
@@ -382,7 +404,7 @@ class QuoteSummaryScreen extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Colors.blueAccent, Colors.indigoAccent],
+          colors: [baseColor,baseColor],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
