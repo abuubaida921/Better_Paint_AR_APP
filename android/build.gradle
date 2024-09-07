@@ -1,9 +1,30 @@
+buildscript {
+    ext.kotlin_version = '1.5.20' // Use a compatible Kotlin version
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.5.50'
+        //classpath "com.android.tools.build:gradle:7.4.2" // Replace with a valid version
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version" // Ensure this matches your Kotlin version
+        // Other classpaths
+    }
+}
+
 allprojects {
     repositories {
         google()
         mavenCentral()
     }
+
+    configurations.all {
+        resolutionStrategy {
+            force "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.20" // or another compatible version
+        }
+    }
 }
+
 
 rootProject.buildDir = "../build"
 subprojects {

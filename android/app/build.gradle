@@ -59,4 +59,13 @@ flutter {
     source = "../.."
 }
 
+// Add your dependencies here
+dependencies {
+    // ARCore dependency
+    implementation 'com.google.ar:core:1.38.0'
+    // ARCore session management dependency (optional but recommended)
+    implementation 'com.google.ar:arcore:1.38.0'
 
+
+    // Other dependencies
+}
