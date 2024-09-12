@@ -15,24 +15,37 @@ class InvoiceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildHeader(),
-              SizedBox(height: 20),
-              _buildCustomerInfo(),
-              SizedBox(height: 20),
-              _buildInvoiceItems(),
-              SizedBox(height: 20),
-              _buildTotalAmount(),
-              SizedBox(height: 20),
-              _buildFooter(),
-            ],
-          ),
-        ),
+        child: Stack(
+          children: [
+            Positioned(
+              bottom: 0,
+              right: 0,
+              child: Image.asset(
+                'assets/images/bottom_right.png',
+                width: 100,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildHeader(),
+                  SizedBox(height: 20),
+                  _buildCustomerInfo(),
+                  SizedBox(height: 20),
+                  _buildInvoiceItems(),
+                  SizedBox(height: 20),
+                  _buildTotalAmount(),
+                  SizedBox(height: 20),
+                  _buildFooter(),
+                ],
+              ),
+            ),
+          ],
+        )
       ),
     );
   }
