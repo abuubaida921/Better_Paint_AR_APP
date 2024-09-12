@@ -422,6 +422,35 @@ class DetailedSpecificationScreen extends StatelessWidget {
 class ARMeasurementScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var selectedColorIndex=0.obs;
+    List<Color> colorList = [
+      Color(0xFF000000), // Black
+      // Color(0xFFFFFFFF), // White
+      Color(0xFF0000FF), // Blue
+      Color(0xFFFF0000), // Red
+      Color(0xFF00FF00), // Green
+      // Color(0xFF808080), // Gray
+      // Color(0xFFFFA500), // Orange
+      // Color(0xFFFFFF00), // Yellow
+      // Color(0xFF800080), // Purple
+      // Color(0xFF00FFFF), // Cyan
+      // Color(0xFFFFC0CB), // Pink
+      // Color(0xFF008000), // Dark Green
+      // Color(0xFFADD8E6), // Light Blue
+      // Color(0xFFFF6347), // Tomato
+      // Color(0xFF4B0082), // Indigo
+      // Color(0xFFFFD700), // Gold
+      // Color(0xFF40E0D0), // Turquoise
+      // Color(0xFFFA8072), // Salmon
+      // Color(0xFFB22222), // Firebrick
+      // Color(0xFF4682B4), // Steel Blue
+      // Color(0xFFA52A2A), // Brown
+      // Color(0xFF2E8B57), // Sea Green
+      // Color(0xFF6A5ACD), // Slate Blue
+      // Color(0xFFD2691E), // Chocolate
+      // Color(0xFFDC143C), // Crimson
+      // Color(0xFF4169E1), // Royal Blue
+    ];
     return Scaffold(
       // appBar: AppBar(
       //   leading: IconButton(
@@ -456,6 +485,36 @@ class ARMeasurementScreen extends StatelessWidget {
               width: 120,
             ),
           ),
+          Obx(()=>Positioned(
+            top: 360,
+            child: Row(
+              children: [
+                for (int i = 0; i < colorList.length; i++)
+                  InkWell(
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    onTap: () {
+                      selectedColorIndex.value=i;
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only(right: 9),
+                      height: 28,
+                      width: 28,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              color:selectedColorIndex.value == i ? Color(primaryColor) : Colors.transparent),
+                          shape: BoxShape.circle),
+                      child: Container(
+                        height: 20,
+                        width: 20,
+                        decoration: BoxDecoration(color: colorList[i], shape: BoxShape.circle),
+                      ),
+                    ),
+                  )
+              ],
+            ),
+          ),),
           Center(
             child: Padding(
               padding: const EdgeInsets.all(20.0),
