@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -58,6 +59,9 @@ class ARApp extends StatelessWidget {
       routes: {
         '/': (context) => ARHomePage(),
         '/splash': (context) => SplashScreen(),
+        '/accountOnboding': (conext) => AccountOnbondig(),
+        '/signInScreen': (conext) => SignInScreen(),
+        '/createAccountScreen': (conext) => CreateAccountScreen(),
         '/serviceSelection': (context) => ServiceSelectionScreen(),
         '/detailedSpecification': (context) => DetailedSpecificationScreen(),
         '/arMeasurement': (context) => ARMeasurementScreen(),
@@ -192,7 +196,7 @@ class ARHomePage extends StatelessWidget {
         Center(
           child: ElevatedButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/serviceSelection');
+              Navigator.pushNamed(context, '/accountOnboding');
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: btnColor,
@@ -422,7 +426,7 @@ class DetailedSpecificationScreen extends StatelessWidget {
 class ARMeasurementScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var selectedColorIndex=0.obs;
+    var selectedColorIndex = 0.obs;
     List<Color> colorList = [
       Color(0xFF000000), // Black
       // Color(0xFFFFFFFF), // White
@@ -485,43 +489,50 @@ class ARMeasurementScreen extends StatelessWidget {
               width: 120,
             ),
           ),
-          Obx(()=>Positioned(
-            top: 360,
-            child: Row(
-              children: [
-                for (int i = 0; i < colorList.length; i++)
-                  InkWell(
-                    highlightColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-                    onTap: () {
-                      selectedColorIndex.value=i;
-                    },
-                    child: Container(
-                      margin: const EdgeInsets.only(right: 9),
-                      height: 28,
-                      width: 28,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              color:selectedColorIndex.value == i ? Color(primaryColor) : Colors.transparent),
-                          shape: BoxShape.circle),
+          Obx(
+            () => Positioned(
+              top: 360,
+              child: Row(
+                children: [
+                  for (int i = 0; i < colorList.length; i++)
+                    InkWell(
+                      highlightColor: Colors.transparent,
+                      splashColor: Colors.transparent,
+                      onTap: () {
+                        selectedColorIndex.value = i;
+                      },
                       child: Container(
-                        height: 20,
-                        width: 20,
-                        decoration: BoxDecoration(color: colorList[i], shape: BoxShape.circle),
+                        margin: const EdgeInsets.only(right: 9),
+                        height: 28,
+                        width: 28,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                color: selectedColorIndex.value == i
+                                    ? Color(primaryColor)
+                                    : Colors.transparent),
+                            shape: BoxShape.circle),
+                        child: Container(
+                          height: 20,
+                          width: 20,
+                          decoration: BoxDecoration(
+                              color: colorList[i], shape: BoxShape.circle),
+                        ),
                       ),
-                    ),
-                  )
-              ],
+                    )
+                ],
+              ),
             ),
-          ),),
+          ),
           Center(
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(height: 380,),
+                  SizedBox(
+                    height: 380,
+                  ),
                   Text(
                     'Home Decor',
                     style: TextStyle(
@@ -658,6 +669,423 @@ class QuoteSummaryScreen extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
+      ),
+    );
+  }
+}
+
+// Account On Bonding Screen //
+class AccountOnbondig extends StatelessWidget {
+  const AccountOnbondig({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          Image.asset(
+            'assets/images/top_left.png',
+            width: 120,
+          ),
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: Image.asset(
+              'assets/images/bottom_right.png',
+              width: 120,
+            ),
+          ),
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/images/paint_cover.png',
+                    width: 280,
+                  ),
+                  const SizedBox(height: 35),
+                  SizedBox(
+                    width: double.maxFinite,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        // Generate quote or restart process
+                        Navigator.pushNamed(context, '/signInScreen');
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(primaryColor),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                      child: Text(
+                        'CARETE AN ACCOUNT',
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  SizedBox(
+                    width: double.maxFinite,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        // Generate quote or restart process
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: btnColor,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                      child: Text(
+                        'SIGN IN NOW',
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  TextButton(
+                    style: ButtonStyle(
+                      foregroundColor:
+                          WidgetStateProperty.all<Color>(Colors.grey),
+                    ),
+                    onPressed: () {},
+                    child: Text(
+                      'SKIP',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// Sign In Account Screen //
+class SignInScreen extends StatelessWidget {
+  const SignInScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          Image.asset(
+            'assets/images/top_left.png',
+            width: 120,
+          ),
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: Image.asset(
+              'assets/images/bottom_right.png',
+              width: 120,
+            ),
+          ),
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Align(
+                    alignment: AlignmentDirectional.topStart,
+                    child: Text(
+                      'Sign In',
+                      style: TextStyle(
+                          fontSize: 50,
+                          color: Color(backgroundColor),
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                  Align(
+                    alignment: AlignmentDirectional.topStart,
+                    child: Text(
+                      'Sign in your register account',
+                      style: TextStyle(
+                          fontSize: 18,
+                          color: Color(primaryColor),
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  const Align(
+                    alignment: AlignmentDirectional.topStart,
+                    child: Text(
+                      'Email Address',
+                      style: TextStyle(
+                          fontSize: 18,
+                          color: Color(backgroundColor),
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(0),
+                        filled: true,
+                        fillColor: Colors.grey.shade200,
+                        hintText: 'Plese Enter Your Email',
+                        border:
+                            OutlineInputBorder(borderSide: BorderSide.none)),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Align(
+                    alignment: AlignmentDirectional.topStart,
+                    child: Text(
+                      'Password',
+                      style: TextStyle(
+                          fontSize: 18,
+                          color: Color(backgroundColor),
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.all(0),
+                        filled: true,
+                        fillColor: Colors.grey.shade200,
+                        hintText: 'Plese Enter Your Password',
+                        border: const OutlineInputBorder(
+                            borderSide: BorderSide.none)),
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CircleAvatar(
+                        radius: 25,
+                        backgroundColor: btnColor,
+                        child: IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.arrow_forward_ios_rounded,
+                              color: Colors.white,
+                            )),
+                      ),
+                      Text(
+                        'Forget Password',
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.grey.shade500,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 55,),
+                  Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('Don\'t you have account? ', style: TextStyle(
+                             fontSize: 16),),
+                      InkWell(
+                        onTap: () {
+                        Navigator.pushNamed(context, '/createAccountScreen');
+                        },
+                        child: const Text(
+                          'Sign Up',
+                          style: TextStyle(
+                              color: Color(primaryColor),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16
+                              ),
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// Create Account Screen //
+class CreateAccountScreen  extends StatelessWidget {
+  const CreateAccountScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          Image.asset(
+            'assets/images/top_left.png',
+            width: 120,
+          ),
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: Image.asset(
+              'assets/images/bottom_right.png',
+              width: 120,
+            ),
+          ),
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Align(
+                    alignment: AlignmentDirectional.topStart,
+                    child: Text(
+                      'Create Account',
+                      style: TextStyle(
+                          fontSize: 50,
+                          color: Color(backgroundColor),
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                  const Align(
+                    alignment: AlignmentDirectional.topStart,
+                    child: Text(
+                      'Register with valid e-mail address',
+                      style: TextStyle(
+                          fontSize: 18,
+                          color: Color(primaryColor),
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  const Align(
+                    alignment: AlignmentDirectional.topStart,
+                    child: Text(
+                      'Email Address',
+                      style: TextStyle(
+                          fontSize: 18,
+                          color: Color(backgroundColor),
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.all(0),
+                        filled: true,
+                        fillColor: Colors.grey.shade200,
+                        hintText: 'Plese Enter Your Email',
+                        border:
+                            OutlineInputBorder(borderSide: BorderSide.none)),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Align(
+                    alignment: AlignmentDirectional.topStart,
+                    child: Text(
+                      'Password',
+                      style: TextStyle(
+                          fontSize: 18,
+                          color: Color(backgroundColor),
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.all(0),
+                        filled: true,
+                        fillColor: Colors.grey.shade200,
+                        hintText: 'Plese Enter Your Password',
+                        border: const OutlineInputBorder(
+                            borderSide: BorderSide.none)),
+                  ),
+
+                   const SizedBox(
+                    height: 20,
+                  ),
+
+                     const Align(
+                    alignment: AlignmentDirectional.topStart,
+                    child: Text(
+                      'Confirm Password',
+                      style: TextStyle(
+                          fontSize: 18,
+                          color: Color(backgroundColor),
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.all(0),
+                        filled: true,
+                        fillColor: Colors.grey.shade200,
+                        hintText: 'Plese Enter Your Password',
+                        border: const OutlineInputBorder(
+                            borderSide: BorderSide.none)),
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CircleAvatar(
+                        radius: 25,
+                        backgroundColor: btnColor,
+                        child: IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.arrow_forward_ios_rounded,
+                              color: Colors.white,
+                            )),
+                      ),
+                      Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('Have account? ', style: TextStyle(
+                             fontSize: 16),),
+                      InkWell(
+                        onTap: () {
+                         
+                        },
+                        child: const Text(
+                          'Sign In',
+                          style: TextStyle(
+                              color: Color(primaryColor),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16
+                              ),
+                        ),
+                      )
+                    ],
+                  )
+                    ],
+                  ),
+                  const SizedBox(height: 55,),
+                 
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
