@@ -1,10 +1,13 @@
 import 'dart:async';
+import 'dart:io';
+import 'dart:math';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'invoice.dart';
 
@@ -15,16 +18,16 @@ const Color btnColor = Color.fromARGB(255, 15, 46, 74); // Base color #b22331
 const Color baseColor = Color(backgroundColor); // Base color #b22331
 
 Map<int, Color> colorSwatch = {
-  50: Color(0xFFFDE8E9),
-  100: Color(0xFFF9C5C8),
-  200: Color(0xFFF59FA3),
-  300: Color(0xFFEF787E),
-  400: Color(0xFFEA5A62),
-  500: Color(primaryColor), // Primary shade (#b22331)
-  600: Color(0xFFA71F2C),
-  700: Color(0xFF931B25),
-  800: Color(0xFF7F1720),
-  900: Color(0xFF611116),
+  50: const Color(0xFFFDE8E9),
+  100: const Color(0xFFF9C5C8),
+  200: const Color(0xFFF59FA3),
+  300: const Color(0xFFEF787E),
+  400: const Color(0xFFEA5A62),
+  500: const Color(primaryColor), // Primary shade (#b22331)
+  600: const Color(0xFFA71F2C),
+  700: const Color(0xFF931B25),
+  800: const Color(0xFF7F1720),
+  900: const Color(0xFF611116),
 };
 
 // Create a MaterialColor from the swatch
@@ -42,10 +45,12 @@ void main() {
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
-  runApp(ARApp());
+  runApp(const ARApp());
 }
 
 class ARApp extends StatelessWidget {
+  const ARApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -57,15 +62,17 @@ class ARApp extends StatelessWidget {
       ),
       initialRoute: '/splash',
       routes: {
-        '/': (context) => ARHomePage(),
-        '/splash': (context) => SplashScreen(),
-        '/accountOnboding': (conext) => AccountOnbondig(),
-        '/signInScreen': (conext) => SignInScreen(),
-        '/createAccountScreen': (conext) => CreateAccountScreen(),
-        '/serviceSelection': (context) => ServiceSelectionScreen(),
-        '/detailedSpecification': (context) => DetailedSpecificationScreen(),
-        '/arMeasurement': (context) => ARMeasurementScreen(),
-        '/quoteSummary': (context) => QuoteSummaryScreen(),
+        '/': (context) => const ARHomePage(),
+        '/splash': (context) => const SplashScreen(),
+        '/accountOnboding': (conext) => const AccountOnbondig(),
+        '/signInScreen': (conext) => const SignInScreen(),
+        '/createAccountScreen': (conext) => const CreateAccountScreen(),
+        '/serviceSelection': (context) => const ServiceSelectionScreen(),
+        '/detailedSpecification': (context) =>
+            const DetailedSpecificationScreen(),
+        '/arMeasurement': (context) => const ARMeasurementScreen(),
+        '/quoteSummary': (context) => const QuoteSummaryScreen(),
+        '/selectIamge': (context) => const SelecteImageScreen(),
         '/invoice': (context) => InvoiceScreen(),
       },
     );
@@ -73,6 +80,8 @@ class ARApp extends StatelessWidget {
 }
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -83,7 +92,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
 
     // Navigate to ARHomePage after a delay
-    Timer(Duration(seconds: 3), () {
+    Timer(const Duration(seconds: 3), () {
       Get.offAllNamed('/');
     });
   }
@@ -116,6 +125,8 @@ class _SplashScreenState extends State<SplashScreen> {
 }
 
 class ARHomePage extends StatelessWidget {
+  const ARHomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -142,7 +153,7 @@ class ARHomePage extends StatelessWidget {
 
   Widget _buildBackground() {
     return Container(
-      decoration: BoxDecoration(color: Colors.white),
+      decoration: const BoxDecoration(color: Colors.white),
       // decoration: const BoxDecoration(
       //   gradient: LinearGradient(
       //     colors: [Colors.white, Colors.white],
@@ -196,11 +207,11 @@ class ARHomePage extends StatelessWidget {
         Center(
           child: ElevatedButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/accountOnboding');
+              Navigator.pushNamed(context, '/serviceSelection');
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: btnColor,
-              padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
               ),
@@ -214,13 +225,15 @@ class ARHomePage extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: 40),
+        const SizedBox(height: 40),
       ],
     );
   }
 }
 
 class ServiceSelectionScreen extends StatelessWidget {
+  const ServiceSelectionScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -272,7 +285,7 @@ class ServiceSelectionScreen extends StatelessWidget {
 
   Widget _buildBackground() {
     return Container(
-      decoration: BoxDecoration(color: Colors.white),
+      decoration: const BoxDecoration(color: Colors.white),
       // decoration: BoxDecoration(
       //   gradient: LinearGradient(
       //     colors: [baseColor, baseColor],
@@ -293,7 +306,7 @@ class ServiceSelectionScreen extends StatelessWidget {
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: btnColor,
-          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),
           ),
@@ -305,7 +318,7 @@ class ServiceSelectionScreen extends StatelessWidget {
         ),
         label: Text(
           title,
-          style: TextStyle(
+          style: const TextStyle(
               fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
         ),
       ),
@@ -314,6 +327,8 @@ class ServiceSelectionScreen extends StatelessWidget {
 }
 
 class DetailedSpecificationScreen extends StatelessWidget {
+  const DetailedSpecificationScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -354,7 +369,7 @@ class DetailedSpecificationScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     'Specify Areas to be Painted',
                     style: TextStyle(
                         fontSize: 24,
@@ -362,25 +377,25 @@ class DetailedSpecificationScreen extends StatelessWidget {
                         color: Color(backgroundColor)),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   _buildDetailOption('Walls'),
                   _buildDetailOption('Doors'),
                   _buildDetailOption('Trim'),
                   _buildDetailOption('Ceilings'),
-                  SizedBox(height: 30),
+                  const SizedBox(height: 30),
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/arMeasurement');
+                      Navigator.pushNamed(context, '/selectIamge');
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: btnColor,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 40, vertical: 15),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
                     ),
-                    child: Text(
+                    child: const Text(
                       'AR Measurement',
                       style: TextStyle(
                           fontSize: 18,
@@ -399,7 +414,7 @@ class DetailedSpecificationScreen extends StatelessWidget {
 
   Widget _buildBackground() {
     return Container(
-      decoration: BoxDecoration(color: Colors.white),
+      decoration: const BoxDecoration(color: Colors.white),
     );
   }
 
@@ -413,9 +428,10 @@ class DetailedSpecificationScreen extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
         ),
         child: ListTile(
-          leading: Icon(Icons.check_circle, color: Colors.blueAccent),
-          title: Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
-          trailing: Icon(Icons.arrow_forward_ios),
+          leading: const Icon(Icons.check_circle, color: Colors.blueAccent),
+          title:
+              Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+          trailing: const Icon(Icons.arrow_forward_ios),
           onTap: () {},
         ),
       ),
@@ -423,38 +439,40 @@ class DetailedSpecificationScreen extends StatelessWidget {
   }
 }
 
-class ARMeasurementScreen extends StatelessWidget {
+// Image Section Screen //
+class SelecteImageScreen extends StatefulWidget {
+  const SelecteImageScreen({super.key});
+
+  @override
+  State<SelecteImageScreen> createState() => _SelecteImageScreenState();
+}
+
+class _SelecteImageScreenState extends State<SelecteImageScreen> {
+  File? _image;
+  final ImagePicker _picker = ImagePicker();
+
+  // Function to pick image from gallery
+  Future<void> _pickImageFromGallery() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+      });
+    }
+  }
+
+  // Function to take a picture using the camera
+  Future<void> _takePhoto() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.camera);
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    var selectedColorIndex = 0.obs;
-    List<Color> colorList = [
-      Color(0xFF000000), // Black
-      // Color(0xFFFFFFFF), // White
-      Color(0xFF0000FF), // Blue
-      Color(0xFFFF0000), // Red
-      Color(0xFF00FF00), // Green
-      // Color(0xFF808080), // Gray
-      // Color(0xFFFFA500), // Orange
-      // Color(0xFFFFFF00), // Yellow
-      // Color(0xFF800080), // Purple
-      // Color(0xFF00FFFF), // Cyan
-      // Color(0xFFFFC0CB), // Pink
-      // Color(0xFF008000), // Dark Green
-      // Color(0xFFADD8E6), // Light Blue
-      // Color(0xFFFF6347), // Tomato
-      // Color(0xFF4B0082), // Indigo
-      // Color(0xFFFFD700), // Gold
-      // Color(0xFF40E0D0), // Turquoise
-      // Color(0xFFFA8072), // Salmon
-      // Color(0xFFB22222), // Firebrick
-      // Color(0xFF4682B4), // Steel Blue
-      // Color(0xFFA52A2A), // Brown
-      // Color(0xFF2E8B57), // Sea Green
-      // Color(0xFF6A5ACD), // Slate Blue
-      // Color(0xFFD2691E), // Chocolate
-      // Color(0xFFDC143C), // Crimson
-      // Color(0xFF4169E1), // Royal Blue
-    ];
     return Scaffold(
       // appBar: AppBar(
       //   leading: IconButton(
@@ -463,23 +481,21 @@ class ARMeasurementScreen extends StatelessWidget {
       //       },
       //       icon: Icon(
       //         CupertinoIcons.back,
-      //         color: Colors.white,
+      //         color: Colors.black,
       //       )),
       //   title: Text(
-      //     'AR Measurement',
-      //     style: TextStyle(color: Colors.white),
+      //     'Choose a Service',
+      //     style: TextStyle(color: Colors.black,),
       //   ),
-      //   backgroundColor: baseColor,
+      //   backgroundColor: Colors.white,
       //   elevation: 0,
       // ),
       body: Stack(
         children: [
           _buildBackground(),
           Image.asset(
-            'assets/images/r_1.png',
-            width: Get.width,
-            fit: BoxFit.fill,
-            height: 350,
+            'assets/images/top_left.png',
+            width: 120,
           ),
           Positioned(
             bottom: 0,
@@ -489,6 +505,179 @@ class ARMeasurementScreen extends StatelessWidget {
               width: 120,
             ),
           ),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _image != null
+                    ? Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: FileImage(_image!), fit: BoxFit.cover),
+                          color: Colors.red,
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(10)),
+                        ),
+                        height: 300,
+                        width: 300,
+                      )
+                    : const SizedBox(),
+                const SizedBox(
+                  height: 10,
+                ),
+                _image == null
+                    ? _buildServiceButton(
+                        context,
+                        'Select From Gallary',
+                        Icons.camera_alt,
+                        () async {
+                          await _pickImageFromGallery();
+                        },
+                      )
+                    : Container(),
+                _image == null
+                    ? _buildServiceButton(
+                        context,
+                        'Select From Camara',
+                        Icons.photo,
+                        () async {
+                          await _takePhoto();
+                        },
+                      )
+                    : Container(),
+                _image != null
+                    ? _buildServiceButton(
+                        context,
+                        'Mesaure Image',
+                        Icons.architecture,
+                        () {
+                          Navigator.pushNamed(context, '/arMeasurement',
+                              arguments: {'imageFile': _image});
+                        },
+                      )
+                    : Container()
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildBackground() {
+    return Container(
+      decoration: const BoxDecoration(color: Colors.white),
+      // decoration: BoxDecoration(
+      //   gradient: LinearGradient(
+      //     colors: [baseColor, baseColor],
+      //     begin: Alignment.topCenter,
+      //     end: Alignment.bottomCenter,
+      //   ),
+      // ),
+    );
+  }
+
+  Widget _buildServiceButton(BuildContext context, String title, IconData icon,
+      void Function()? onPressed) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: ElevatedButton.icon(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: btnColor,
+          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+          ),
+        ),
+        icon: Icon(
+          icon,
+          size: 30,
+          color: Colors.white,
+        ),
+        label: Text(
+          title,
+          style: const TextStyle(
+              fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+      ),
+    );
+  }
+}
+
+// Measure object from Picture //
+class ARMeasurementScreen extends StatefulWidget {
+  const ARMeasurementScreen({super.key});
+
+  @override
+  State<ARMeasurementScreen> createState() => _ARMeasurementScreenState();
+}
+
+class _ARMeasurementScreenState extends State<ARMeasurementScreen> {
+  @override
+   List<Offset> _points = []; // Points to store drawn lines
+
+  // Calculate distance between two points
+  double _calculateDistance(Offset start, Offset end) {
+    return sqrt(pow(end.dx - start.dx, 2) + pow(end.dy - start.dy, 2));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var selectedColorIndex = 0.obs;
+    List<Color> colorList = [
+      const Color(0xFF000000), // Black
+      const Color(0xFF0000FF), // Blue
+      const Color(0xFFFF0000), // Red
+      const Color(0xFF00FF00), // Green
+    ];
+
+    // Get arguments passed from the previous screen
+    final Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
+
+    // Retrieve the 'imageFile' argument
+    final File? imageFile = arguments['imageFile'];
+
+    return Scaffold(
+      body: Stack(
+        children: [
+          _buildBackground(),
+          
+          GestureDetector(
+            onPanUpdate: (details) {
+              setState(() {
+                _points.add(details.localPosition);
+              });
+            },
+            onPanEnd: (details) {
+              if (_points.length > 1) {
+                // Show distance between the first and last points
+                final start = _points.first;
+                final end = _points.last;
+                final distance = _calculateDistance(start, end);
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text('Distance: ${distance.toStringAsFixed(2)} px'),
+                ));
+              }
+            },
+            child: Stack(
+              children: [
+                // Display the image
+                Image.file(
+                  imageFile!,
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: 300,
+                ),
+                // CustomPaint to draw lines on the image
+                CustomPaint(
+                  painter: LinePainter(_points),
+                  size: const Size(double.infinity, 300),
+                ),
+              ],
+            ),
+          ),
+          // Color selection and other UI components...
           Obx(
             () => Positioned(
               top: 360,
@@ -507,33 +696,40 @@ class ARMeasurementScreen extends StatelessWidget {
                         width: 28,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                            border: Border.all(
-                                color: selectedColorIndex.value == i
-                                    ? Color(primaryColor)
-                                    : Colors.transparent),
-                            shape: BoxShape.circle),
+                          border: Border.all(
+                            color: selectedColorIndex.value == i
+                                ? const Color(0xFF000000) // Replace with actual primary color
+                                : Colors.transparent,
+                          ),
+                          shape: BoxShape.circle,
+                        ),
                         child: Container(
                           height: 20,
                           width: 20,
                           decoration: BoxDecoration(
-                              color: colorList[i], shape: BoxShape.circle),
+                            color: colorList[i],
+                            shape: BoxShape.circle,
+                          ),
                         ),
                       ),
-                    )
+                    ),
+
+                    
                 ],
               ),
             ),
           ),
+
           Center(
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 380,
                   ),
-                  Text(
+                  const Text(
                     'Home Decor',
                     style: TextStyle(
                         fontSize: 24,
@@ -541,7 +737,7 @@ class ARMeasurementScreen extends StatelessWidget {
                         color: Color(primaryColor)),
                     textAlign: TextAlign.center,
                   ),
-                  Text(
+                  const Text(
                     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
                     style: TextStyle(
                         fontSize: 15,
@@ -549,20 +745,20 @@ class ARMeasurementScreen extends StatelessWidget {
                         color: Colors.grey),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 80),
+                  const SizedBox(height: 80),
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/invoice');
+                      Navigator.pushNamed(context, '/quoteSummary');
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: btnColor,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 40, vertical: 15),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
                     ),
-                    child: Text(
+                    child: const Text(
                       'Quote Summary',
                       style: TextStyle(
                           fontSize: 18,
@@ -574,6 +770,7 @@ class ARMeasurementScreen extends StatelessWidget {
               ),
             ),
           ),
+        
         ],
       ),
     );
@@ -581,12 +778,40 @@ class ARMeasurementScreen extends StatelessWidget {
 
   Widget _buildBackground() {
     return Container(
-      decoration: BoxDecoration(color: Colors.white),
+      decoration: const BoxDecoration(color: Colors.white),
     );
+  }
+  }
+
+// Custom painter to draw lines on the image
+class LinePainter extends CustomPainter {
+  final List<Offset> points;
+  LinePainter(this.points,);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color =  Colors.red
+      ..strokeWidth = 3.0
+      ..style = PaintingStyle.stroke;
+
+    if (points.length > 1) {
+      for (int i = 0; i < points.length - 1; i++) {
+        canvas.drawLine(points[i], points[i + 1], paint);
+      }
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
   }
 }
 
+
 class QuoteSummaryScreen extends StatelessWidget {
+  const QuoteSummaryScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -627,7 +852,7 @@ class QuoteSummaryScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     'Your Quote Summary',
                     style: TextStyle(
                         fontSize: 24,
@@ -635,20 +860,20 @@ class QuoteSummaryScreen extends StatelessWidget {
                         color: Color(backgroundColor)),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
                       // Generate quote or restart process
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: btnColor,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 40, vertical: 15),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
                     ),
-                    child: Text(
+                    child: const Text(
                       'Finish',
                       style: TextStyle(
                           fontSize: 18,
@@ -667,7 +892,7 @@ class QuoteSummaryScreen extends StatelessWidget {
 
   Widget _buildBackground() {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.white,
       ),
     );
@@ -715,13 +940,13 @@ class AccountOnbondig extends StatelessWidget {
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(primaryColor),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 40, vertical: 15),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
                       ),
-                      child: Text(
+                      child: const Text(
                         'CARETE AN ACCOUNT',
                         style: TextStyle(
                             fontSize: 18,
@@ -739,13 +964,13 @@ class AccountOnbondig extends StatelessWidget {
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: btnColor,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 40, vertical: 15),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
                       ),
-                      child: Text(
+                      child: const Text(
                         'SIGN IN NOW',
                         style: TextStyle(
                             fontSize: 18,
@@ -761,7 +986,7 @@ class AccountOnbondig extends StatelessWidget {
                           WidgetStateProperty.all<Color>(Colors.grey),
                     ),
                     onPressed: () {},
-                    child: Text(
+                    child: const Text(
                       'SKIP',
                       style: TextStyle(
                         fontSize: 18,
@@ -806,7 +1031,7 @@ class SignInScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Align(
+                  const Align(
                     alignment: AlignmentDirectional.topStart,
                     child: Text(
                       'Sign In',
@@ -816,7 +1041,7 @@ class SignInScreen extends StatelessWidget {
                           fontWeight: FontWeight.w500),
                     ),
                   ),
-                  Align(
+                  const Align(
                     alignment: AlignmentDirectional.topStart,
                     child: Text(
                       'Sign in your register account',
@@ -826,7 +1051,7 @@ class SignInScreen extends StatelessWidget {
                           fontWeight: FontWeight.w500),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   const Align(
@@ -841,12 +1066,12 @@ class SignInScreen extends StatelessWidget {
                   ),
                   TextFormField(
                     decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(0),
+                        contentPadding: const EdgeInsets.all(0),
                         filled: true,
                         fillColor: Colors.grey.shade200,
                         hintText: 'Plese Enter Your Email',
-                        border:
-                            OutlineInputBorder(borderSide: BorderSide.none)),
+                        border: const OutlineInputBorder(
+                            borderSide: BorderSide.none)),
                   ),
                   const SizedBox(
                     height: 20,
@@ -895,23 +1120,26 @@ class SignInScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 55,),
+                  const SizedBox(
+                    height: 55,
+                  ),
                   Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text('Don\'t you have account? ', style: TextStyle(
-                             fontSize: 16),),
+                      const Text(
+                        'Don\'t you have account? ',
+                        style: TextStyle(fontSize: 16),
+                      ),
                       InkWell(
                         onTap: () {
-                        Navigator.pushNamed(context, '/createAccountScreen');
+                          Navigator.pushNamed(context, '/createAccountScreen');
                         },
                         child: const Text(
                           'Sign Up',
                           style: TextStyle(
                               color: Color(primaryColor),
                               fontWeight: FontWeight.bold,
-                              fontSize: 16
-                              ),
+                              fontSize: 16),
                         ),
                       )
                     ],
@@ -927,7 +1155,7 @@ class SignInScreen extends StatelessWidget {
 }
 
 // Create Account Screen //
-class CreateAccountScreen  extends StatelessWidget {
+class CreateAccountScreen extends StatelessWidget {
   const CreateAccountScreen({super.key});
 
   @override
@@ -992,8 +1220,8 @@ class CreateAccountScreen  extends StatelessWidget {
                         filled: true,
                         fillColor: Colors.grey.shade200,
                         hintText: 'Plese Enter Your Email',
-                        border:
-                            OutlineInputBorder(borderSide: BorderSide.none)),
+                        border: const OutlineInputBorder(
+                            borderSide: BorderSide.none)),
                   ),
                   const SizedBox(
                     height: 20,
@@ -1017,12 +1245,10 @@ class CreateAccountScreen  extends StatelessWidget {
                         border: const OutlineInputBorder(
                             borderSide: BorderSide.none)),
                   ),
-
-                   const SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
-
-                     const Align(
+                  const Align(
                     alignment: AlignmentDirectional.topStart,
                     child: Text(
                       'Confirm Password',
@@ -1058,29 +1284,29 @@ class CreateAccountScreen  extends StatelessWidget {
                             )),
                       ),
                       Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text('Have account? ', style: TextStyle(
-                             fontSize: 16),),
-                      InkWell(
-                        onTap: () {
-                         
-                        },
-                        child: const Text(
-                          'Sign In',
-                          style: TextStyle(
-                              color: Color(primaryColor),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16
-                              ),
-                        ),
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'Have account? ',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          InkWell(
+                            onTap: () {},
+                            child: const Text(
+                              'Sign In',
+                              style: TextStyle(
+                                  color: Color(primaryColor),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16),
+                            ),
+                          )
+                        ],
                       )
                     ],
-                  )
-                    ],
                   ),
-                  const SizedBox(height: 55,),
-                 
+                  const SizedBox(
+                    height: 55,
+                  ),
                 ],
               ),
             ),
@@ -1090,3 +1316,4 @@ class CreateAccountScreen  extends StatelessWidget {
     );
   }
 }
+

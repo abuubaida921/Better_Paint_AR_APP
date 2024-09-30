@@ -12,6 +12,8 @@ class InvoiceScreen extends StatelessWidget {
     {"description": "Trim Work", "quantity": 5, "price": 40.0},
   ];
 
+   InvoiceScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,13 +35,13 @@ class InvoiceScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _buildHeader(),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   _buildCustomerInfo(),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   _buildInvoiceItems(),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   _buildTotalAmount(),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   _buildFooter(),
                 ],
               ),
@@ -55,7 +57,7 @@ class InvoiceScreen extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
+        const Text(
           "Invoice",
           style: TextStyle(
             fontSize: 28,
@@ -65,7 +67,7 @@ class InvoiceScreen extends StatelessWidget {
         ),
         Text(
           invoiceDate,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 16,
             color: Colors.grey,
           ),
@@ -79,17 +81,17 @@ class InvoiceScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        const Text(
           "Bill To:",
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
         ),
-        SizedBox(height: 8),
-        Text(customerName, style: TextStyle(fontSize: 16)),
-        Text(customerAddress, style: TextStyle(fontSize: 16)),
-        Text(customerContact, style: TextStyle(fontSize: 16)),
+        const SizedBox(height: 8),
+        Text(customerName, style: const TextStyle(fontSize: 16)),
+        Text(customerAddress, style: const TextStyle(fontSize: 16)),
+        Text(customerContact, style: const TextStyle(fontSize: 16)),
       ],
     );
   }
@@ -99,33 +101,33 @@ class InvoiceScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        const Text(
           "Services",
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
         ),
-        Divider(),
+        const Divider(),
         Table(
-          columnWidths: {
+          columnWidths: const {
             0: FlexColumnWidth(4),
             1: FlexColumnWidth(1),
             2: FlexColumnWidth(2),
           },
           children: [
-            TableRow(
+            const TableRow(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.0),
                   child: Text("Description", style: TextStyle(fontWeight: FontWeight.bold)),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.0),
                   child: Text("Qty", style: TextStyle(fontWeight: FontWeight.bold)),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.0),
                   child: Text("Price", style: TextStyle(fontWeight: FontWeight.bold)),
                 ),
               ],
@@ -164,16 +166,16 @@ class InvoiceScreen extends StatelessWidget {
       children: [
         Text(
           "Subtotal: \$${subtotal.toStringAsFixed(2)}",
-          style: TextStyle(fontSize: 16),
+          style: const TextStyle(fontSize: 16),
         ),
         Text(
           "Tax (15%): \$${tax.toStringAsFixed(2)}",
-          style: TextStyle(fontSize: 16),
+          style: const TextStyle(fontSize: 16),
         ),
-        Divider(),
+        const Divider(),
         Text(
           "Total: \$${total.toStringAsFixed(2)}",
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
           ),
@@ -187,7 +189,7 @@ class InvoiceScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text(
+        const Text(
           "Thank you for your business!",
           textAlign: TextAlign.center,
           style: TextStyle(
@@ -196,19 +198,19 @@ class InvoiceScreen extends StatelessWidget {
             color: Colors.grey,
           ),
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         ElevatedButton(
           onPressed: () {
             // Implement payment functionality
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: Color(primaryColor),
-            padding: EdgeInsets.symmetric(vertical: 16),
+            backgroundColor: const Color(primaryColor),
+            padding: const EdgeInsets.symmetric(vertical: 16),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
           ),
-          child: Text(
+          child: const Text(
             "Pay Now",
             style: TextStyle(
               fontSize: 18,
