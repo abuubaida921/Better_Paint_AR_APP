@@ -23,7 +23,7 @@ List<GetPage<dynamic>>? routes = [
   ),
   GetPage(
     name: RoutesNames.signUpScreen,
-    page: () => const SignupView(),
+    page: () =>  SignupView(),
   ),
   GetPage(
     name: RoutesNames.signinOrSignUpScreen,

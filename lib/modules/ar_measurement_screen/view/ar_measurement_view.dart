@@ -1,5 +1,4 @@
 // Measure object from Picture //
-import 'dart:io';
 import 'dart:math';
 
 import 'package:better_painting/main.dart';
@@ -18,7 +17,7 @@ class ARMeasurementScreen extends StatefulWidget {
 
 class _ARMeasurementScreenState extends State<ARMeasurementScreen> {
   @override
-   List<Offset> _points = []; // Points to store drawn lines
+   final List<Offset> _points = []; // Points to store drawn lines
 
   // Calculate distance between two points
   double _calculateDistance(Offset start, Offset end) {

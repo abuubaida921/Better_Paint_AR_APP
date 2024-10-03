@@ -1,3 +1,4 @@
+import 'package:better_painting/dependency/global%20dependency/global_bindings.dart';
 import 'package:better_painting/routes/routes_names.dart';
 import 'package:better_painting/routes/routes_screens.dart';
 import 'package:flutter/services.dart';
@@ -56,6 +57,7 @@ class ARApp extends StatelessWidget {
       ),
       initialRoute: RoutesNames.splashScreen,
       getPages: routes,
+      initialBinding: GlobalBindings(),
     );
   }
 }
