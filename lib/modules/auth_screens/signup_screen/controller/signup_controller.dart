@@ -35,14 +35,15 @@ class SignUpController extends GetxController {
   final _isLoading = false.obs;
   get isLoading => _isLoading.value;
 
-  // response success or error message //
-  final _errorMessage = ''.obs;
-  get errorMessage => _errorMessage;
+  // Response success or error message //
+  final _errorMessage = ''.obs; // Corrected declaration as RxString
+  get errorMessage => _errorMessage.value;
 
-  //Model Class for Response Data //
-  AuthResponseModel? authResponseModel;
+  // Model Class for Response Data //
+  AuthResponseModel? _authResponseModel;
+  AuthResponseModel get authResponseModel => _authResponseModel!;
 
-  // Login Request //
+  // Sign-Up Request //
   Future<bool> userSignUpFormSubmit() async {
     // User Post Body Input
     Map<String, dynamic> userSignupInfo = {
@@ -62,16 +63,32 @@ class SignUpController extends GetxController {
           userSignupInfo,
         );
 
-        // Handle Response
-        if (response.statusCode == 201) {
-          print(response.isSuccess);
-          log("Account Create successful.");
-          log("Response data: ${response.responseData}");
-          authResponseModel = AuthResponseModel.fromJson(response.responseData);
-          //  errorMessage.value = authResponseModel!.details![0].message;
-          return true;
+        if (response.isSuccess == 'success') {
+          _authResponseModel =
+              AuthResponseModel.fromJson(response.responseData);
+
+          if (response.statusCode == 201) {
+            _errorMessage.value =
+                _authResponseModel?.message ?? "Account created successfully.";
+            return true;
+          } else {
+            // Handle other non-201 successful responses if needed
+            log("Unexpected successful response status code: ${response.statusCode}");
+            return false;
+          }
         } else {
-          //  errorMessage.value = authResponseModel!.details![0].message;
+          // Handle error case when response.isSuccess is false
+          _authResponseModel =
+              AuthResponseModel.fromJson(response.responseData);
+
+          if (response.statusCode == 400) {
+            _errorMessage.value =
+                _authResponseModel?.errorDetails?[0].message ?? 'This email is already exist';
+          } else {
+            // Handle any other error status codes if needed
+            _errorMessage.value =
+                "An error occurred. Status code: ${response.statusCode}";
+          }
           return false;
         }
       }

@@ -268,9 +268,9 @@ class SignupView extends GetView<SignUpController> {
                                           await controller.userSignUpFormSubmit();
                                       if (isSuccess) {
                                         Get.toNamed(RoutesNames.arHomeScreen);
-                                        AppUtils.successToast(message: signUpController.errorMessage.value);
+                                        AppUtils.successToast(message: signUpController.errorMessage);
                                       } else {
-                                         AppUtils.errorToast(message: signUpController.errorMessage.value);
+                                         AppUtils.errorToast(message: signUpController.errorMessage);
                                       }
                                     }
                                   },

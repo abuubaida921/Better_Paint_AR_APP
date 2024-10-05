@@ -38,31 +38,31 @@ class NetworkCaller {
       final decodedResponse = jsonDecode(response.body);
       if (decodedResponse != null) {
         return ResponseModel(
-          isSuccess: true,
+          isSuccess: '',
           statusCode: response.statusCode,
           responseData: decodedResponse,
         );
       } else if (response.statusCode == 401) {
         return ResponseModel(
-            isSuccess: false,
+            isSuccess: '',
             statusCode: response.statusCode,
             responseData: decodedResponse ?? ErrorStrings.someErrorMessage,
             errorMessage: ErrorStrings.unauthorizedUserErrorMessage);
       } else if (response.statusCode == 500) {
         return ResponseModel(
-            isSuccess: false,
+            isSuccess: '',
             statusCode: response.statusCode,
             responseData: decodedResponse ?? ErrorStrings.someErrorMessage,
             errorMessage: ErrorStrings.serverErrorMessage);
       } else {
         return ResponseModel(
-            isSuccess: false,
+            isSuccess: '',
             statusCode: response.statusCode,
             responseData: decodedResponse ?? 'Something went Wrong');
       }
     } else {
       return ResponseModel(
-          isSuccess: false, statusCode: response.statusCode, responseData: {});
+          isSuccess: '', statusCode: response.statusCode, responseData: {});
     }
   }
 
@@ -87,15 +87,14 @@ class NetworkCaller {
     if (decodedResponse['status_code'] == 200 ||
         decodedResponse['status_code'] == 201) {
       return ResponseModel(
-        isSuccess: true,
+        isSuccess: decodedResponse['status'],
         statusCode: decodedResponse['status_code'],
-        responseData: decodedResponse, // Assign decoded JSON to responseData
-        errorMessage: decodedResponse[
-            'message'], // No error message in successful response
+        responseData: decodedResponse, 
+       // No error message in successful response
       );
     } else if (decodedResponse['status_code'] == 401) {
       return ResponseModel(
-        isSuccess: false,
+        isSuccess: decodedResponse['status'],
         statusCode: decodedResponse['status_code'],
         responseData: decodedResponse,
         errorMessage: decodedResponse['message'] ??
@@ -103,7 +102,7 @@ class NetworkCaller {
       );
     } else if (decodedResponse['status_code'] == 400) {
       return ResponseModel(
-        isSuccess: false,
+        isSuccess: decodedResponse['status'],
         statusCode: decodedResponse['status_code'],
         responseData: decodedResponse,
         errorMessage: decodedResponse['message'] ??
@@ -111,7 +110,7 @@ class NetworkCaller {
       );
     } else if (decodedResponse['status_code'] == 500) {
       return ResponseModel(
-        isSuccess: false,
+        isSuccess: decodedResponse['status'],
         statusCode: decodedResponse['status_code'],
         responseData: decodedResponse,
         errorMessage: decodedResponse['message'] ??
@@ -119,7 +118,7 @@ class NetworkCaller {
       );
     } else {
       return ResponseModel(
-        isSuccess: false,
+        isSuccess: decodedResponse['status'],
         statusCode: response.statusCode,
         responseData: decodedResponse,
         errorMessage: decodedResponse['message'] ??

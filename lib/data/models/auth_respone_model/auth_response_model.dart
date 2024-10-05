@@ -1,19 +1,19 @@
-import 'package:better_painting/data/models/auth_respone_model/data_model.dart';
 import 'package:better_painting/data/models/auth_respone_model/error_details_model.dart';
+import 'package:better_painting/data/models/auth_respone_model/user_info_model.dart';
 
 class AuthResponseModel {
   String? status;
   int? statusCode;
   String? message;
-  Data? data;
-  List<ErrorDetail>? details;
+  UserInfoModel? userDetails;
+  List<ErrorDetail>? errorDetails;
 
   AuthResponseModel({
     this.status,
     this.statusCode,
     this.message,
-    this.data,
-    this.details,
+    this.userDetails,
+    this.errorDetails,
   });
 
   factory AuthResponseModel.fromJson(Map<String, dynamic> json) {
@@ -21,12 +21,12 @@ class AuthResponseModel {
       status: json['status'],
       statusCode: json['status_code'],
       message: json['message'],
-      data: json['data'] != null ? Data.fromJson(json['data']) : null,
-      details: json['details'] != null
+      userDetails: json['details'] != null && json['details'] is Map<String, dynamic>
+          ? UserInfoModel.fromJson(json['details'])
+          : null, // Handle userDetails only if it's a map
+      errorDetails: json['details'] != null && json['details'] is List
           ? List<ErrorDetail>.from(json['details'].map((x) => ErrorDetail.fromJson(x)))
-          : null,
+          : null, // Handle errorDetails only if it's a list
     );
   }
-
-  
 }

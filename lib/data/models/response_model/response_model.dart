@@ -1,5 +1,5 @@
 class ResponseModel {
-  final bool isSuccess;
+  final String isSuccess;
   final int statusCode;
   final String errorMessage;
   final dynamic responseData;
