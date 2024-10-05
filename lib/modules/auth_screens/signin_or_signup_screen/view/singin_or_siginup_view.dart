@@ -90,7 +90,7 @@ class SinginOrSiginupView extends StatelessWidget {
                           WidgetStateProperty.all<Color>(Colors.grey),
                     ),
                     onPressed: () {
-                    
+                     Get.toNamed(RoutesNames.signInScreen);
                     },
                     child: const Text(
                       'SKIP',

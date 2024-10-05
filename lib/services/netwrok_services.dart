@@ -84,6 +84,8 @@ class NetworkCaller {
     // Handling the response
     final decodedResponse = jsonDecode(response.body);
 
+    print("=++++++++="); print(decodedResponse['status_code']);
+
     if (decodedResponse['status_code'] == 200 ||
         decodedResponse['status_code'] == 201) {
       return ResponseModel(
@@ -119,7 +121,7 @@ class NetworkCaller {
     } else {
       return ResponseModel(
         isSuccess: decodedResponse['status'],
-        statusCode: response.statusCode,
+        statusCode: decodedResponse['status_code'],
         responseData: decodedResponse,
         errorMessage: decodedResponse['message'] ??
             'Unknown error occurred', // Handle other error cases

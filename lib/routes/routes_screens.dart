@@ -1,7 +1,9 @@
 import 'package:better_painting/modules/ar_home_screen/view/ar_home_view.dart';
 import 'package:better_painting/modules/ar_measurement_screen/view/ar_measurement_view.dart';
 import 'package:better_painting/modules/auth_screens/signin_or_signup_screen/view/singin_or_siginup_view.dart';
+import 'package:better_painting/modules/auth_screens/signin_screen/binding/signin_binding.dart';
 import 'package:better_painting/modules/auth_screens/signin_screen/view/signin_view.dart';
+import 'package:better_painting/modules/auth_screens/signup_screen/binding/signup_binding.dart';
 import 'package:better_painting/modules/auth_screens/signup_screen/view/signup_view.dart';
 import 'package:better_painting/modules/detailed_specification_screen/view/detailed_specification_view.dart';
 import 'package:better_painting/modules/invoice_screen/view/invoice.dart';
@@ -20,10 +22,12 @@ List<GetPage<dynamic>>? routes = [
   GetPage(
     name: RoutesNames.signInScreen,
     page: () => const SignInScreen(),
+    binding: SigninBinding()
   ),
   GetPage(
     name: RoutesNames.signUpScreen,
     page: () =>  SignupView(),
+    binding: SignupBinding()
   ),
   GetPage(
     name: RoutesNames.signinOrSignUpScreen,

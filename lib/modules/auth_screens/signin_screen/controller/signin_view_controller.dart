@@ -9,28 +9,20 @@ import 'package:better_painting/services/netwrok_services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class SignUpController extends GetxController {
+class SigninViewController extends GetxController {
   // loginFormGlobal Key //
-  final signUpFormKeyGlobal = GlobalKey<FormState>();
+  final singInFormKeyGlobal = GlobalKey<FormState>();
 
-  TextEditingController firstNameTextEditingController =
-      TextEditingController();
-  TextEditingController lastNameTextEditingController = TextEditingController();
+ 
   TextEditingController emailTextEditingController = TextEditingController();
-  TextEditingController phoneTextEditingController = TextEditingController();
   TextEditingController passwordTextEditingController = TextEditingController();
-  TextEditingController cPasswordTextEditingController =
-      TextEditingController();
+
 
   final passwordVisibility = false.obs;
   void togglePasswordvisibility() {
     passwordVisibility.value = !passwordVisibility.value;
   }
 
-  final cpasswordVisibility = false.obs;
-  void toggleCPasswordvisibility() {
-    cpasswordVisibility.value = !cpasswordVisibility.value;
-  }
 
   // Sign Up loading indicator //
   final _isLoading = false.obs;
@@ -45,12 +37,9 @@ class SignUpController extends GetxController {
   AuthResponseModel get authResponseModel => _authResponseModel!;
 
   // Sign-Up Request //
-  Future<bool> userSignUpFormSubmit() async {
+  Future<bool> userSignInFormSubmit() async {
     // User Post Body Input
     Map<String, dynamic> userSignupInfo = {
-      "first_name": firstNameTextEditingController.text,
-      "last_name": lastNameTextEditingController.text,
-      "phone": phoneTextEditingController.text,
       "email": emailTextEditingController.text,
       "password": passwordTextEditingController.text,
     };
@@ -60,7 +49,7 @@ class SignUpController extends GetxController {
         _isLoading.value = true;
 
         final ResponseModel response = await NetworkCaller().postRequest(
-          AppUrl.registrationUrl,
+          AppUrl.signInUrl,
           userSignupInfo,
         );
 
@@ -68,32 +57,32 @@ class SignUpController extends GetxController {
           _authResponseModel =
               AuthResponseModel.fromJson(response.responseData);   
 
-          if (response.statusCode == 201) {
+          if (response.statusCode == 200) {
 
       
           // Stroed User Info Into Shared Preferences //
-          await AppStoredData.setUserProfileData(_authResponseModel!.userData!.user);
+          await AppStoredData.setUserToken(_authResponseModel!.userData!.token  ?? '');
             
             _errorMessage.value =
-                _authResponseModel?.message ?? "Account created successfully.";
+                _authResponseModel?.message ?? "Data successfully returned";
             return true;
           } else {
             // Handle other non-201 successful responses if needed
             log("Unexpected successful response status code: ${response.statusCode}");
             return false;
           }
-        } else {
+
           // Handle error case when response.isSuccess is false
+        } else {  
           _authResponseModel =
               AuthResponseModel.fromJson(response.responseData);
 
-          if (response.statusCode == 400) {
+          if (response.statusCode == 404) {
             _errorMessage.value =
-                _authResponseModel?.errorDetails?[0].message ?? 'This email is already exist';
+                _authResponseModel?.errorDetails?[0].message ?? "Password doen't match";
           } else {
             // Handle any other error status codes if needed
-            _errorMessage.value =
-                "An error occurred. Status code: ${response.statusCode}";
+            _errorMessage.value = _authResponseModel!.message.toString();
           }
           return false;
         }

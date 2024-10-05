@@ -267,7 +267,7 @@ class SignupView extends GetView<SignUpController> {
                                       bool isSuccess =
                                           await controller.userSignUpFormSubmit();
                                       if (isSuccess) {
-                                        Get.toNamed(RoutesNames.arHomeScreen);
+                                        Get.toNamed(RoutesNames.signInScreen);
                                         AppUtils.successToast(message: signUpController.errorMessage);
                                       } else {
                                          AppUtils.errorToast(message: signUpController.errorMessage);

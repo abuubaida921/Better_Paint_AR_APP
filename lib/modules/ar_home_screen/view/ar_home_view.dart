@@ -1,11 +1,40 @@
+import 'package:better_painting/core/utils/utility/Shared%20Preferences/app_stored_data.dart';
 import 'package:better_painting/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../routes/routes_names.dart';
 
-class ARHomePage extends StatelessWidget {
+class ARHomePage extends StatefulWidget {
   const ARHomePage({super.key});
+
+  
+
+  @override
+  State<ARHomePage> createState() => _ARHomePageState();
+}
+
+class _ARHomePageState extends State<ARHomePage> {
+  
+ String? userName;
+
+  @override
+  void initState()  {
+  super.initState();
+    // TODO: implement initState
+      _getUserData();
+
+    
+  }
+ 
+ // Getting Fetching User Stored Data Here
+  void _getUserData (){
+    if(AppStoredData.userprofileData != null){
+    setState(() {
+     userName = AppStoredData.userprofileData?.firstName ?? "No Name";
+    });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,11 +90,11 @@ class ARHomePage extends StatelessWidget {
         const SizedBox(
           height: 30,
         ),
-        const Padding(
+         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: Text(
-            'Welcome to Better Painting AR Experience',
-            style: TextStyle(
+            'Welcome $userName to Better Painting AR Experience',
+            style: const TextStyle(
               color: Color(backgroundColor),
               fontSize: 28,
               fontWeight: FontWeight.bold,
