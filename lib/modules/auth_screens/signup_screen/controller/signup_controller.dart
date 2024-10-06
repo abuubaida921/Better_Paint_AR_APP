@@ -22,12 +22,12 @@ class SignUpController extends GetxController {
   TextEditingController cPasswordTextEditingController =
       TextEditingController();
 
-  final passwordVisibility = false.obs;
+  final passwordVisibility = true.obs;
   void togglePasswordvisibility() {
     passwordVisibility.value = !passwordVisibility.value;
   }
 
-  final cpasswordVisibility = false.obs;
+  final cpasswordVisibility = true.obs;
   void toggleCPasswordvisibility() {
     cpasswordVisibility.value = !cpasswordVisibility.value;
   }
@@ -37,7 +37,7 @@ class SignUpController extends GetxController {
   get isLoading => _isLoading.value;
 
   // Response success or error message //
-  final _errorMessage = ''.obs; // Corrected declaration as RxString
+  final _errorMessage = ''.obs; 
   get errorMessage => _errorMessage.value;
 
   // Model Class for Response Data //

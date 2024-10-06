@@ -12,12 +12,9 @@ import '../../../../routes/routes_names.dart';
 class SignInScreen extends GetView<SigninViewController> {
   const SignInScreen({super.key});
 
-  
-
   @override
   Widget build(BuildContext context) {
-  
-  //final signInController = Get.put(SigninViewController(), permanent: true);
+    //final signInController = Get.put(SigninViewController(), permanent: true);
 
     return Scaffold(
       body: Form(
@@ -89,7 +86,7 @@ class SignInScreen extends GetView<SigninViewController> {
                         bool emailValid = RegExp(
                                 r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                             .hasMatch(email!);
-        
+
                         if (value == null ||
                             value.isEmpty ||
                             emailValid == false) {
@@ -111,24 +108,41 @@ class SignInScreen extends GetView<SigninViewController> {
                             fontWeight: FontWeight.w500),
                       ),
                     ),
-                    TextFormField(
-                     controller: controller.passwordTextEditingController,
-                        decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.all(0),
-                            filled: true,
-                            fillColor: Colors.grey.shade200,
-                            hintText: 'Plese Enter Your Password',
-                            border: const OutlineInputBorder(
-                                borderSide: BorderSide.none)),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your password';
-                          } else if (value.trim().length < 8) {
-                            return ErrorStrings.minimumLargePasswordLength;
-                          } else {
-                            return null;
-                          }
-                        }),
+                    Obx(
+                      () {
+                        return TextFormField(
+                           obscureText: controller.passwordVisibility.value,
+                            controller:
+                                controller.passwordTextEditingController,
+                            decoration: InputDecoration(
+                                suffixIcon: IconButton(
+                                  onPressed: () {
+                                    controller
+                                        .togglePasswordvisibility(); // Toggle password visibility
+                                  },
+                                  icon: Icon(
+                                    controller.passwordVisibility.value
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
+                                  ),
+                                ),
+                                contentPadding: const EdgeInsets.all(0),
+                                filled: true,
+                                fillColor: Colors.grey.shade200,
+                                hintText: 'Plese Enter Your Password',
+                                border: const OutlineInputBorder(
+                                    borderSide: BorderSide.none)),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter your password';
+                              } else if (value.trim().length < 8) {
+                                return ErrorStrings.minimumLargePasswordLength;
+                              } else {
+                                return null;
+                              }
+                            });
+                      },
+                    ),
                     const SizedBox(
                       height: 25,
                     ),
@@ -141,23 +155,27 @@ class SignInScreen extends GetView<SigninViewController> {
                           child: IconButton(
                               onPressed: () async {
                                 if (controller.singInFormKeyGlobal.currentState!
-                                          .validate()) {
-                                        bool isSuccess =
-                                            await controller.userSignInFormSubmit();
-                                        if (isSuccess) {
-                                          Get.toNamed(RoutesNames.arHomeScreen);
-                                          AppUtils.successToast(message: controller.errorMessage);
-                                        } else {
-                                           AppUtils.errorToast(message: controller.errorMessage);
-                                        }
-                                      }
+                                    .validate()) {
+                                  bool isSuccess =
+                                      await controller.userSignInFormSubmit();
+                                  if (isSuccess) {
+                                    Get.toNamed(RoutesNames.arHomeScreen);
+                                    AppUtils.successToast(
+                                        message: controller.errorMessage);
+                                  } else {
+                                    AppUtils.errorToast(
+                                        message: controller.errorMessage);
+                                  }
+                                }
                               },
                               icon: Obx(
-                              () => controller.isLoading == true ? const Center(child: CircularProgressIndicator()) :
-                                 const Icon(
-                                  Icons.arrow_forward_ios_rounded,
-                                  color: Colors.white,
-                                ),
+                                () => controller.isLoading == true
+                                    ? const Center(
+                                        child: CircularProgressIndicator())
+                                    : const Icon(
+                                        Icons.arrow_forward_ios_rounded,
+                                        color: Colors.white,
+                                      ),
                               )),
                         ),
                         Text(
@@ -181,7 +199,8 @@ class SignInScreen extends GetView<SigninViewController> {
                         ),
                         InkWell(
                           onTap: () {
-                            Navigator.pushNamed(context, '/createAccountScreen');
+                            Navigator.pushNamed(
+                                context, '/createAccountScreen');
                           },
                           child: const Text(
                             'Sign Up',

@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SignupView extends GetView<SignUpController> {
-   SignupView({super.key});
+  SignupView({super.key});
 
   SignUpController signUpController = Get.put(SignUpController());
 
@@ -72,7 +72,8 @@ class SignupView extends GetView<SignUpController> {
                         ),
                       ),
                       TextFormField(
-                        controller: signUpController.firstNameTextEditingController,
+                        controller:
+                            signUpController.firstNameTextEditingController,
                         decoration: InputDecoration(
                             contentPadding: const EdgeInsets.all(0),
                             filled: true,
@@ -101,7 +102,8 @@ class SignupView extends GetView<SignUpController> {
                         ),
                       ),
                       TextFormField(
-                      controller: signUpController.lastNameTextEditingController,
+                        controller:
+                            signUpController.lastNameTextEditingController,
                         decoration: InputDecoration(
                             contentPadding: const EdgeInsets.all(0),
                             filled: true,
@@ -130,7 +132,7 @@ class SignupView extends GetView<SignUpController> {
                         ),
                       ),
                       TextFormField(
-                      controller: signUpController.phoneTextEditingController,
+                        controller: signUpController.phoneTextEditingController,
                         decoration: InputDecoration(
                             contentPadding: const EdgeInsets.all(0),
                             filled: true,
@@ -159,7 +161,7 @@ class SignupView extends GetView<SignUpController> {
                         ),
                       ),
                       TextFormField(
-                      controller: signUpController.emailTextEditingController,
+                        controller: signUpController.emailTextEditingController,
                         decoration: InputDecoration(
                             contentPadding: const EdgeInsets.all(0),
                             filled: true,
@@ -172,7 +174,7 @@ class SignupView extends GetView<SignUpController> {
                           bool emailValid = RegExp(
                                   r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                               .hasMatch(email!);
-        
+
                           if (value == null ||
                               value.isEmpty ||
                               emailValid == false) {
@@ -194,27 +196,45 @@ class SignupView extends GetView<SignUpController> {
                               fontWeight: FontWeight.w500),
                         ),
                       ),
-                      TextFormField(
-                      controller: signUpController.passwordTextEditingController,
-                          decoration: InputDecoration(
+                      Obx(() => TextFormField(
+                            obscureText: controller.passwordVisibility
+                                .value, // Reactively update obscureText
+                            controller:
+                                signUpController.passwordTextEditingController,
+                            decoration: InputDecoration(
+                              suffixIcon: IconButton(
+                                onPressed: () {
+                                  controller
+                                      .togglePasswordvisibility(); // Toggle password visibility
+                                },
+                                icon: Icon(
+                                  controller.passwordVisibility.value
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                ),
+                              ),
                               contentPadding: const EdgeInsets.all(0),
                               filled: true,
                               fillColor: Colors.grey.shade200,
-                              hintText: 'Plese Enter Your Password',
+                              hintText: 'Please Enter Your Password',
                               border: const OutlineInputBorder(
-                                  borderSide: BorderSide.none)),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your password';
-                            } else if (value.trim().length < 8) {
-                              return ErrorStrings.minimumLargePasswordLength;
-                            } else if (controller
-                                    .passwordTextEditingController.text !=
-                                controller.cPasswordTextEditingController.text) {
-                              return 'Passwords do not match. Please try again.';
-                            }
-                            return null;
-                          }),
+                                borderSide: BorderSide.none,
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter your password';
+                              } else if (value.trim().length < 8) {
+                                return ErrorStrings.minimumLargePasswordLength;
+                              } else if (controller
+                                      .passwordTextEditingController.text !=
+                                  controller
+                                      .cPasswordTextEditingController.text) {
+                                return 'Passwords do not match. Please try again.';
+                              }
+                              return null;
+                            },
+                          )),
                       const SizedBox(
                         height: 20,
                       ),
@@ -228,27 +248,46 @@ class SignupView extends GetView<SignUpController> {
                               fontWeight: FontWeight.w500),
                         ),
                       ),
-                      TextFormField(
-                      controller: signUpController.cPasswordTextEditingController,
-                          decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.all(0),
-                              filled: true,
-                              fillColor: Colors.grey.shade200,
-                              hintText: 'Plese Enter Your Password',
-                              border: const OutlineInputBorder(
-                                  borderSide: BorderSide.none)),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your password';
-                            } else if (value.trim().length < 8) {
-                              return ErrorStrings.minimumLargePasswordLength;
-                            } else if (controller
-                                    .passwordTextEditingController.text !=
-                                controller.cPasswordTextEditingController.text) {
-                              return 'Passwords do not match. Please try again.';
-                            }
-                            return null;
-                          }),
+                      Obx(
+                        () {
+                          return TextFormField(
+                              obscureText: controller.cpasswordVisibility.value,
+                              controller: signUpController
+                                  .cPasswordTextEditingController,
+                              decoration: InputDecoration(
+                               suffixIcon: IconButton(
+                                onPressed: () {
+                                  controller
+                                      .toggleCPasswordvisibility(); // Toggle password visibility
+                                },
+                                icon: Icon(
+                                  controller.cpasswordVisibility.value
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                ),
+                              ),
+                                  contentPadding: const EdgeInsets.all(0),
+                                  filled: true,
+                                  fillColor: Colors.grey.shade200,
+                                  hintText: 'Plese Enter Your Confirm Password',
+                                  border: const OutlineInputBorder(
+                                      borderSide: BorderSide.none)),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter your password';
+                                } else if (value.trim().length < 8) {
+                                  return ErrorStrings
+                                      .minimumLargePasswordLength;
+                                } else if (controller
+                                        .passwordTextEditingController.text !=
+                                    controller
+                                        .cPasswordTextEditingController.text) {
+                                  return 'Passwords do not match. Please try again.';
+                                }
+                                return null;
+                              });
+                        },
+                      ),
                       const SizedBox(
                         height: 25,
                       ),
@@ -259,25 +298,33 @@ class SignupView extends GetView<SignUpController> {
                             radius: 25,
                             backgroundColor: btnColor,
                             child: Obx(
-                            () => signUpController.isLoading == true ? const Center(child:  CircularProgressIndicator()) :
-                               IconButton(
-                                  onPressed: () async {
-                                    if (controller.signUpFormKeyGlobal.currentState!
-                                        .validate()) {
-                                      bool isSuccess =
-                                          await controller.userSignUpFormSubmit();
-                                      if (isSuccess) {
-                                        Get.toNamed(RoutesNames.signInScreen);
-                                        AppUtils.successToast(message: signUpController.errorMessage);
-                                      } else {
-                                         AppUtils.errorToast(message: signUpController.errorMessage);
-                                      }
-                                    }
-                                  },
-                                  icon: const Icon(
-                                    Icons.arrow_forward_ios_rounded,
-                                    color: Colors.white,
-                                  )),
+                              () => signUpController.isLoading == true
+                                  ? const Center(
+                                      child: CircularProgressIndicator())
+                                  : IconButton(
+                                      onPressed: () async {
+                                        if (controller
+                                            .signUpFormKeyGlobal.currentState!
+                                            .validate()) {
+                                          bool isSuccess = await controller
+                                              .userSignUpFormSubmit();
+                                          if (isSuccess) {
+                                            Get.toNamed(
+                                                RoutesNames.signInScreen);
+                                            AppUtils.successToast(
+                                                message: signUpController
+                                                    .errorMessage);
+                                          } else {
+                                            AppUtils.errorToast(
+                                                message: signUpController
+                                                    .errorMessage);
+                                          }
+                                        }
+                                      },
+                                      icon: const Icon(
+                                        Icons.arrow_forward_ios_rounded,
+                                        color: Colors.white,
+                                      )),
                             ),
                           ),
                           Row(

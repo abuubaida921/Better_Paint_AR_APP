@@ -18,7 +18,7 @@ class SigninViewController extends GetxController {
   TextEditingController passwordTextEditingController = TextEditingController();
 
 
-  final passwordVisibility = false.obs;
+  final passwordVisibility = true.obs;
   void togglePasswordvisibility() {
     passwordVisibility.value = !passwordVisibility.value;
   }
@@ -67,7 +67,7 @@ class SigninViewController extends GetxController {
                 _authResponseModel?.message ?? "Data successfully returned";
             return true;
           } else {
-            // Handle other non-201 successful responses if needed
+            // Handle other non-200 successful responses if needed
             log("Unexpected successful response status code: ${response.statusCode}");
             return false;
           }
