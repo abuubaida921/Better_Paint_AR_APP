@@ -1,30 +1,16 @@
 import 'package:better_painting/main.dart';
+import 'package:better_painting/modules/detailed_specification_screen/controller/detailed_specification_controller.dart';
 import 'package:better_painting/routes/routes_names.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class DetailedSpecificationScreen extends StatelessWidget {
+class DetailedSpecificationScreen extends GetView<DetailedSpecificationController> {
   const DetailedSpecificationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   leading: IconButton(
-      //       onPressed: () {
-      //         Navigator.of(context).pop(false);
-      //       },
-      //       icon: Icon(
-      //         CupertinoIcons.back,
-      //         color: Colors.white,
-      //       )),
-      //   title: Text(
-      //     'Specify Details',
-      //     style: TextStyle(color: Colors.white),
-      //   ),
-      //   backgroundColor: baseColor,
-      //   elevation: 0,
-      // ),
+    resizeToAvoidBottomInset:false,
       body: Stack(
         children: [
           _buildBackground(),
@@ -55,14 +41,102 @@ class DetailedSpecificationScreen extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 20),
-                  _buildDetailOption('Walls'),
-                  _buildDetailOption('Doors'),
-                  _buildDetailOption('Trim'),
-                  _buildDetailOption('Ceilings'),
+                  
+                  // Room Name Input
+                  TextField(
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Enter Room Name',
+                    ),
+                    onChanged: (value) {
+                     
+                        controller.roomName.value = value;
+                     
+                    },
+                  ),
+                  
+                  const SizedBox(height: 20),
+                  
+                  // List of Detail Options (Walls, Doors, etc.)
+                  Obx(
+                  () => 
+                     Column(
+                      children: controller.detailOptions.map((option) {
+                        return _buildDetailOption(option);
+                      }).toList(),
+                    ),
+                  ),
+                  
+                  Card(
+          color: const Color(primaryColor),
+          elevation: 4,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: ListTile(
+            title: const Text(
+              'Add Ons',
+              style:  TextStyle(fontWeight: FontWeight.w500, color: Colors.white),
+            ),
+            trailing: const CircleAvatar(
+            backgroundColor: btnColor,
+            child:  Icon(
+            
+            Icons.add, color: Colors.white,)),
+            onTap: () {
+              Get.defaultDialog(
+              titlePadding: EdgeInsets.only(top: 25),
+              onCancel: () {
+               Get.back();
+              },
+               onConfirm: () {
+                  Get.back();
+                  controller.detailOptions.add(controller.addOnsController.text);
+                  controller.addOnsController.clear();
+               },
+               title: 'Areas to be Painted',
+               middleText: '',
+               actions: [
+                 SizedBox(
+                 height: 40,
+                 width: 260,
+                  child: TextField(
+                   controller:controller.addOnsController ,
+                   decoration: InputDecoration(
+                   contentPadding: EdgeInsets.only(left: 10),
+                    border: OutlineInputBorder(),
+                    hintText: 'Enter you choice'
+                   ),
+                  ),
+                ),
+                const SizedBox(height: 20,)
+               ]
+              );
+            },
+          ),
+        ),
+
+                  
                   const SizedBox(height: 30),
+                  
+                  // Button to proceed (navigate to AR Measurement screen)
                   ElevatedButton(
                     onPressed: () {
-                     Get.toNamed(RoutesNames.pickIamgeScreen);
+                      if (controller.roomName != null && controller.selectedAreas.isNotEmpty) {
+                        // Pass the selected areas and room name to the next screen
+                        Get.toNamed(RoutesNames.pickIamgeScreen, arguments: {
+                          'roomName': controller.roomName,
+                          'selectedAreas': controller.selectedAreas
+                        });
+                      } else {
+                        Get.snackbar(
+                          'Incomplete Selection',
+                          'Please enter the room name and select at least one area.',
+                          snackPosition: SnackPosition.BOTTOM,
+                          backgroundColor: Colors.red,
+                          colorText: Colors.white,
+                        );
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: btnColor,
@@ -95,23 +169,37 @@ class DetailedSpecificationScreen extends StatelessWidget {
     );
   }
 
+  // Widget for Detail Option (Toggles between selected/deselected)
   Widget _buildDetailOption(String title) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Card(
-        color: Colors.white,
-        elevation: 4,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
+    return Obx(() {
+     bool isSelected = controller.selectedAreas.contains(title);
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: Card(
+          color: isSelected ? Colors.blue[50] : Colors.white,
+          elevation: 4,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: ListTile(
+            leading: Icon(
+              isSelected
+                  ? Icons.check_circle
+                  : Icons.radio_button_unchecked,
+              color: isSelected ? Colors.blueAccent : Colors.grey,
+            ),
+            title: Text(
+              title,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            trailing: const Icon(Icons.arrow_forward_ios),
+            onTap: () {
+              controller.toggleArea(title);
+            },
+          ),
         ),
-        child: ListTile(
-          leading: const Icon(Icons.check_circle, color: Colors.blueAccent),
-          title:
-              Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-          trailing: const Icon(Icons.arrow_forward_ios),
-          onTap: () {},
-        ),
-      ),
+      );
+    }
     );
   }
 }

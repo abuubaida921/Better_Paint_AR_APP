@@ -58,7 +58,6 @@ class SigninViewController extends GetxController {
               AuthResponseModel.fromJson(response.responseData);   
 
           if (response.statusCode == 200) {
-
       
           // Stroed User Info Into Shared Preferences //
           await AppStoredData.setUserToken(_authResponseModel!.userData!.token  ?? '');
