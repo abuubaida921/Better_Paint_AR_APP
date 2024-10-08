@@ -10,6 +10,7 @@ import 'package:better_painting/modules/detailed_specification_screen/view/detai
 import 'package:better_painting/modules/invoice_screen/view/invoice.dart';
 import 'package:better_painting/modules/pick_image_screen/view/pick_image_view.dart';
 import 'package:better_painting/modules/quote_summary_screen/view/quote_summary_view.dart';
+import 'package:better_painting/modules/service_selection_screen/binding/service_selection_binding.dart';
 import 'package:better_painting/modules/service_selection_screen/view/service_selection_view.dart';
 import 'package:better_painting/modules/splash_screen/view/splash_view.dart';
 import 'package:better_painting/routes/routes_names.dart';
@@ -41,6 +42,7 @@ List<GetPage<dynamic>>? routes = [
   GetPage(
     name: RoutesNames.serviceSelectionScreen,
     page: () => const ServiceSelectionScreen(),
+    binding: ServiceSelectionBinding()
   ),
   GetPage(
     name: RoutesNames.arMeasurementScreen,

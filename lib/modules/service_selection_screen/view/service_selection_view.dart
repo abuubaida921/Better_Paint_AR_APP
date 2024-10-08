@@ -1,10 +1,11 @@
+import 'package:better_painting/modules/service_selection_screen/controller/service_selection_controller.dart';
 import 'package:better_painting/routes/routes_names.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../main.dart';
 
-class ServiceSelectionScreen extends StatelessWidget {
+class ServiceSelectionScreen extends GetView<ServiceSelectionController> {
   const ServiceSelectionScreen({super.key});
 
   @override
@@ -41,15 +42,40 @@ class ServiceSelectionScreen extends StatelessWidget {
               width: 120,
             ),
           ),
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _buildServiceButton(context, 'Interior Painting', Icons.home),
-                _buildServiceButton(
-                    context, 'Exterior Painting', Icons.landscape),
-              ],
-            ),
+          Obx(
+            () => controller.isLoading
+                ? const SizedBox(
+                    width: double.maxFinite,
+                    height: double.maxFinite,
+                    child:  Center(child: CircularProgressIndicator(
+                    color: Color(primaryColor),
+                    )),
+                  )
+                : Center(
+                    child: SizedBox(
+                    width: 250,
+                      child: ListView.separated(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            var items =
+                                controller.serviceResponse.details![index];
+                            return _buildServiceButton(
+                                context,
+                                items.name,
+                                items.name == 'Interior'
+                                    ? Icons.home
+                                    : Icons.landscape);
+                          },
+                          separatorBuilder: (context, index) {
+                            return SizedBox(
+                              height: 10,
+                            );
+                          },
+                          itemCount:
+                              controller.serviceResponse.details?.length ?? 0),
+                    ),
+                  ),
           ),
         ],
       ),

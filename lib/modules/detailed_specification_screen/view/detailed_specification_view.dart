@@ -85,7 +85,7 @@ class DetailedSpecificationScreen extends GetView<DetailedSpecificationControlle
             Icons.add, color: Colors.white,)),
             onTap: () {
               Get.defaultDialog(
-              titlePadding: EdgeInsets.only(top: 25),
+              titlePadding: const EdgeInsets.only(top: 25),
               onCancel: () {
                Get.back();
               },
@@ -102,7 +102,7 @@ class DetailedSpecificationScreen extends GetView<DetailedSpecificationControlle
                  width: 260,
                   child: TextField(
                    controller:controller.addOnsController ,
-                   decoration: InputDecoration(
+                   decoration: const InputDecoration(
                    contentPadding: EdgeInsets.only(left: 10),
                     border: OutlineInputBorder(),
                     hintText: 'Enter you choice'

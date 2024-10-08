@@ -27,47 +27,61 @@ class NetworkCaller {
 
   // Get Request with _mainHeaders //
   Future<ResponseModel> getRequest(String url, {String? token}) async {
-    final http.Response response =
-        await http.get(Uri.parse(url), headers: _mainHeaders).timeout(
+    final http.Response response = await http
+        .get(Uri.parse(url),
+            headers:
+                token == null ? _mainHeaders : currentUserHeader(token: token))
+        .timeout(
       const Duration(seconds: timeoutRequest),
       onTimeout: () {
         return http.Response(addedErrorMessage(), 504);
       },
     );
 
-    if (response.statusCode == 200) {
-      final decodedResponse = jsonDecode(response.body);
-      if (decodedResponse != null) {
-        return ResponseModel(
-          isSuccess: '',
-          statusCode: response.statusCode,
+    final decodedResponse = jsonDecode(response.body);
+
+    if (decodedResponse['status_code'] == 200 ||
+        decodedResponse['status_code'] == 201) {
+      return ResponseModel(
+          isSuccess: decodedResponse['status'],
+          statusCode: decodedResponse['status_code'],
           responseData: decodedResponse,
-        );
-      } else {
-        return ResponseModel(
-          isSuccess: '',
-          statusCode: response.statusCode,
-          responseData: 'No data returned',
-          errorMessage: 'Invalid response structure',
-        );
-      }
-    } else if (response.statusCode == 401) {
+          errorMessage:
+              decodedResponse['message'] ?? 'Data Fetched Successfully'
+          // No error message in successful response
+          );
+    } else if (decodedResponse['status_code'] == 401) {
       return ResponseModel(
-          isSuccess: '',
-          statusCode: response.statusCode,
-          responseData: ErrorStrings.someErrorMessage,
-          errorMessage: ErrorStrings.unauthorizedUserErrorMessage);
-    } else if (response.statusCode == 500) {
+        isSuccess: decodedResponse['status'],
+        statusCode: decodedResponse['status_code'],
+        responseData: decodedResponse,
+        errorMessage: decodedResponse['message'] ??
+            'Unauthorized', // Assign specific error message
+      );
+    } else if (decodedResponse['status_code'] == 400) {
       return ResponseModel(
-          isSuccess: '',
-          statusCode: response.statusCode,
-          responseData: ErrorStrings.someErrorMessage,
-          errorMessage: ErrorStrings.serverErrorMessage);
+        isSuccess: decodedResponse['status'],
+        statusCode: decodedResponse['status_code'],
+        responseData: decodedResponse,
+        errorMessage: decodedResponse['message'] ??
+            'Error', // Assign specific error message
+      );
+    } else if (decodedResponse['status_code'] == 500) {
+      return ResponseModel(
+        isSuccess: decodedResponse['status'],
+        statusCode: decodedResponse['status_code'],
+        responseData: decodedResponse,
+        errorMessage: decodedResponse['message'] ??
+            'Internal Server Error', // Specific message
+      );
     } else {
       return ResponseModel(
-          isSuccess: '',
-          statusCode: response.statusCode,
-          responseData: 'Something went wrong');
+        isSuccess: decodedResponse['status'],
+        statusCode: decodedResponse['status_code'],
+        responseData: decodedResponse,
+        errorMessage: decodedResponse['message'] ??
+            'Unknown error occurred', // Handle other error cases
+      );
     }
   }
 
