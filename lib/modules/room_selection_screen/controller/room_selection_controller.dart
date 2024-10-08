@@ -3,25 +3,15 @@ import 'package:get/get.dart';
 
 class RoomSelectionController extends GetxController {
 
-  TextEditingController addOnsController = TextEditingController();
+  // Create a TextEditingController to manage the text
+  TextEditingController roomtextEditingController = TextEditingController();
 
-   // Set to hold the selected areas
-  RxList<String> selectedAreas = RxList([]);
-  
-  // Variable to hold the room name
+  // To store room name
   RxString roomName = ''.obs;
 
-  // List of detail options (like "Walls", "Doors", etc.)
-  final RxList<String> detailOptions = ['Walls', 'Doors', 'Trim', 'Ceilings'].obs;
-
-
-    // Function to handle area selection/deselection
-  void toggleArea(String area) {
-    
-      if (selectedAreas.contains(area)) {
-        selectedAreas.remove(area);
-      } else {
-        selectedAreas.add(area);
-      }
+  @override
+  void onClose() {
+    roomtextEditingController.dispose();
+    super.onClose();
   }
 }

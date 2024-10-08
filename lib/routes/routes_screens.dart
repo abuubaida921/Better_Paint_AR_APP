@@ -5,6 +5,8 @@ import 'package:better_painting/modules/auth_screens/signin_screen/binding/signi
 import 'package:better_painting/modules/auth_screens/signin_screen/view/signin_view.dart';
 import 'package:better_painting/modules/auth_screens/signup_screen/binding/signup_binding.dart';
 import 'package:better_painting/modules/auth_screens/signup_screen/view/signup_view.dart';
+import 'package:better_painting/modules/detailed_specification_screen/binding/detailed_specification_binding.dart';
+import 'package:better_painting/modules/detailed_specification_screen/view/detailed_specification_view.dart';
 import 'package:better_painting/modules/room_selection_screen/binding/room_selection_binding.dart';
 import 'package:better_painting/modules/room_selection_screen/view/room_selection_view.dart';
 import 'package:better_painting/modules/invoice_screen/view/invoice.dart';
@@ -56,6 +58,11 @@ List<GetPage<dynamic>>? routes = [
     name: RoutesNames.roomSelectionScreen,
     page: () => const RoomSelectionView(),
     binding: RoomSelectionBinding()
+  ),
+   GetPage(
+    name: RoutesNames.detailedSpecificationScreen,
+    page: () => const DetailedSpecificationView(),
+    binding: DetailedSpecificationBinding()
   ),
   GetPage(
     name: RoutesNames.quoteSummaryScreen,
