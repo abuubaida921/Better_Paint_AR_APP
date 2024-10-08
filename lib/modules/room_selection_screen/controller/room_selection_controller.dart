@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class DetailedSpecificationController extends GetxController {
+class RoomSelectionController extends GetxController {
 
   TextEditingController addOnsController = TextEditingController();
 

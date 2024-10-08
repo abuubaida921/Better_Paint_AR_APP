@@ -4,7 +4,7 @@ class RoutesNames {
    static const String signInScreen = '/signInScreen';
    static const String signUpScreen = '/signUpScreen';
    static const String serviceSelectionScreen = '/serviceSelectionScreen';
-   static const String detailedSpecificationScreen = '/detailedSpecificationScreen';
+   static const String roomSelectionScreen = '/roomSelectionScreen';
    static const String arMeasurementScreen = '/arMeasurementScreen';
    static const String arHomeScreen = '/arHomeScreen';
    static const String quoteSummaryScreen = '/quoteSummaryScreen';

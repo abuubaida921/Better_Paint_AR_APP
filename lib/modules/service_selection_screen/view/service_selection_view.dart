@@ -47,29 +47,39 @@ class ServiceSelectionScreen extends GetView<ServiceSelectionController> {
                 ? const SizedBox(
                     width: double.maxFinite,
                     height: double.maxFinite,
-                    child:  Center(child: CircularProgressIndicator(
-                    color: Color(primaryColor),
+                    child: Center(
+                        child: CircularProgressIndicator(
+                      color: Color(primaryColor),
                     )),
                   )
                 : Center(
                     child: SizedBox(
-                    width: 250,
+                      width: 250,
                       child: ListView.separated(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) {
                             var items =
                                 controller.serviceResponse.details![index];
                             return _buildServiceButton(
-                                context,
-                                items.name,
-                                items.name == 'Interior'
-                                    ? Icons.home
-                                    : Icons.landscape);
+                              context,
+                              items.name,
+                              items.name == 'Interior'
+                                  ? Icons.home
+                                  : Icons.landscape,
+                              onPressed: () {
+                                Get.toNamed(
+                                    RoutesNames.roomSelectionScreen,
+                                    arguments: {
+                                      'serviceName': items.name,
+                                      'serviceId': items.id
+                                    });
+                              },
+                            );
                           },
                           separatorBuilder: (context, index) {
-                            return SizedBox(
-                              height: 10,
+                            return const SizedBox(
+                              height: 5,
                             );
                           },
                           itemCount:
@@ -95,14 +105,12 @@ class ServiceSelectionScreen extends GetView<ServiceSelectionController> {
     );
   }
 
-  Widget _buildServiceButton(
-      BuildContext context, String title, IconData icon) {
+  Widget _buildServiceButton(BuildContext context, String title, IconData icon,
+      {void Function()? onPressed}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: ElevatedButton.icon(
-        onPressed: () {
-          Get.toNamed(RoutesNames.detailedSpecificationScreen);
-        },
+        onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: btnColor,
           padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
