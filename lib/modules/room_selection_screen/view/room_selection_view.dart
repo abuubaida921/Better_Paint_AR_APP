@@ -18,14 +18,14 @@ class RoomSelectionView
           _buildBackground(),
           Image.asset(
             'assets/images/top_left.png',
-            width: 120,
+            width: 120.w,
           ),
           Positioned(
             bottom: 0,
             right: 0,
             child: Image.asset(
               'assets/images/bottom_right.png',
-              width: 120,
+              width: 120.w,
             ),
           ),
           Center(
@@ -48,7 +48,13 @@ class RoomSelectionView
                   TextField(
                     controller: controller.roomtextEditingController,
                     decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
+                     focusColor: btnColor,
+                     focusedBorder: OutlineInputBorder(
+                     borderSide: BorderSide(color: btnColor, width: 1.2)
+
+                     ),
+                      border: OutlineInputBorder(
+                      ),
                       labelText: 'Enter Room Name',
                     ),
                     onChanged: (value) {
@@ -62,10 +68,9 @@ class RoomSelectionView
 
                   // Button to proceed (navigate to AR Measurement screen)
                   SizedBox(
-                    width: 180,
+                    width: 150.w,
                     child: ElevatedButton(
                       onPressed: () {
-                     
                         if (controller.roomName != '') {
                           // Pass the selected areas and room name to the next screen
                           Get.toNamed(RoutesNames.detailedSpecificationScreen, arguments: {
@@ -87,26 +92,26 @@ class RoomSelectionView
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: btnColor,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 40, vertical: 15),
+                        padding:  EdgeInsets.symmetric(
+                            horizontal: 40.w, vertical: 15.h),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: BorderRadius.circular(30.r),
                         ),
                       ),
-                      child: const Row(
+                      child:  Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
                             'Next',
                             style: TextStyle(
-                                fontSize: 18,
+                                fontSize: 18.sp,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white),
                           ),
                           SizedBox(
-                            width: 5,
+                            width: 5.h,
                           ),
-                          Icon(
+                          const Icon(
                             Icons.arrow_forward_ios_rounded,
                             color: Colors.white,
                           )
