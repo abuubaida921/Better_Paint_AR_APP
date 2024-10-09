@@ -58,7 +58,7 @@ class DetailedSpecificationView
                   Obx(
                     () => controller.isLoading
                         ? const Center(
-                          child:  SizedBox(
+                            child: SizedBox(
                               width: 200,
                               height: 200,
                               child: Center(
@@ -66,7 +66,7 @@ class DetailedSpecificationView
                                 color: Color(primaryColor),
                               )),
                             ),
-                        )
+                          )
                         : Center(
                             child: Container(
                               // color: Colors.amber,
@@ -128,77 +128,79 @@ class DetailedSpecificationView
 
                   // Button to proceed (navigate to AR Measurement screen)
                   Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      SizedBox(
-                        width: 150.w,
-                        child: ElevatedButton(
-                          onPressed: () {
-                           Get.offNamed(RoutesNames.serviceSelectionScreen);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: btnColor,
-                            padding: const EdgeInsets.symmetric(
-                                 vertical: 15),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
+                      Expanded(
+                        child: SizedBox(
+                          width: 150.w,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Get.offNamed(RoutesNames.serviceSelectionScreen);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: btnColor,
+                              padding: const EdgeInsets.symmetric(vertical: 15),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                              ),
                             ),
-                          ),
-                          child:  Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.arrow_back_ios_new_rounded,
-                                color: Colors.white,
-                              ),
-                               SizedBox(
-                                width: 5.w,
-                              ),
-                              Text(
-                                'Add New',
-                                style: TextStyle(
-                                    fontSize: 18.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
-                             
-                            ],
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.arrow_back_ios_new_rounded,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(
+                                  width: 5.w,
+                                ),
+                                Text(
+                                  'Add New',
+                                  style: TextStyle(
+                                      fontSize: 18.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-
-                      SizedBox(width: 20,),  
-                        
                       SizedBox(
-                        width: 150.w,
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: btnColor,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 40, vertical: 15),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
+                        width: 20,
+                      ),
+                      Expanded(
+                        child: SizedBox(
+                          width: 150.w,
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: btnColor,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 40, vertical: 15),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                              ),
                             ),
-                          ),
-                          child:  Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Next',
-                                style: TextStyle(
-                                    fontSize: 18.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
-                              SizedBox(
-                                width: 5.w,
-                              ),
-                              Icon(
-                                Icons.arrow_forward_ios_rounded,
-                                color: Colors.white,
-                              )
-                            ],
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Next',
+                                  style: TextStyle(
+                                      fontSize: 18.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
+                                SizedBox(
+                                  width: 5.w,
+                                ),
+                                Icon(
+                                  Icons.arrow_forward_ios_rounded,
+                                  color: Colors.white,
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -224,27 +226,36 @@ class DetailedSpecificationView
     return Obx(() {
       bool isSelected = controller.selectedAreas.contains(title);
       return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4.0),
-        child: Card(
-          color: isSelected ? Colors.blue[50] : Colors.white,
-          elevation: 4,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
-          child: ListTile(
-            leading: Icon(
-              isSelected ? Icons.check_circle : Icons.radio_button_unchecked,
-              color: isSelected ? Colors.blueAccent : Colors.grey,
+          padding: const EdgeInsets.symmetric(vertical: 4.0),
+          child: Card(
+            elevation: 4,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
             ),
-            title: Text(
-              title,
-              style: const TextStyle(fontWeight: FontWeight.bold),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(
+                  15), // Clip the splash effect to match Card's corners
+              child: Material(
+                color: isSelected
+                    ? Colors.blue[50]
+                    : Colors.white, // Background color of the Card
+                child: ListTile(
+                  leading: Icon(
+                    isSelected
+                        ? Icons.check_circle
+                        : Icons.radio_button_unchecked,
+                    color: isSelected ? Colors.blueAccent : Colors.grey,
+                  ),
+                  title: Text(
+                    title,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  trailing: const Icon(Icons.arrow_forward_ios),
+                  onTap: onTap,
+                ),
+              ),
             ),
-            trailing: const Icon(Icons.arrow_forward_ios),
-            onTap: onTap,
-          ),
-        ),
-      );
+          ));
     });
   }
 }
@@ -268,38 +279,43 @@ class OptionsModal extends GetView<DetailedSpecificationController> {
       height: 400,
       child: Column(
         children: [
-          const Text('Add-on', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),),
+          const Text(
+            'Add-on',
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+          ),
           Obx(
             () => controller.isAddOnsLoading
                 ? const Center(child: CircularProgressIndicator())
                 : SizedBox(
-                 height: 320,
-                  child: ListView.builder(
+                    height: 320,
+                    child: ListView.builder(
                       itemCount: controller.addOnsOption.length,
                       itemBuilder: (context, index) {
                         var item = controller.addOnsOption[index];
                         return Card(
-                                elevation: 4,
-                                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: ListTile(
-                  leading: const Icon(
-                   Icons.add_circle, color: Color(primaryColor),
-                  ),
-                  title: Text(
-                    item,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  trailing: const Icon(Icons.arrow_forward_ios),
-                  onTap: () {
-                    controller.detailOptions.add(item);
-                  },
-                                ),
-                              );
+                          elevation: 4,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: ListTile(
+                            leading: const Icon(
+                              Icons.add_circle,
+                              color: Color(primaryColor),
+                            ),
+                            title: Text(
+                              item,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            trailing: const Icon(Icons.arrow_forward_ios),
+                            onTap: () {
+                              controller.detailOptions.add(item);
+                            },
+                          ),
+                        );
                       },
                     ),
-                ),
+                  ),
           ),
         ],
       ),
