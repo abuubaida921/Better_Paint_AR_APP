@@ -47,14 +47,14 @@ class _ARHomePageState extends State<ARHomePage> {
           _buildBackground(),
           Image.asset(
             'assets/images/top_left.png',
-            width: 120,
+            width: 120.w,
           ),
           Positioned(
             bottom: 0,
             right: 0,
             child: Image.asset(
               'assets/images/bottom_right.png',
-              width: 120,
+              width: 120.w,
             ),
           ),
           _buildContent(context,),
@@ -86,7 +86,7 @@ class _ARHomePageState extends State<ARHomePage> {
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Image.asset(
             'assets/images/logo_horizontal_fullcolor.png',
-            height: 150,
+            height: 150.h,
             width: double.infinity,
           ),
         ),

@@ -17,14 +17,14 @@ class ServiceSelectionScreen extends GetView<ServiceSelectionController> {
           _buildBackground(),
           Image.asset(
             'assets/images/top_left.png',
-            width: 120,
+            width: 120.w,
           ),
           Positioned(
             bottom: 0,
             right: 0,
             child: Image.asset(
               'assets/images/bottom_right.png',
-              width: 120,
+              width: 120.w,
             ),
           ),
           Obx(
@@ -38,8 +38,11 @@ class ServiceSelectionScreen extends GetView<ServiceSelectionController> {
                     )),
                   )
                 : Center(
-                    child: SizedBox(
+                    child: Container(
+                    alignment: AlignmentDirectional.center,
+                    //color: Colors.amber,
                       width: 250.h,
+                      height: double.maxFinite,
                       child: ListView.separated(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
@@ -64,7 +67,7 @@ class ServiceSelectionScreen extends GetView<ServiceSelectionController> {
                           },
                           separatorBuilder: (context, index) {
                             return const SizedBox(
-                              height: 5,
+                             // height: 5,
                             );
                           },
                           itemCount:
