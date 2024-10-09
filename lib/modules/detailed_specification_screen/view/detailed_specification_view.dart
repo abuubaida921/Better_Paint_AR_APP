@@ -2,6 +2,7 @@ import 'package:better_painting/main.dart';
 import 'package:better_painting/modules/detailed_specification_screen/controller/detailed_specification_controller.dart';
 import 'package:better_painting/routes/routes_names.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class DetailedSpecificationView
@@ -69,8 +70,8 @@ class DetailedSpecificationView
                         : Center(
                             child: Container(
                               // color: Colors.amber,
-                              width: 400,
-                              height: 380,
+                              width: double.maxFinite,
+                              height: 380.h,
                               child: ListView.separated(
                                   shrinkWrap: true,
                                   physics: const BouncingScrollPhysics(),
@@ -94,13 +95,13 @@ class DetailedSpecificationView
                   ),
 
                   SizedBox(
-                    height: 5,
+                    height: 5.h,
                   ),
 
                   // Add ons Card Section //
                   Card(
                     color: const Color(primaryColor),
-                    elevation: 4,
+                    elevation: 1,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
@@ -127,10 +128,10 @@ class DetailedSpecificationView
 
                   // Button to proceed (navigate to AR Measurement screen)
                   Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       SizedBox(
-                        width: 180,
+                        width: 150.w,
                         child: ElevatedButton(
                           onPressed: () {
                            Get.offNamed(RoutesNames.serviceSelectionScreen);
@@ -138,27 +139,25 @@ class DetailedSpecificationView
                           style: ElevatedButton.styleFrom(
                             backgroundColor: btnColor,
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 40, vertical: 15),
+                                 vertical: 15),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30),
                             ),
                           ),
-                          child: const Row(
+                          child:  Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-
-                            
                               Icon(
                                 Icons.arrow_back_ios_new_rounded,
                                 color: Colors.white,
                               ),
                                SizedBox(
-                                width: 5,
+                                width: 5.w,
                               ),
                               Text(
                                 'Add New',
                                 style: TextStyle(
-                                    fontSize: 18,
+                                    fontSize: 18.sp,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white),
                               ),
@@ -171,7 +170,7 @@ class DetailedSpecificationView
                       SizedBox(width: 20,),  
                         
                       SizedBox(
-                        width: 180,
+                        width: 150.w,
                         child: ElevatedButton(
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(
@@ -182,18 +181,18 @@ class DetailedSpecificationView
                               borderRadius: BorderRadius.circular(30),
                             ),
                           ),
-                          child: const Row(
+                          child:  Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
                                 'Next',
                                 style: TextStyle(
-                                    fontSize: 18,
+                                    fontSize: 18.sp,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white),
                               ),
                               SizedBox(
-                                width: 5,
+                                width: 5.w,
                               ),
                               Icon(
                                 Icons.arrow_forward_ios_rounded,

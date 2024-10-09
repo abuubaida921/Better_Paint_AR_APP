@@ -5,6 +5,7 @@ import 'package:better_painting/main.dart';
 import 'package:better_painting/modules/auth_screens/signup_screen/controller/signup_controller.dart';
 import 'package:better_painting/routes/routes_names.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class SignupView extends GetView<SignUpController> {
@@ -15,6 +16,7 @@ class SignupView extends GetView<SignUpController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: Form(
           key: controller.signUpFormKeyGlobal,
@@ -22,52 +24,53 @@ class SignupView extends GetView<SignUpController> {
             children: [
               Image.asset(
                 'assets/images/top_left.png',
-                width: 120,
+                width: 120.w,
               ),
               Positioned(
                 bottom: 0,
                 right: 0,
                 child: Image.asset(
                   'assets/images/bottom_right.png',
-                  width: 120,
+                  width: 120.w,
                 ),
               ),
+              
               Center(
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Align(
+                       Align(
                         alignment: AlignmentDirectional.topStart,
                         child: Text(
                           'Create Account',
                           style: TextStyle(
-                              fontSize: 50,
-                              color: Color(backgroundColor),
+                              fontSize: 50.sp,
+                              color: const Color(backgroundColor),
                               fontWeight: FontWeight.w500),
                         ),
                       ),
-                      const Align(
+                       Align(
                         alignment: AlignmentDirectional.topStart,
                         child: Text(
                           'Register with valid e-mail address',
                           style: TextStyle(
-                              fontSize: 18,
-                              color: Color(primaryColor),
+                              fontSize: 18.sp,
+                              color: const Color(primaryColor),
                               fontWeight: FontWeight.w500),
                         ),
                       ),
                       const SizedBox(
                         height: 40,
                       ),
-                      const Align(
+                       Align(
                         alignment: AlignmentDirectional.topStart,
                         child: Text(
                           'First Name',
                           style: TextStyle(
-                              fontSize: 18,
-                              color: Color(backgroundColor),
+                              fontSize: 18.sp,
+                              color: const Color(backgroundColor),
                               fontWeight: FontWeight.w500),
                         ),
                       ),
@@ -75,7 +78,7 @@ class SignupView extends GetView<SignUpController> {
                         controller:
                             signUpController.firstNameTextEditingController,
                         decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.all(0),
+                            contentPadding:  EdgeInsets.only(left: 5.w),
                             filled: true,
                             fillColor: Colors.grey.shade200,
                             hintText: 'Plese Enter Your First Name',
@@ -88,8 +91,8 @@ class SignupView extends GetView<SignUpController> {
                           return null;
                         },
                       ),
-                      const SizedBox(
-                        height: 20,
+                       SizedBox(
+                        height: 20.h,
                       ),
                       const Align(
                         alignment: AlignmentDirectional.topStart,
@@ -105,7 +108,7 @@ class SignupView extends GetView<SignUpController> {
                         controller:
                             signUpController.lastNameTextEditingController,
                         decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.all(0),
+                            contentPadding: EdgeInsets.only(left: 5.w),
                             filled: true,
                             fillColor: Colors.grey.shade200,
                             hintText: 'Plese Enter Your Last Name',
@@ -118,8 +121,8 @@ class SignupView extends GetView<SignUpController> {
                           return null;
                         },
                       ),
-                      const SizedBox(
-                        height: 20,
+                       SizedBox(
+                        height: 20.h,
                       ),
                       const Align(
                         alignment: AlignmentDirectional.topStart,
@@ -134,7 +137,7 @@ class SignupView extends GetView<SignUpController> {
                       TextFormField(
                         controller: signUpController.phoneTextEditingController,
                         decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.all(0),
+                            contentPadding:  EdgeInsets.only(left: 5.w),
                             filled: true,
                             fillColor: Colors.grey.shade200,
                             hintText: 'Plese Enter Your Phone Number',
@@ -147,8 +150,8 @@ class SignupView extends GetView<SignUpController> {
                           return null;
                         },
                       ),
-                      const SizedBox(
-                        height: 20,
+                       SizedBox(
+                        height: 20.h,
                       ),
                       const Align(
                         alignment: AlignmentDirectional.topStart,
@@ -163,7 +166,7 @@ class SignupView extends GetView<SignUpController> {
                       TextFormField(
                         controller: signUpController.emailTextEditingController,
                         decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.all(0),
+                            contentPadding:  EdgeInsets.only(left: 5.w),
                             filled: true,
                             fillColor: Colors.grey.shade200,
                             hintText: 'Plese Enter Your Email',
@@ -183,8 +186,8 @@ class SignupView extends GetView<SignUpController> {
                           return null;
                         },
                       ),
-                      const SizedBox(
-                        height: 20,
+                       SizedBox(
+                        height: 20.h,
                       ),
                       const Align(
                         alignment: AlignmentDirectional.topStart,
@@ -213,7 +216,7 @@ class SignupView extends GetView<SignUpController> {
                                       : Icons.visibility_off,
                                 ),
                               ),
-                              contentPadding: const EdgeInsets.all(0),
+                              contentPadding:  EdgeInsets.only(left: 5.w),
                               filled: true,
                               fillColor: Colors.grey.shade200,
                               hintText: 'Please Enter Your Password',
@@ -235,8 +238,8 @@ class SignupView extends GetView<SignUpController> {
                               return null;
                             },
                           )),
-                      const SizedBox(
-                        height: 20,
+                       SizedBox(
+                        height: 20.h,
                       ),
                       const Align(
                         alignment: AlignmentDirectional.topStart,
@@ -266,7 +269,7 @@ class SignupView extends GetView<SignUpController> {
                                       : Icons.visibility_off,
                                 ),
                               ),
-                                  contentPadding: const EdgeInsets.all(0),
+                                  contentPadding:  EdgeInsets.only(left: 5.w),
                                   filled: true,
                                   fillColor: Colors.grey.shade200,
                                   hintText: 'Plese Enter Your Confirm Password',
@@ -288,8 +291,8 @@ class SignupView extends GetView<SignUpController> {
                               });
                         },
                       ),
-                      const SizedBox(
-                        height: 25,
+                       SizedBox(
+                        height: 25.h,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -335,7 +338,9 @@ class SignupView extends GetView<SignUpController> {
                                 style: TextStyle(fontSize: 16),
                               ),
                               InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                 Get.toNamed(RoutesNames.signInScreen);
+                                },
                                 child: const Text(
                                   'Sign In',
                                   style: TextStyle(

@@ -2,9 +2,9 @@ import 'package:better_painting/dependency/global%20dependency/global_bindings.d
 import 'package:better_painting/routes/routes_names.dart';
 import 'package:better_painting/routes/routes_screens.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-
 
 const int primaryColor = 0xFFB22331; // Base color #b22331
 const int blackColor = 0xFF252525;
@@ -48,38 +48,24 @@ class ARApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'BetterPainting AR Quote App',
-      theme: ThemeData(
-        primarySwatch: customSwatch,
-        fontFamily: 'Roboto',
+    
+    // Responsive height width
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
+    return ScreenUtilInit(
+      designSize: Size(screenWidth, screenHeight),
+      builder: (context, child) => GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'BetterPainting AR Quote App',
+        theme: ThemeData(
+          primarySwatch: customSwatch,
+          fontFamily: 'Roboto',
+        ),
+        initialRoute: RoutesNames.splashScreen,
+        getPages: routes,
+        initialBinding: GlobalBindings(),
       ),
-      initialRoute: RoutesNames.splashScreen,
-      getPages: routes,
-      initialBinding: GlobalBindings(),
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

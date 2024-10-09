@@ -43,6 +43,7 @@ dependencies:
   fluttertoast: ^8.2.8
   connectivity_plus: ^6.0.5
   shared_preferences: ^2.3.2
+  flutter_screenutil: ^5.9.3
 
 dev_dependencies:
   flutter_test:

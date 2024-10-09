@@ -1,6 +1,7 @@
 import 'package:better_painting/modules/service_selection_screen/controller/service_selection_controller.dart';
 import 'package:better_painting/routes/routes_names.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../main.dart';
@@ -11,22 +12,6 @@ class ServiceSelectionScreen extends GetView<ServiceSelectionController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   leading: IconButton(
-      //       onPressed: () {
-      //         Navigator.of(context).pop(false);
-      //       },
-      //       icon: Icon(
-      //         CupertinoIcons.back,
-      //         color: Colors.black,
-      //       )),
-      //   title: Text(
-      //     'Choose a Service',
-      //     style: TextStyle(color: Colors.black,),
-      //   ),
-      //   backgroundColor: Colors.white,
-      //   elevation: 0,
-      // ),
       body: Stack(
         children: [
           _buildBackground(),
@@ -54,7 +39,7 @@ class ServiceSelectionScreen extends GetView<ServiceSelectionController> {
                   )
                 : Center(
                     child: SizedBox(
-                      width: 250,
+                      width: 250.h,
                       child: ListView.separated(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
@@ -108,25 +93,25 @@ class ServiceSelectionScreen extends GetView<ServiceSelectionController> {
   Widget _buildServiceButton(BuildContext context, String title, IconData icon,
       {void Function()? onPressed}) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding:  EdgeInsets.symmetric(vertical: 10.h),
       child: ElevatedButton.icon(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: btnColor,
-          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+          padding:  EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),
           ),
         ),
         icon: Icon(
           icon,
-          size: 30,
+          size: 30.h,
           color: Colors.white,
         ),
         label: Text(
           title,
-          style: const TextStyle(
-              fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+          style:  TextStyle(
+              fontSize: 18.sp, fontWeight: FontWeight.bold, color: Colors.white),
         ),
       ),
     );

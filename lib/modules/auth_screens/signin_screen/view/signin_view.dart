@@ -5,6 +5,7 @@ import 'package:better_painting/main.dart';
 import 'package:better_painting/modules/auth_screens/signin_screen/controller/signin_view_controller.dart';
 import 'package:better_painting/modules/auth_screens/signup_screen/controller/signup_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../routes/routes_names.dart';
@@ -17,6 +18,7 @@ class SignInScreen extends GetView<SigninViewController> {
     //final signInController = Get.put(SigninViewController(), permanent: true);
 
     return Scaffold(
+     resizeToAvoidBottomInset: false,
       body: Form(
         key: controller.singInFormKeyGlobal,
         child: Stack(
@@ -59,8 +61,8 @@ class SignInScreen extends GetView<SigninViewController> {
                             fontWeight: FontWeight.w500),
                       ),
                     ),
-                    const SizedBox(
-                      height: 40,
+                     SizedBox(
+                      height: 40.h,
                     ),
                     const Align(
                       alignment: AlignmentDirectional.topStart,
@@ -75,7 +77,7 @@ class SignInScreen extends GetView<SigninViewController> {
                     TextFormField(
                       controller: controller.emailTextEditingController,
                       decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.all(0),
+                          contentPadding:  EdgeInsets.only(left: 5.w),
                           filled: true,
                           fillColor: Colors.grey.shade200,
                           hintText: 'Plese Enter Your Email',
@@ -126,7 +128,7 @@ class SignInScreen extends GetView<SigninViewController> {
                                         : Icons.visibility_off,
                                   ),
                                 ),
-                                contentPadding: const EdgeInsets.all(0),
+                                contentPadding:  EdgeInsets.only(left: 5.w),
                                 filled: true,
                                 fillColor: Colors.grey.shade200,
                                 hintText: 'Plese Enter Your Password',
@@ -199,8 +201,7 @@ class SignInScreen extends GetView<SigninViewController> {
                         ),
                         InkWell(
                           onTap: () {
-                            Navigator.pushNamed(
-                                context, '/createAccountScreen');
+                            Get.toNamed(RoutesNames.signUpScreen);
                           },
                           child: const Text(
                             'Sign Up',

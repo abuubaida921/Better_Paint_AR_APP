@@ -2,6 +2,7 @@ import 'package:better_painting/main.dart';
 import 'package:better_painting/modules/room_selection_screen/controller/room_selection_controller.dart';
 import 'package:better_painting/routes/routes_names.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class RoomSelectionView
@@ -33,15 +34,15 @@ class RoomSelectionView
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
+                   Text(
                     'Specify Room to be Painted',
                     style: TextStyle(
-                        fontSize: 24,
+                        fontSize: 24.sp,
                         fontWeight: FontWeight.bold,
-                        color: Color(backgroundColor)),
+                        color: const Color(backgroundColor)),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 20),
+                   SizedBox(height: 20.h),
 
                   // Room Name Input
                   TextField(
@@ -55,9 +56,9 @@ class RoomSelectionView
                     },
                   ),
 
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20.h),
 
-                  const SizedBox(height: 20),
+                  
 
                   // Button to proceed (navigate to AR Measurement screen)
                   SizedBox(

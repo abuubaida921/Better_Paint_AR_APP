@@ -1,6 +1,7 @@
 import 'package:better_painting/core/utils/utility/Shared%20Preferences/app_stored_data.dart';
 import 'package:better_painting/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../routes/routes_names.dart';
@@ -23,8 +24,6 @@ class _ARHomePageState extends State<ARHomePage> {
   super.initState();
     // TODO: implement initState
       _getUserData();
-
-    
   }
  
  // Getting Fetching User Stored Data Here
@@ -32,12 +31,16 @@ class _ARHomePageState extends State<ARHomePage> {
     if(AppStoredData.userprofileData != null){
     setState(() {
      userName = AppStoredData.userprofileData?.firstName ?? "No Name";
+      
     });
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    
+
+
     return Scaffold(
       body: Stack(
         children: [
@@ -54,7 +57,7 @@ class _ARHomePageState extends State<ARHomePage> {
               width: 120,
             ),
           ),
-          _buildContent(context),
+          _buildContent(context,),
         ],
       ),
     );
@@ -74,7 +77,7 @@ class _ARHomePageState extends State<ARHomePage> {
     );
   }
 
-  Widget _buildContent(BuildContext context) {
+  Widget _buildContent(BuildContext context,) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -87,28 +90,28 @@ class _ARHomePageState extends State<ARHomePage> {
             width: double.infinity,
           ),
         ),
-        const SizedBox(
-          height: 30,
+         SizedBox(
+          height: 30.h,
         ),
          Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Text(
-            'Welcome $userName to Better Painting AR Experience',
-            style: const TextStyle(
-              color: Color(backgroundColor),
-              fontSize: 28,
+            'Welcome to Better Painting AR Experience',
+            style:  TextStyle(
+              color: const Color(backgroundColor),
+              fontSize: 28.sp,
               fontWeight: FontWeight.bold,
             ),
           ),
         ),
-        const SizedBox(height: 10),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
+         SizedBox(height: 10.h),
+         Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Text(
             'Discover our augmented reality services to enhance your world with digital experiences.',
             style: TextStyle(
-              color: Color(backgroundColor),
-              fontSize: 16,
+              color: const Color(backgroundColor),
+              fontSize: 16.sp,
             ),
           ),
         ),
@@ -125,10 +128,10 @@ class _ARHomePageState extends State<ARHomePage> {
                 borderRadius: BorderRadius.circular(30),
               ),
             ),
-            child: const Text(
+            child:  Text(
               'Start Your Quote',
               style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 18.sp,
                   fontWeight: FontWeight.bold,
                   color: Colors.white),
             ),
