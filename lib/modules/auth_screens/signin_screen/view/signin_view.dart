@@ -3,7 +3,6 @@ import 'package:better_painting/core/utils/constants/error_string.dart';
 import 'package:better_painting/core/utils/utility/app_utils.dart';
 import 'package:better_painting/main.dart';
 import 'package:better_painting/modules/auth_screens/signin_screen/controller/signin_view_controller.dart';
-import 'package:better_painting/modules/auth_screens/signup_screen/controller/signup_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

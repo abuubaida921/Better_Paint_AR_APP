@@ -12,7 +12,9 @@ class DetailedSpecificationController extends GetxController{
 
    TextEditingController addOnsController = TextEditingController();
 
-   
+  //  late String roomName;
+  //  late String roomServieId;
+  //  late String roomServiceName;
   
 
 
@@ -21,10 +23,10 @@ class DetailedSpecificationController extends GetxController{
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    var serviceName = Get.arguments['serviceName'].toString();
-    var serviceId = Get.arguments['serviceId'].toString();
-    var roomName = Get.arguments['roomName'].toString();
-    print("$serviceName - $serviceId - $roomName");
+    //  roomServiceName = Get.arguments['serviceName'].toString();
+    //  roomServieId = Get.arguments['serviceId'].toString();
+    //  roomName = Get.arguments['roomName'].toString();
+    // print("$roomServiceName - $roomServieId - $roomName");
     getSpecificationList();
   }
 

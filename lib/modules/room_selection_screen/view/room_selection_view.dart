@@ -1,3 +1,4 @@
+import 'package:better_painting/dependency/global%20dependency/global_controller.dart';
 import 'package:better_painting/main.dart';
 import 'package:better_painting/modules/room_selection_screen/controller/room_selection_controller.dart';
 import 'package:better_painting/routes/routes_names.dart';
@@ -73,12 +74,14 @@ class RoomSelectionView
                       onPressed: () {
                         if (controller.roomName != '') {
                           // Pass the selected areas and room name to the next screen
-                          Get.toNamed(RoutesNames.detailedSpecificationScreen, arguments: {
-                            'roomName': controller.roomName,
-                            'serviceName' : Get.arguments['serviceName'].toString(),
-                            'serviceId' : Get.arguments['serviceId'].toString()
-                          });
-                          
+                          Get.toNamed(RoutesNames.detailedSpecificationScreen, 
+                          // arguments: {
+                          //   'roomName': controller.roomName,
+                          //   'serviceName' : Get.arguments['serviceName'].toString(),
+                          //   'serviceId' : Get.arguments['serviceId'].toString()
+                          // }
+                          );
+                          Get.find<GlobalController>().roomName.value = controller.roomName.toString();
                           controller.roomtextEditingController.clear();
                         } else {
                           Get.snackbar(

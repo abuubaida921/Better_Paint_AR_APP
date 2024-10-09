@@ -1,3 +1,4 @@
+import 'package:better_painting/dependency/global%20dependency/global_controller.dart';
 import 'package:better_painting/modules/service_selection_screen/controller/service_selection_controller.dart';
 import 'package:better_painting/routes/routes_names.dart';
 import 'package:flutter/material.dart';
@@ -58,10 +59,15 @@ class ServiceSelectionScreen extends GetView<ServiceSelectionController> {
                               onPressed: () {
                                 Get.toNamed(
                                     RoutesNames.roomSelectionScreen,
-                                    arguments: {
-                                      'serviceName': items.name,
-                                      'serviceId': items.id
-                                    });
+                                    // arguments: {
+                                    //   'serviceName': items.name,
+                                    //   'serviceId': items.id
+                                    // }
+                                    );
+
+                                // Set Room Service Name and Id Into Global Variable //    
+                                Get.find<GlobalController>().roomServiceName.value = items.name;
+                                Get.find<GlobalController>().roomSrviceId.value = items.id.toString();
                               },
                             );
                           },
