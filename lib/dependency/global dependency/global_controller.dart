@@ -26,9 +26,9 @@ Future<bool> checkInternetConnectivity() async {
   // --------------------------------------- //
   List<Map<String, dynamic>> dataList = [];
 
-  void addUserData(String serviceId, String serviceName, String roomName, List<String> spAreas) {
+  void addUserData(String serviceId, String serviceName, String roomName, List<String> spAreas, List<String> addOnsOption) {
     // Create the data structure as per your requirement
-    Map<String, dynamic> newData = {
+     Map<String, dynamic> newData = {
       "service": {
         "id": serviceId,
         "servicename": serviceName
@@ -37,7 +37,7 @@ Future<bool> checkInternetConnectivity() async {
       
       // pick id //
       "spAreas": spAreas,
-      // "addOns" : ''
+      "addOns" : addOnsOption
     };
 
     dataList.add(newData);

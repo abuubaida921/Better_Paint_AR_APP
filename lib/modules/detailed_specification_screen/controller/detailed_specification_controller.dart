@@ -1,5 +1,6 @@
 import 'package:better_painting/core/utils/constants/app_url.dart';
 import 'package:better_painting/data/models/addons_respone_model/addons_response_model.dart';
+import 'package:better_painting/data/models/area_spectificaiton_model/area_specificaiton_model.dart';
 import 'package:better_painting/data/models/response_model/response_model.dart';
 import 'package:better_painting/data/models/specification_response_model/specification_details.dart';
 import 'package:better_painting/data/models/specification_response_model/specification_respone_model.dart';
@@ -47,12 +48,13 @@ class DetailedSpecificationController extends GetxController{
 
   
   // List of detail options (like "Walls", "Doors", etc.)
-  final  detailOptions = [].obs;
+  final List<AreaSpecificaitonModel> specificationOptions = <AreaSpecificaitonModel>[].obs;
 
-  final addOnsOption = [].obs;
+  final List<AreaSpecificaitonModel> addOnsOption = <AreaSpecificaitonModel> [].obs;
 
   // Set to hold the selected areas
   RxList<String> selectedAreas = RxList([]);
+  RxList<String> addonsAreas = RxList([]);
 
   Future<void> getSpecificationList() async {
     try {
@@ -63,7 +65,7 @@ class DetailedSpecificationController extends GetxController{
         if (response.isSuccess == 'success') {
           _specificationResponeModel = SpecificationResponeModel.fromJson(response.responseData);
           for (var element in _specificationResponeModel.specificationdetails!) {
-            detailOptions.add(element.name!);
+            specificationOptions.add(AreaSpecificaitonModel(element.name, element.id.toString()));
           }
           _errorMessage.value = response.errorMessage;
         } else {
@@ -91,7 +93,7 @@ class DetailedSpecificationController extends GetxController{
           addOnsOption.clear();
           _addOnsResponseModel = AddOnsResponseModel.fromJson(response.responseData);
           for (var element in _addOnsResponseModel.addOnsdetails!) {
-            addOnsOption.add(element.name!);
+            addOnsOption.add(AreaSpecificaitonModel(element.name, element.id.toString()));
           }
           _errorMessage.value = response.errorMessage;
         } else {
@@ -107,12 +109,22 @@ class DetailedSpecificationController extends GetxController{
 
 
     // Function to handle area selection/deselection
-  void toggleArea(String area) {
+  void toggleArea({String? specificationId}) {
     
-      if (selectedAreas.contains(area)) {
-        selectedAreas.remove(area);
+      if (selectedAreas.contains(specificationId)) {
+        selectedAreas.remove(specificationId);
       } else {
-        selectedAreas.add(area);
+        selectedAreas.add(specificationId!);
+      }
+  }
+
+
+   void toggleAddOnsArea({String? specificationId}) {
+    
+      if (addonsAreas.contains(specificationId)) {
+        addonsAreas.remove(specificationId);
+      } else {
+        addonsAreas.add(specificationId!);
       }
   }
 

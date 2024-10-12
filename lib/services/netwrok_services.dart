@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import '../data/models/response_model/response_model.dart';
 
 class NetworkCaller {
-  static const int timeoutRequest = 60;
+  static const int timeoutRequest = 20;
 
   final Map<String, String> _mainHeaders = {
     'Content-Type': 'application/json',

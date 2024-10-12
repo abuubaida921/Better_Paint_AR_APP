@@ -4,15 +4,22 @@ import 'package:get/get.dart';
 class RoomSelectionController extends GetxController {
 
   // Create a TextEditingController to manage the text
-  TextEditingController roomtextEditingController = TextEditingController();
+  late TextEditingController roomtextEditingController;
 
   // To store room name
   RxString roomName = ''.obs;
 
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+    roomtextEditingController = TextEditingController();
+  }
+
   // @override
   // void onClose() {
-  //   roomtextEditingController.dispose();
-  //   super.onClose();
+  // super.onClose();
+  // roomtextEditingController.dispose();
   // }
 
   
