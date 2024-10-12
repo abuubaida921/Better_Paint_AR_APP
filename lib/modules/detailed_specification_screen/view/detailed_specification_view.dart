@@ -4,6 +4,7 @@ import 'package:better_painting/data/models/painted_room_model/painted_room.dart
 import 'package:better_painting/dependency/global%20dependency/global_controller.dart';
 import 'package:better_painting/main.dart';
 import 'package:better_painting/modules/detailed_specification_screen/controller/detailed_specification_controller.dart';
+import 'package:better_painting/modules/room_selection_screen/view/room_selection_view.dart';
 import 'package:better_painting/routes/routes_names.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -80,21 +81,26 @@ class DetailedSpecificationView
                                   shrinkWrap: true,
                                   physics: const BouncingScrollPhysics(),
                                   itemBuilder: (context, index) {
-                                    var itemsName = controller.detailOptions[index];
+                                    var itemsName =
+                                        controller.detailOptions[index];
                                     return _buildDetailOption(
                                       itemsName,
                                       onTap: () {
                                         controller.toggleArea(itemsName);
-                                        
+
                                         // Getting Data From Gobal Controller //
-                                        GlobalController gController = Get.find<GlobalController>();
-                                        // Set Data Into a List // 
+                                        GlobalController gController =
+                                            Get.find<GlobalController>();
+                                        // Set Data Into a List //
                                         // Get.find<GlobalController>().roomPaintedInfo.add(
                                         //  PaintedRoom(gController.roomName.value, gController.roomServiceName.value, gController.roomSrviceId.value, controller.selectedAreas)
                                         // );
 
-                                        gController.addUserData(gController.roomSrviceId.value, gController.roomServiceName.value, gController.roomName.value, controller.selectedAreas);
-                                       
+                                        gController.addUserData(
+                                            gController.roomSrviceId.value,
+                                            gController.roomServiceName.value,
+                                            gController.roomName.value,
+                                            controller.selectedAreas);
                                       },
                                     );
                                   },
@@ -149,7 +155,14 @@ class DetailedSpecificationView
                           width: 150.w,
                           child: ElevatedButton(
                             onPressed: () {
-                              Get.offNamed(RoutesNames.roomSelectionScreen);
+                              Get.offUntil(
+                                GetPageRoute(
+                                  routeName: RoutesNames.roomSelectionScreen,
+                                  page: () => const RoomSelectionView(),
+                                ),
+                                (route) => route
+                                    .isFirst, // Keep the first route and remove all others
+                              );
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: btnColor,
@@ -188,9 +201,10 @@ class DetailedSpecificationView
                           width: 150.w,
                           child: ElevatedButton(
                             onPressed: () {
-                            // print(Get.find<GlobalController>().roomPaintedInfo);
-                
-                            print(jsonEncode(Get.find<GlobalController>().dataList));
+                              // print(Get.find<GlobalController>().roomPaintedInfo);
+
+                              print(jsonEncode(
+                                  Get.find<GlobalController>().dataList));
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: btnColor,

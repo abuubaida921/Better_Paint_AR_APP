@@ -44,7 +44,7 @@ class RoomSelectionView
                     textAlign: TextAlign.center,
                   ),
                    SizedBox(height: 20.h),
-
+    
                   // Room Name Input
                   TextField(
                     controller: controller.roomtextEditingController,
@@ -52,7 +52,7 @@ class RoomSelectionView
                      focusColor: btnColor,
                      focusedBorder: OutlineInputBorder(
                      borderSide: BorderSide(color: btnColor, width: 1.2)
-
+    
                      ),
                       border: OutlineInputBorder(
                       ),
@@ -62,11 +62,11 @@ class RoomSelectionView
                       controller.roomName.value = value;
                     },
                   ),
-
+    
                   SizedBox(height: 20.h),
-
+    
                   
-
+    
                   // Button to proceed (navigate to AR Measurement screen)
                   SizedBox(
                     width: 150.w,

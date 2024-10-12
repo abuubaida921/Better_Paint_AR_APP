@@ -22,7 +22,8 @@ Future<bool> checkInternetConnectivity() async {
   }
 }
   
-
+  
+  // --------------------------------------- //
   List<Map<String, dynamic>> dataList = [];
 
   void addUserData(String serviceId, String serviceName, String roomName, List<String> spAreas) {
@@ -33,13 +34,16 @@ Future<bool> checkInternetConnectivity() async {
         "servicename": serviceName
       },
       "roomName": roomName,
-      "spAreas": spAreas
+      
+      // pick id //
+      "spAreas": spAreas,
+      // "addOns" : ''
     };
 
     dataList.add(newData);
   }
 
-  var roomPaintedInfo = <PaintedRoom>[].obs;
+  //var roomPaintedInfo = <PaintedRoom>[].obs;
   var roomName = ''.obs;
   var roomServiceName = ''.obs;
   var roomSrviceId = ''.obs;

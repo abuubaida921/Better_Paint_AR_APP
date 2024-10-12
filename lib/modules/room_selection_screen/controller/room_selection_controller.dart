@@ -9,9 +9,11 @@ class RoomSelectionController extends GetxController {
   // To store room name
   RxString roomName = ''.obs;
 
-  @override
-  void onClose() {
-    roomtextEditingController.dispose();
-    super.onClose();
-  }
+  // @override
+  // void onClose() {
+  //   roomtextEditingController.dispose();
+  //   super.onClose();
+  // }
+
+  
 }
