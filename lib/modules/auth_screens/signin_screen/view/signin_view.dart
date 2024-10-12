@@ -160,7 +160,7 @@ class SignInScreen extends GetView<SigninViewController> {
                                   bool isSuccess =
                                       await controller.userSignInFormSubmit();
                                   if (isSuccess) {
-                                    Get.toNamed(RoutesNames.arHomeScreen);
+                                    Get.offAllNamed(RoutesNames.arHomeScreen);
                                     AppUtils.successToast(
                                         message: controller.errorMessage);
                                   } else {
@@ -172,7 +172,7 @@ class SignInScreen extends GetView<SigninViewController> {
                               icon: Obx(
                                 () => controller.isLoading == true
                                     ? const Center(
-                                        child: CircularProgressIndicator())
+                                        child: CircularProgressIndicator(color: Colors.white,))
                                     : const Icon(
                                         Icons.arrow_forward_ios_rounded,
                                         color: Colors.white,

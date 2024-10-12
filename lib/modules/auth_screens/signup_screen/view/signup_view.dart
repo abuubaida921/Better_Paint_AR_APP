@@ -303,7 +303,7 @@ class SignupView extends GetView<SignUpController> {
                             child: Obx(
                               () => signUpController.isLoading == true
                                   ? const Center(
-                                      child: CircularProgressIndicator())
+                                      child: CircularProgressIndicator(color: Colors.white,))
                                   : IconButton(
                                       onPressed: () async {
                                         if (controller
@@ -312,7 +312,7 @@ class SignupView extends GetView<SignUpController> {
                                           bool isSuccess = await controller
                                               .userSignUpFormSubmit();
                                           if (isSuccess) {
-                                            Get.toNamed(
+                                            Get.offAndToNamed(
                                                 RoutesNames.signInScreen);
                                             AppUtils.successToast(
                                                 message: signUpController
@@ -339,7 +339,7 @@ class SignupView extends GetView<SignUpController> {
                               ),
                               InkWell(
                                 onTap: () {
-                                 Get.toNamed(RoutesNames.signInScreen);
+                                 Get.back();
                                 },
                                 child: const Text(
                                   'Sign In',

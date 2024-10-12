@@ -51,7 +51,7 @@ class SinginOrSiginupView extends StatelessWidget {
                         ),
                       ),
                       child: const Text(
-                        'CARETE AN ACCOUNT',
+                        'CREATE AN ACCOUNT',
                         style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -83,23 +83,6 @@ class SinginOrSiginupView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 10),
-                  TextButton(
-                    style: ButtonStyle(
-                      foregroundColor:
-                          WidgetStateProperty.all<Color>(Colors.grey),
-                    ),
-                    onPressed: () {
-                     Get.toNamed(RoutesNames.signInScreen);
-                    },
-                    child: const Text(
-                      'SKIP',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  )
                 ],
               ),
             ),
