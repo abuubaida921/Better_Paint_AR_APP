@@ -9,12 +9,14 @@ class UserProfileController extends GetxController{
 
   var imageFile = Rx<File?>(null);
   final ImagePicker picker = ImagePicker();
+  
 
 
   @override
   void onInit() async {
     super.onInit();
     imageFile.value =  await AppStoredData.loadImageFromPreferences();
+    await AppStoredData.getProfileDetails();
   }
   
 

@@ -1,3 +1,4 @@
+import 'package:better_painting/core/utils/utility/Shared%20Preferences/app_stored_data.dart';
 import 'package:better_painting/main.dart';
 import 'package:better_painting/modules/user_profile_screen/controller/user_profile_controller.dart';
 import 'package:flutter/material.dart';
@@ -91,7 +92,7 @@ class UserProfileView extends GetView<UserProfileController> {
                     height: 10.h,
                   ),
                   Text(
-                    'Josh Deph',
+                    "${AppStoredData.userprofileData!.firstName} ${AppStoredData.userprofileData!.lastName}",
                     style: TextStyle(
                         fontSize: 28.sp,
                         color: btnColor,
@@ -107,7 +108,7 @@ class UserProfileView extends GetView<UserProfileController> {
                 child: Column(
                   children: [
                     custome_userProfile_tile(
-                      title: 'Josh Deph',
+                      title: '${AppStoredData.userprofileData!.firstName} ${AppStoredData.userprofileData!.lastName}',
                       leadingIcon: Icons.person,
                       trailingIcon: Icons.edit_square,
                     ),
@@ -115,7 +116,7 @@ class UserProfileView extends GetView<UserProfileController> {
                       height: 5.h,
                     ),
                     custome_userProfile_tile(
-                      title: 'xyz@gmail.com',
+                      title: '${AppStoredData.userprofileData!.email}',
                       leadingIcon: Icons.email,
                       trailingIcon: Icons.edit_square,
                     ),
@@ -157,6 +158,9 @@ class UserProfileView extends GetView<UserProfileController> {
                     custome_userProfile_tile(
                       title: 'logout',
                       leadingIcon: Icons.logout_outlined,
+                      onTap: () {
+                        AppStoredData.userLogOut();
+                      },
                     ),
                   ],
                 ),
@@ -173,28 +177,32 @@ class custome_userProfile_tile extends StatelessWidget {
   String title;
   IconData? leadingIcon;
   IconData? trailingIcon;
+  void Function()? onTap;
   custome_userProfile_tile(
-      {super.key, required this.title, this.leadingIcon, this.trailingIcon});
+      {super.key, required this.title, this.leadingIcon, this.trailingIcon, void Function()? onTap});
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(5.r))),
-      color: Colors.teal.shade50,
-      child: ListTile(
-        leading: Icon(
-          leadingIcon,
-          color: btnColor,
-        ),
-        title: Text(
-          title,
-          style: const TextStyle(
-              fontSize: 18, color: btnColor, fontWeight: FontWeight.w500),
-        ),
-        trailing: Icon(
-          trailingIcon,
-          color: btnColor,
+    return InkWell(
+    onTap: onTap,
+      child: Card(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(5.r))),
+        color: Colors.teal.shade50,
+        child: ListTile(
+          leading: Icon(
+            leadingIcon,
+            color: btnColor,
+          ),
+          title: Text(
+            title,
+            style: const TextStyle(
+                fontSize: 18, color: btnColor, fontWeight: FontWeight.w500),
+          ),
+          trailing: Icon(
+            trailingIcon,
+            color: btnColor,
+          ),
         ),
       ),
     );
