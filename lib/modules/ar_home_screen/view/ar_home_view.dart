@@ -3,44 +3,35 @@ import 'package:better_painting/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import '../../../routes/routes_names.dart';
 
 class ARHomePage extends StatefulWidget {
   const ARHomePage({super.key});
-
-  
 
   @override
   State<ARHomePage> createState() => _ARHomePageState();
 }
 
 class _ARHomePageState extends State<ARHomePage> {
-  
- String? userName;
+  String? userName;
 
   @override
-  void initState()  {
-  super.initState();
-    // TODO: implement initState
-      _getUserData();
+  void initState() {
+    super.initState();
+    _getUserData();
   }
- 
- // Getting Fetching User Stored Data Here
-  void _getUserData (){
-    if(AppStoredData.userprofileData != null){
-    setState(() {
-     userName = AppStoredData.userprofileData?.firstName ?? "No Name";
-      
-    });
+
+  // Fetching User Stored Data Here
+  void _getUserData() {
+    if (AppStoredData.userprofileData != null) {
+      setState(() {
+        userName = AppStoredData.userprofileData?.firstName ?? "No Name";
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    
-
-
     return Scaffold(
       body: Stack(
         children: [
@@ -57,7 +48,8 @@ class _ARHomePageState extends State<ARHomePage> {
               width: 120.w,
             ),
           ),
-          _buildContent(context,),
+          _buildContent(context),
+          _buildUserProfileAndLogout(),
         ],
       ),
     );
@@ -66,18 +58,10 @@ class _ARHomePageState extends State<ARHomePage> {
   Widget _buildBackground() {
     return Container(
       decoration: const BoxDecoration(color: Colors.white),
-      // decoration: const BoxDecoration(
-      //   gradient: LinearGradient(
-      //     colors: [Colors.white, Colors.white],
-      //     // colors: [Color.fromARGB(255, 174, 35, 49), Color.fromARGB(255, 15, 46, 74)],
-      //     begin: Alignment.topCenter,
-      //     end: Alignment.bottomCenter,
-      //   ),
-      // ),
     );
   }
 
-  Widget _buildContent(BuildContext context,) {
+  Widget _buildContent(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -90,22 +74,20 @@ class _ARHomePageState extends State<ARHomePage> {
             width: double.infinity,
           ),
         ),
-         SizedBox(
-          height: 30.h,
-        ),
-         Padding(
+        SizedBox(height: 30.h),
+        Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Text(
             'Welcome to Better Painting AR Experience',
-            style:  TextStyle(
+            style: TextStyle(
               color: const Color(backgroundColor),
               fontSize: 28.sp,
               fontWeight: FontWeight.bold,
             ),
           ),
         ),
-         SizedBox(height: 10.h),
-         Padding(
+        SizedBox(height: 10.h),
+        Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Text(
             'Discover our augmented reality services to enhance your world with digital experiences.',
@@ -128,17 +110,46 @@ class _ARHomePageState extends State<ARHomePage> {
                 borderRadius: BorderRadius.circular(30),
               ),
             ),
-            child:  Text(
+            child: Text(
               'Start Your Quote',
               style: TextStyle(
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white),
+                fontSize: 18.sp,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
           ),
         ),
         const SizedBox(height: 40),
       ],
+    );
+  }
+
+  Widget _buildUserProfileAndLogout() {
+    return Positioned(
+      top: 40.h, // Adjust top position as needed
+      right: 20.w, // Adjust right position as needed
+      child: Row(
+        children: [
+          CircleAvatar(
+            radius: 25,
+            backgroundColor: btnColor,
+            child:  IconButton(
+            icon: Icon(Icons.logout, color: Colors.white, size: 25.sp),
+            onPressed: () async {
+            bool isLogOut  =  await AppStoredData.userLogOut();
+            if(isLogOut){
+             Get.offAllNamed(RoutesNames.signInScreen);
+            } else {
+             print('Logout Error');
+            }
+            },
+          ),
+          ),
+          SizedBox(width: 10.w),
+         
+        ],
+      ),
     );
   }
 }

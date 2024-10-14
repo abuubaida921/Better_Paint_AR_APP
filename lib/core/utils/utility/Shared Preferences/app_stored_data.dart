@@ -49,4 +49,11 @@ class AppStoredData {
     log("Stored Data: ${userprofileData?.email}");
     log("Stored Token: $token");
   }
+
+
+  static Future<bool> userLogOut()async{
+      SharedPreferences sp = await SharedPreferences.getInstance();
+      sp.clear();
+      return true ;
+    }
 }
