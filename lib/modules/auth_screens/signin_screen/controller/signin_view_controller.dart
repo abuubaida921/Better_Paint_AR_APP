@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:better_painting/core/utils/constants/app_url.dart';
@@ -77,8 +78,9 @@ class SigninViewController extends GetxController {
               AuthResponseModel.fromJson(response.responseData);
 
           if (response.statusCode == 404) {
+            print(jsonEncode(_authResponseModel!.errorDetails));
             _errorMessage.value =
-                _authResponseModel?.errorDetails?[0].message ?? "Password doen't match";
+                _authResponseModel?.errorDetails?.message ?? 'Something went wrong!';
           } else {
             // Handle any other error status codes if needed
             _errorMessage.value = _authResponseModel!.message.toString();

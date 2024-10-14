@@ -6,7 +6,7 @@ class AuthResponseModel {
   int? statusCode;
   String? message;
   Data? userData;
-  List<ErrorDetail>? errorDetails;
+  ErrorDetail? errorDetails;
 
   AuthResponseModel({
     this.status,
@@ -17,16 +17,18 @@ class AuthResponseModel {
   });
 
   factory AuthResponseModel.fromJson(Map<String, dynamic> json) {
-    return AuthResponseModel(
-      status: json['status'],
-      statusCode: json['status_code'],
-      message: json['message'],
-      userData: json['details'] != null && json['details'] is Map<String, dynamic>
-          ? Data.fromJson(json['details'])
-          : null, // Handle userDetails only if it's a map
-      errorDetails: json['details'] != null && json['details'] is List
-          ? List<ErrorDetail>.from(json['details'].map((x) => ErrorDetail.fromJson(x)))
-          : null, // Handle errorDetails only if it's a list
-    );
-  }
+  return AuthResponseModel(
+    status: json['status'],
+    statusCode: json['status_code'],
+    message: json['message'],
+    userData: (json['details'] != null && json['details'] is Map<String, dynamic>)
+        ? Data.fromJson(json['details'])
+        : null, // Handle userData only if it's a Success Response
+    errorDetails: (json['details'] != null && json['details'] is Map<String, dynamic>)
+        ? ErrorDetail.fromJson(json['details'])
+        : null, // Handle errorDetails only if it's a Error Respone
+  );
+}
+
+
 }

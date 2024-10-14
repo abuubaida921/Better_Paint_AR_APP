@@ -88,8 +88,9 @@ class SignUpController extends GetxController {
               AuthResponseModel.fromJson(response.responseData);
 
           if (response.statusCode == 400) {
+           print(_authResponseModel!.errorDetails!.message);
             _errorMessage.value =
-                _authResponseModel?.errorDetails?[0].message ?? 'This email is already exist';
+                _authResponseModel?.errorDetails?.message ?? 'This email is already exist';
           } else {
             // Handle any other error status codes if needed
             _errorMessage.value =
