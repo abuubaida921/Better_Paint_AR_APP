@@ -17,7 +17,7 @@ class SignInScreen extends GetView<SigninViewController> {
     //final signInController = Get.put(SigninViewController(), permanent: true);
 
     return Scaffold(
-     resizeToAvoidBottomInset: false,
+     resizeToAvoidBottomInset: true,
       body: Form(
         key: controller.singInFormKeyGlobal,
         child: Stack(
@@ -87,7 +87,7 @@ class SignInScreen extends GetView<SigninViewController> {
                         bool emailValid = RegExp(
                                 r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                             .hasMatch(email!);
-
+                      
                         if (value == null ||
                             value.isEmpty ||
                             emailValid == false) {

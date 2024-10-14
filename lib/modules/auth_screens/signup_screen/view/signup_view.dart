@@ -16,7 +16,7 @@ class SignupView extends GetView<SignUpController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
         child: Form(
           key: controller.signUpFormKeyGlobal,
@@ -35,12 +35,14 @@ class SignupView extends GetView<SignUpController> {
                 ),
               ),
               
+              
               Center(
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                     SizedBox(height: 100.h), // Space for top image
                        Align(
                         alignment: AlignmentDirectional.topStart,
                         child: Text(
@@ -61,8 +63,8 @@ class SignupView extends GetView<SignUpController> {
                               fontWeight: FontWeight.w500),
                         ),
                       ),
-                      const SizedBox(
-                        height: 40,
+                       SizedBox(
+                        height: 30.h,
                       ),
                        Align(
                         alignment: AlignmentDirectional.topStart,
@@ -177,7 +179,7 @@ class SignupView extends GetView<SignUpController> {
                           bool emailValid = RegExp(
                                   r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                               .hasMatch(email!);
-
+                        
                           if (value == null ||
                               value.isEmpty ||
                               emailValid == false) {
@@ -353,9 +355,7 @@ class SignupView extends GetView<SignUpController> {
                           )
                         ],
                       ),
-                      const SizedBox(
-                        height: 55,
-                      ),
+                      SizedBox(height: 135.h),
                     ],
                   ),
                 ),
