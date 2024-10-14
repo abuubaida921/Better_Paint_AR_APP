@@ -131,6 +131,22 @@ class _ARHomePageState extends State<ARHomePage> {
       right: 20.w, // Adjust right position as needed
       child: Row(
         children: [
+        InkWell(
+        onTap: () {
+          Get.toNamed(RoutesNames.userProfileScreen);
+        },
+          child: CircleAvatar(
+              radius: 25,
+              backgroundColor: Colors.grey.shade300,
+              child: Text(
+                userName != null && userName!.isNotEmpty
+                    ? userName![0].toUpperCase()
+                    : "N",
+                style: TextStyle(fontSize: 20.sp, color: Colors.black),
+              ),
+            ),
+        ),
+           SizedBox(width: 10.w),
           CircleAvatar(
             radius: 25,
             backgroundColor: btnColor,

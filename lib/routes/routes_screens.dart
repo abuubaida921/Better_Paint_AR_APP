@@ -15,6 +15,8 @@ import 'package:better_painting/modules/quote_summary_screen/view/quote_summary_
 import 'package:better_painting/modules/service_selection_screen/binding/service_selection_binding.dart';
 import 'package:better_painting/modules/service_selection_screen/view/service_selection_view.dart';
 import 'package:better_painting/modules/splash_screen/view/splash_view.dart';
+import 'package:better_painting/modules/user_profile_screen/binding/user_profile_binding.dart';
+import 'package:better_painting/modules/user_profile_screen/view/user_profile_view.dart';
 import 'package:better_painting/routes/routes_names.dart';
 import 'package:get/get.dart';
 
@@ -71,5 +73,10 @@ List<GetPage<dynamic>>? routes = [
   GetPage(
     name: RoutesNames.invoiceScreen,
     page: () => InvoiceScreen(),
+  ),
+  GetPage(
+    name: RoutesNames.userProfileScreen,
+    page: () => UserProfileView(),
+    binding: UserProfileBinding()
   ),
 ];

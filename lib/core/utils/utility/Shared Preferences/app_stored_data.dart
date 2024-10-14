@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:better_painting/data/models/auth_respone_model/user_info_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -48,6 +49,23 @@ class AppStoredData {
     token = await getToken();
     log("Stored Data: ${userprofileData?.email}");
     log("Stored Token: $token");
+  }
+
+   static Future<void> saveImageToPreferences(String imagePath) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('user_image', imagePath);
+  }
+
+
+  static Future<File?> loadImageFromPreferences() async {
+  File? imageFile;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? imagePath = prefs.getString('user_image');
+    if (imagePath != null) {
+        imageFile = File(imagePath);
+      
+    }
+     return imageFile;
   }
 
 
