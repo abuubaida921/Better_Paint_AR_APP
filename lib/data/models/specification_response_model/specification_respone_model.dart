@@ -16,18 +16,18 @@ class SpecificationResponeModel {
     if (json['details'] != null) {
       specificationdetails = <SpecificationDetails>[];
       json['details'].forEach((v) {
-        specificationdetails!.add(new SpecificationDetails.fromJson(v));
+        specificationdetails!.add(SpecificationDetails.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['status_code'] = this.statusCode;
-    data['message'] = this.message;
-    if (this.specificationdetails != null) {
-      data['details'] = this.specificationdetails!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['status_code'] = statusCode;
+    data['message'] = message;
+    if (specificationdetails != null) {
+      data['details'] = specificationdetails!.map((v) => v.toJson()).toList();
     }
     return data;
   }

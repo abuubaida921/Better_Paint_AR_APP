@@ -46,6 +46,7 @@ class SignUpController extends GetxController {
 
   // Sign-Up Request //
   Future<bool> userSignUpFormSubmit() async {
+    
     // User Post Body Input
     Map<String, dynamic> userSignupInfo = {
       "first_name": firstNameTextEditingController.text,
@@ -54,7 +55,7 @@ class SignUpController extends GetxController {
       "email": emailTextEditingController.text,
       "password": passwordTextEditingController.text,
     };
-
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
     try {
       if (await GlobalController().checkInternetConnectivity()) {
         _isLoading.value = true;
@@ -65,6 +66,7 @@ class SignUpController extends GetxController {
         );
 
         if (response.isSuccess == 'success') {
+          
           _authResponseModel =
               AuthResponseModel.fromJson(response.responseData);   
 
@@ -84,6 +86,7 @@ class SignUpController extends GetxController {
           }
         } else {
           // Handle error case when response.isSuccess is false
+         
           _authResponseModel =
               AuthResponseModel.fromJson(response.responseData);
 

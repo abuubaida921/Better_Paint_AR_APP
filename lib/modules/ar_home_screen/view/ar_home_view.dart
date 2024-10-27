@@ -49,7 +49,7 @@ class _ARHomePageState extends State<ARHomePage> {
             ),
           ),
           _buildContent(context),
-          _buildUserProfileAndLogout(),
+         // _buildUserProfileAndLogout(),
         ],
       ),
     );
@@ -125,47 +125,47 @@ class _ARHomePageState extends State<ARHomePage> {
     );
   }
 
-  Widget _buildUserProfileAndLogout() {
-    return Positioned(
-      top: 40.h, // Adjust top position as needed
-      right: 20.w, // Adjust right position as needed
-      child: Row(
-        children: [
-        InkWell(
-        onTap: () {
-          Get.toNamed(RoutesNames.userProfileScreen);
-        },
-          child: CircleAvatar(
-              radius: 25,
-              backgroundColor: Colors.grey.shade300,
-              child: Text(
-                userName != null && userName!.isNotEmpty
-                    ? userName![0].toUpperCase()
-                    : "N",
-                style: TextStyle(fontSize: 20.sp, color: Colors.black),
-              ),
-            ),
-        ),
-           SizedBox(width: 10.w),
-          CircleAvatar(
-            radius: 25,
-            backgroundColor: btnColor,
-            child:  IconButton(
-            icon: Icon(Icons.logout, color: Colors.white, size: 25.sp),
-            onPressed: () async {
-            bool isLogOut  =  await AppStoredData.userLogOut();
-            if(isLogOut){
-             Get.offAllNamed(RoutesNames.signInScreen);
-            } else {
-             print('Logout Error');
-            }
-            },
-          ),
-          ),
-          SizedBox(width: 10.w),
+  // Widget _buildUserProfileAndLogout() {
+  //   return Positioned(
+  //     top: 40.h, // Adjust top position as needed
+  //     right: 20.w, // Adjust right position as needed
+  //     child: Row(
+  //       children: [
+  //       InkWell(
+  //       onTap: () {
+  //         Get.toNamed(RoutesNames.userProfileScreen);
+  //       },
+  //         child: CircleAvatar(
+  //             radius: 25,
+  //             backgroundColor: Colors.grey.shade300,
+  //             child: Text(
+  //               userName != null && userName!.isNotEmpty
+  //                   ? userName![0].toUpperCase()
+  //                   : "N",
+  //               style: TextStyle(fontSize: 20.sp, color: Colors.black),
+  //             ),
+  //           ),
+  //       ),
+  //          SizedBox(width: 10.w),
+  //         CircleAvatar(
+  //           radius: 25,
+  //           backgroundColor: btnColor,
+  //           child:  IconButton(
+  //           icon: Icon(Icons.logout, color: Colors.white, size: 25.sp),
+  //           onPressed: () async {
+  //           bool isLogOut  =  await AppStoredData.userLogOut();
+  //           if(isLogOut){
+  //            Get.offAllNamed(RoutesNames.signInScreen);
+  //           } else {
+  //            print('Logout Error');
+  //           }
+  //           },
+  //         ),
+  //         ),
+  //         SizedBox(width: 10.w),
          
-        ],
-      ),
-    );
-  }
+  //       ],
+  //     ),
+  //   );
+  // }
 }

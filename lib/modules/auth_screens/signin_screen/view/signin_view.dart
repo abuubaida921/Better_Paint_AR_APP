@@ -141,7 +141,8 @@ class SignInScreen extends GetView<SigninViewController> {
                               } else {
                                 return null;
                               }
-                            });
+                            }
+                            );
                       },
                     ),
                     const SizedBox(

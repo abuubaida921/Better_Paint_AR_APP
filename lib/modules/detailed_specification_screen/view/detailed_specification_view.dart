@@ -17,7 +17,7 @@ class DetailedSpecificationView
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SizedBox(
-        height:MediaQuery.of(context).size.height ,
+        height: MediaQuery.of(context).size.height,
         child: Stack(
           children: [
             _buildBackground(),
@@ -48,7 +48,7 @@ class DetailedSpecificationView
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 10),
-                  
+
                     // ---------------- Speficify Areas Painted Section ---------------- //
                     Obx(
                       () => controller.isLoading
@@ -66,10 +66,11 @@ class DetailedSpecificationView
                               child: SizedBox(
                                   //color: Colors.amber,
                                   //width: double.maxFinite,
-                                  height: MediaQuery.of(context).size.height * .3,
+                                  height:
+                                      MediaQuery.of(context).size.height * .3,
                                   child: ListView(
-                                  physics: const BouncingScrollPhysics(),
-                                  shrinkWrap: true,
+                                    physics: const BouncingScrollPhysics(),
+                                    shrinkWrap: true,
                                     children: List.generate(
                                         controller.specificationOptions.length,
                                         (index) {
@@ -77,26 +78,26 @@ class DetailedSpecificationView
                                           .specificationOptions[index];
                                       return Obx(
                                         () => _buildDetailOption(
-                                          items.speacificationName!,
-                                          specificationid:
-                                              items.specificationId,
+                                          price: items.pricePerUnit,
+                                          items.name!,
+                                          specificationid: items.id.toString(),
                                           isSelected: controller.selectedAreas
-                                              .contains(items.specificationId),
+                                              .contains(items.id.toString()),
                                           onTap: () {
                                             controller.toggleArea(
                                                 specificationId:
-                                                    items.specificationId);
+                                                    items.id.toString());
                                           },
                                         ),
                                       );
                                     }),
                                   )
-                  
+
                                   // ListView.separated(
                                   //     shrinkWrap: true,
                                   //     physics: const BouncingScrollPhysics(),
                                   //     itemBuilder: (context, index) {
-                  
+
                                   //       // return Obx(
                                   //       //   () => _buildDetailOption(
                                   //       //     items.speacificationName!,
@@ -122,9 +123,7 @@ class DetailedSpecificationView
                                   ),
                             ),
                     ),
-                  
-                  
-                  
+
                     // ---------------- Add Ons List Section ---------------- //
                     Obx(
                       () {
@@ -141,50 +140,53 @@ class DetailedSpecificationView
                                         fontWeight: FontWeight.w300),
                                   ),
                                   SizedBox(
-                                  //color: Colors.amber,
-                                  height: MediaQuery.of(context).size.height * .3,
+                                    //color: Colors.amber,
+                                    height:
+                                        MediaQuery.of(context).size.height * .3,
                                     child: ListView(
-                                    physics: const BouncingScrollPhysics(),
-                                    shrinkWrap: true,
-                                    children: List.generate(
-                                         controller.addOnsOption.length,
-                                        (index) {
-                                      var items = controller
-                                          .addOnsOption[index];
-                                      return Obx(
-                                         // Assign Checker if the addOnsOption id contain in addOnsArea //
-                                          () => controller.addonsAreas
-                                                  .contains(controller
-                                                      .addOnsOption[index]
-                                                     .specificationId)
-                                             ? _buildDetailOption(
-                                                 items.speacificationName!,
+                                      physics: const BouncingScrollPhysics(),
+                                      shrinkWrap: true,
+                                      children: List.generate(
+                                          controller.addOnsOption.length,
+                                          (index) {
+                                        var items =
+                                            controller.addOnsOption[index];
+                                        return Obx(
+                                          // Assign Checker if the addOnsOption id contain in addOnsArea //
+                                          () => controller.addonsAreas.contains(
+                                                  controller
+                                                      .addOnsOption[index].id
+                                                      .toString())
+                                              ? _buildDetailOption(
+                                                  price: items.pricePerUnit,
+                                                  items.name!,
                                                   specificationid:
-                                                      items.specificationId,
+                                                      items.id.toString(),
                                                   isSelected: controller
                                                       .addonsAreas
-                                                       .contains(items
-                                                          .specificationId),
-                                                   onTap: () {
-                                                     controller.toggleAddOnsArea(
-                                                         specificationId: items
-                                                            .specificationId);
-                                                   },
-                                               )
+                                                      .contains(
+                                                          items.id.toString()),
+                                                  onTap: () {
+                                                    controller.toggleAddOnsArea(
+                                                        specificationId: items
+                                                            .id
+                                                            .toString());
+                                                  },
+                                                )
                                               : const SizedBox(),
-                                          );
-                                    }),
+                                        );
+                                      }),
                                     ),
                                   ),
                                 ],
                               );
                       },
                     ),
-                    
+
                     SizedBox(
                       height: 15.h,
                     ),
-                  
+
                     // ---------------- Add ons Button ---------------- //
                     Card(
                       color: const Color(primaryColor),
@@ -210,6 +212,17 @@ class DetailedSpecificationView
                         },
                       ),
                     ),
+
+                    const SizedBox(height: 20),
+
+                    Obx(() => Text(
+                          'Total Price: \$${controller.totalPrice.value.toStringAsFixed(2)}',
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        )),
                     const SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -222,13 +235,13 @@ class DetailedSpecificationView
                               onPressed: () {
                                 GlobalController gController =
                                     Get.find<GlobalController>();
-                  
+
                                 gController.addUserData(
                                     gController.roomSrviceId.value,
                                     gController.roomServiceName.value,
                                     gController.roomName.value,
                                     controller.selectedAreas,
-                                    controller.addonsAreas);
+                                    controller.addonsAreas, controller.totalPrice.value.toString());
                                 Get.offUntil(
                                   GetPageRoute(
                                     routeName: RoutesNames.roomSelectionScreen,
@@ -269,6 +282,7 @@ class DetailedSpecificationView
                         ),
                         const SizedBox(width: 20),
                         // ---------------- Next Button ---------------- //
+
                         Expanded(
                           child: SizedBox(
                             width: 150.w,
@@ -276,17 +290,17 @@ class DetailedSpecificationView
                               onPressed: () {
                                 GlobalController gController =
                                     Get.find<GlobalController>();
-                  
+
                                 gController.addUserData(
                                     gController.roomSrviceId.value,
                                     gController.roomServiceName.value,
                                     gController.roomName.value,
                                     controller.selectedAreas,
-                                    controller.addonsAreas);
-                  
+                                    controller.addonsAreas, controller.totalPrice.toString());
+
                                 print(jsonEncode(
                                     Get.find<GlobalController>().dataList));
-                  
+
                                 Get.toNamed(RoutesNames.invoiceScreen);
                               },
                               style: ElevatedButton.styleFrom(
@@ -337,7 +351,10 @@ class DetailedSpecificationView
 
   // ---------------- Custome List Tile Widget ---------------- //
   Widget _buildDetailOption(String title,
-      {String? specificationid, void Function()? onTap, bool? isSelected}) {
+      {String? specificationid,
+      void Function()? onTap,
+      bool? isSelected,
+      String? price}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: .0),
       child: Card(
@@ -358,6 +375,7 @@ class DetailedSpecificationView
                 title,
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
+              subtitle: Text('\$$price per unit '),
               trailing: const Icon(Icons.arrow_forward_ios),
               onTap: onTap,
             ),
@@ -379,6 +397,8 @@ void showOptionsModal(BuildContext context) {
 }
 
 class OptionsModal extends GetView<DetailedSpecificationController> {
+  const OptionsModal({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -410,13 +430,14 @@ class OptionsModal extends GetView<DetailedSpecificationController> {
                               color: Color(primaryColor),
                             ),
                             title: Text(
-                              item.speacificationName!,
+                              item.name!,
                               style:
                                   const TextStyle(fontWeight: FontWeight.bold),
                             ),
                             trailing: const Icon(Icons.arrow_forward_ios),
                             onTap: () {
-                              controller.addonsAreas.add(item.specificationId!);
+                              controller.addonsAreas.add(item.id.toString());
+                              controller.calculateTotalPrice();
                             },
                           ),
                         );

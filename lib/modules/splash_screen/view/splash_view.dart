@@ -20,19 +20,20 @@ class _SplashScreenState extends State<SplashScreen> {
 
     // Navigate to ARHomePage or SignInorSingUp after a delay
     Timer(const Duration(seconds: 3), () async {
-     await AppStoredData.initalCheckUserStoredData();
-     _userInitalRouteChecker();
+     // await AppStoredData.initalCheckUserStoredData();
+    // _userInitalRouteChecker();
+    Get.offAllNamed(RoutesNames.arHomeScreen);
     });
   }
   
   // get route inital check here //
-  _userInitalRouteChecker(){
-     if((AppStoredData.token != null)){
-    Get.offAllNamed(RoutesNames.arHomeScreen);
-   } else{
-    Get.offAllNamed(RoutesNames.signinOrSignUpScreen);
-   }
-  }
+  // _userInitalRouteChecker(){
+  //    if((AppStoredData.token != null)){
+  //   Get.offAllNamed(RoutesNames.arHomeScreen);
+  //  } else{
+  //   Get.offAllNamed(RoutesNames.signinOrSignUpScreen);
+  //  }
+  // }
 
   @override
   Widget build(BuildContext context) {

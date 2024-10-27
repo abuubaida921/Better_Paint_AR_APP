@@ -290,7 +290,8 @@ class SignupView extends GetView<SignUpController> {
                                   return 'Passwords do not match. Please try again.';
                                 }
                                 return null;
-                              });
+                              }
+                              );
                         },
                       ),
                        SizedBox(

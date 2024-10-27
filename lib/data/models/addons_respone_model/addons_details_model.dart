@@ -30,15 +30,15 @@ class AddOnsDetails {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['is_active'] = this.isActive;
-    data['name'] = this.name;
-    data['description'] = this.description;
-    data['price_per_unit'] = this.pricePerUnit;
-    data['unit_type'] = this.unitType;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    data['is_active'] = isActive;
+    data['name'] = name;
+    data['description'] = description;
+    data['price_per_unit'] = pricePerUnit;
+    data['unit_type'] = unitType;
     return data;
   }
 }

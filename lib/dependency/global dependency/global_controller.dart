@@ -1,6 +1,5 @@
 import 'package:better_painting/core/utils/constants/error_string.dart';
 import 'package:better_painting/core/utils/utility/app_utils.dart';
-import 'package:better_painting/data/models/painted_room_model/painted_room.dart';
 import 'package:get/get.dart';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -26,7 +25,7 @@ Future<bool> checkInternetConnectivity() async {
   // --------------------------------------- //
   List<Map<String, dynamic>> dataList = [];
 
-  void addUserData(String serviceId, String serviceName, String roomName, List<String> spAreas, List<String> addOnsOption) {
+  void addUserData(String serviceId, String serviceName, String roomName, List<String> spAreas, List<String> addOnsOption, String totalPrice) {
     // Create the data structure as per your requirement
      Map<String, dynamic> newData = {
       "service": {
@@ -37,7 +36,8 @@ Future<bool> checkInternetConnectivity() async {
       
       // pick id //
       "spAreas": spAreas,
-      "addOns" : addOnsOption
+      "addOns" : addOnsOption,
+      "total-price" : totalPrice
     };
 
     dataList.add(newData);

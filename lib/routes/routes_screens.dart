@@ -76,7 +76,7 @@ List<GetPage<dynamic>>? routes = [
   ),
   GetPage(
     name: RoutesNames.userProfileScreen,
-    page: () => UserProfileView(),
+    page: () => const UserProfileView(),
     binding: UserProfileBinding()
   ),
 ];

@@ -9,18 +9,14 @@ import 'package:better_painting/services/netwrok_services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class DetailedSpecificationController extends GetxController{
-
-   TextEditingController addOnsController = TextEditingController();
+class DetailedSpecificationController extends GetxController {
+  TextEditingController addOnsController = TextEditingController();
 
   //  late String roomName;
   //  late String roomServieId;
   //  late String roomServiceName;
-  
 
-
-
-   @override
+  @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
@@ -29,6 +25,7 @@ class DetailedSpecificationController extends GetxController{
     //  roomName = Get.arguments['roomName'].toString();
     // print("$roomServiceName - $roomServieId - $roomName");
     getSpecificationList();
+   // calculateTotalPrice();
   }
 
   // loading indicator //
@@ -39,20 +36,21 @@ class DetailedSpecificationController extends GetxController{
   final _errorMessage = ''.obs;
   get errorMessage => _errorMessage;
 
-
-  SpecificationResponeModel _specificationResponeModel = SpecificationResponeModel();
-  SpecificationResponeModel get specificationResponeModel => _specificationResponeModel;
+  SpecificationResponeModel _specificationResponeModel =
+      SpecificationResponeModel();
+  SpecificationResponeModel get specificationResponeModel =>
+      _specificationResponeModel;
 
   AddOnsResponseModel _addOnsResponseModel = AddOnsResponseModel();
   AddOnsResponseModel get addOnsResponseModel => _addOnsResponseModel;
 
-  
   // List of detail options (like "Walls", "Doors", etc.)
-  final List<AreaSpecificaitonModel> specificationOptions = <AreaSpecificaitonModel>[].obs;
+  final List<SpecificationDetails> specificationOptions =
+      <SpecificationDetails>[].obs;
 
-  final List<AreaSpecificaitonModel> addOnsOption = <AreaSpecificaitonModel> [].obs;
+  final List<SpecificationDetails> addOnsOption = <SpecificationDetails>[].obs;
 
-  // Set to hold the selected areas
+  // Set to hold the selected areas Ids //
   RxList<String> selectedAreas = RxList([]);
   RxList<String> addonsAreas = RxList([]);
 
@@ -63,9 +61,14 @@ class DetailedSpecificationController extends GetxController{
         final ResponseModel response =
             await NetworkCaller().getRequest(AppUrl.specificationUrl);
         if (response.isSuccess == 'success') {
-          _specificationResponeModel = SpecificationResponeModel.fromJson(response.responseData);
-          for (var element in _specificationResponeModel.specificationdetails!) {
-            specificationOptions.add(AreaSpecificaitonModel(element.name, element.id.toString()));
+          _specificationResponeModel =
+              SpecificationResponeModel.fromJson(response.responseData);
+          for (var element
+              in _specificationResponeModel.specificationdetails!) {
+            specificationOptions.add(SpecificationDetails(
+                id: element.id,
+                name: element.name,
+                pricePerUnit: element.pricePerUnit));
           }
           _errorMessage.value = response.errorMessage;
         } else {
@@ -79,11 +82,10 @@ class DetailedSpecificationController extends GetxController{
     }
   }
 
-   
   final _isAddOnsLoading = false.obs;
   get isAddOnsLoading => _isAddOnsLoading.value;
 
-   Future<void> getAddOnsList() async {
+  Future<void> getAddOnsList() async {
     try {
       if (await GlobalController().checkInternetConnectivity()) {
         _isAddOnsLoading.value = true;
@@ -91,9 +93,13 @@ class DetailedSpecificationController extends GetxController{
             await NetworkCaller().getRequest(AppUrl.addOnsUrl);
         if (response.isSuccess == 'success') {
           addOnsOption.clear();
-          _addOnsResponseModel = AddOnsResponseModel.fromJson(response.responseData);
+          _addOnsResponseModel =
+              AddOnsResponseModel.fromJson(response.responseData);
           for (var element in _addOnsResponseModel.addOnsdetails!) {
-            addOnsOption.add(AreaSpecificaitonModel(element.name, element.id.toString()));
+            addOnsOption.add(SpecificationDetails(
+                id: element.id,
+                name: element.name,
+                pricePerUnit: element.pricePerUnit));
           }
           _errorMessage.value = response.errorMessage;
         } else {
@@ -107,29 +113,45 @@ class DetailedSpecificationController extends GetxController{
     }
   }
 
-
-    // Function to handle area selection/deselection
+  // Function to handle area selection/deselection
   void toggleArea({String? specificationId}) {
-    
-      if (selectedAreas.contains(specificationId)) {
-        selectedAreas.remove(specificationId);
-      } else {
-        selectedAreas.add(specificationId!);
-      }
+    if (selectedAreas.contains(specificationId)) {
+      selectedAreas.remove(specificationId);
+      calculateTotalPrice();
+    } else {
+      selectedAreas.add(specificationId!);
+    }
+    calculateTotalPrice();
   }
 
-
-   void toggleAddOnsArea({String? specificationId}) {
-    
-      if (addonsAreas.contains(specificationId)) {
-        addonsAreas.remove(specificationId);
-      } else {
-        addonsAreas.add(specificationId!);
-      }
+  void toggleAddOnsArea({String? specificationId}) {
+    if (addonsAreas.contains(specificationId)) {
+      addonsAreas.remove(specificationId);
+      calculateTotalPrice();
+    } else {
+      addonsAreas.add(specificationId!);
+    }
+    calculateTotalPrice();
   }
 
+  final totalPrice = 0.0.obs;
 
+  void calculateTotalPrice() {
+    double total = 0.0;
 
-  
+    // Sum the prices from selected areas
+    total += specificationOptions
+        .where((item) => selectedAreas.contains(item.id.toString()))
+        .map((item) => double.tryParse(item.pricePerUnit ?? '0.0') ?? 0.0)
+        .fold(0.0, (prev, element) => prev + element);
 
+    // Sum the prices from selected add-ons
+    total += addOnsOption
+        .where((item) => addonsAreas.contains(item.id.toString()))
+        .map((item) => double.tryParse(item.pricePerUnit ?? '0.0') ?? 0.0)
+        .fold(0.0, (prev, element) => prev + element);
+
+    // Update the reactive totalPrice variable
+    totalPrice.value = total;
+  }
 }

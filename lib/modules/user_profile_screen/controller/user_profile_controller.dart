@@ -23,7 +23,11 @@ class UserProfileController extends GetxController{
   Future<void> pickImage() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
+        
+        // For inital show the img //
         imageFile.value = File(pickedFile.path);
+        
+        // For Save Imge //
       AppStoredData.saveImageToPreferences(pickedFile.path);
     }
   }

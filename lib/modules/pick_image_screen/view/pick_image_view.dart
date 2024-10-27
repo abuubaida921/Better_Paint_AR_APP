@@ -43,7 +43,7 @@ class _PickImageScreenState extends State<PickImageScreen> {
 
   // Function to pick images from the gallery
   Future<void> _pickImageFromGallery() async {
-    final List<XFile>? pickedImages = await _picker.pickMultiImage();
+    final List<XFile> pickedImages = await _picker.pickMultiImage();
     if (pickedImages != null) {
       setState(() {
         _addRoom(pickedImages);

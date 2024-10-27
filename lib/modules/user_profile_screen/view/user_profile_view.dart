@@ -53,7 +53,7 @@ class UserProfileView extends GetView<UserProfileController> {
                 height: 140,
                 width: 140,
                 decoration: const BoxDecoration(
-                  color: Colors.grey,
+                  color: btnColor,
                   shape: BoxShape.circle,
                 ),
                 child: Padding(
@@ -64,9 +64,9 @@ class UserProfileView extends GetView<UserProfileController> {
                         ? FileImage(controller.imageFile.value!)
                         : null,
                     child: controller.imageFile.value == null
-                        ? const Text(
-                            'S',
-                            style: TextStyle(fontSize: 40, color: Colors.white),
+                        ?  Text(
+                            AppStoredData.userprofileData?.firstName?[0] ?? '',
+                            style: const TextStyle(fontSize: 40, color: Colors.white),
                           )
                         : null,
                   ),

@@ -16,18 +16,18 @@ class AddOnsResponseModel {
     if (json['details'] != null) {
       addOnsdetails = <AddOnsDetails>[];
       json['details'].forEach((v) {
-        addOnsdetails!.add(new AddOnsDetails.fromJson(v));
+        addOnsdetails!.add(AddOnsDetails.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['status_code'] = this.statusCode;
-    data['message'] = this.message;
-    if (this.addOnsdetails != null) {
-      data['details'] = this.addOnsdetails!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['status_code'] = statusCode;
+    data['message'] = message;
+    if (addOnsdetails != null) {
+      data['details'] = addOnsdetails!.map((v) => v.toJson()).toList();
     }
     return data;
   }
