@@ -25,7 +25,7 @@ class DetailedSpecificationController extends GetxController {
     //  roomName = Get.arguments['roomName'].toString();
     // print("$roomServiceName - $roomServieId - $roomName");
     getSpecificationList();
-   // calculateTotalPrice();
+  
   }
 
   // loading indicator //
@@ -117,7 +117,7 @@ class DetailedSpecificationController extends GetxController {
   void toggleArea({String? specificationId}) {
     if (selectedAreas.contains(specificationId)) {
       selectedAreas.remove(specificationId);
-      calculateTotalPrice();
+     
     } else {
       selectedAreas.add(specificationId!);
     }
@@ -127,7 +127,7 @@ class DetailedSpecificationController extends GetxController {
   void toggleAddOnsArea({String? specificationId}) {
     if (addonsAreas.contains(specificationId)) {
       addonsAreas.remove(specificationId);
-      calculateTotalPrice();
+    
     } else {
       addonsAreas.add(specificationId!);
     }

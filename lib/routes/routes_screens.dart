@@ -7,6 +7,8 @@ import 'package:better_painting/modules/auth_screens/signup_screen/binding/signu
 import 'package:better_painting/modules/auth_screens/signup_screen/view/signup_view.dart';
 import 'package:better_painting/modules/detailed_specification_screen/binding/detailed_specification_binding.dart';
 import 'package:better_painting/modules/detailed_specification_screen/view/detailed_specification_view.dart';
+import 'package:better_painting/modules/quote_generate_email/binding/quote_generate_binding.dart';
+import 'package:better_painting/modules/quote_generate_email/view/quote_generate_email_view.dart';
 import 'package:better_painting/modules/room_selection_screen/binding/room_selection_binding.dart';
 import 'package:better_painting/modules/room_selection_screen/view/room_selection_view.dart';
 import 'package:better_painting/modules/invoice_screen/view/invoice.dart';
@@ -78,5 +80,10 @@ List<GetPage<dynamic>>? routes = [
     name: RoutesNames.userProfileScreen,
     page: () => const UserProfileView(),
     binding: UserProfileBinding()
+  ),
+   GetPage(
+    name: RoutesNames.quoteEmailGenerateScreen,
+    page: () => const QuoteGenerateEmailView(),
+    binding: QuoteGenerateBinding()
   ),
 ];

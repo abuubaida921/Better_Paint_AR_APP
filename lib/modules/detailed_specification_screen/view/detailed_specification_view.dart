@@ -301,7 +301,7 @@ class DetailedSpecificationView
                                 print(jsonEncode(
                                     Get.find<GlobalController>().dataList));
 
-                                Get.toNamed(RoutesNames.invoiceScreen);
+                                Get.toNamed(RoutesNames.quoteEmailGenerateScreen);
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: btnColor,
