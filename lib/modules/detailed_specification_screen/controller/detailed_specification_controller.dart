@@ -25,7 +25,6 @@ class DetailedSpecificationController extends GetxController {
     //  roomName = Get.arguments['roomName'].toString();
     // print("$roomServiceName - $roomServieId - $roomName");
     getSpecificationList();
-  
   }
 
   // loading indicator //
@@ -117,7 +116,6 @@ class DetailedSpecificationController extends GetxController {
   void toggleArea({String? specificationId}) {
     if (selectedAreas.contains(specificationId)) {
       selectedAreas.remove(specificationId);
-     
     } else {
       selectedAreas.add(specificationId!);
     }
@@ -127,7 +125,6 @@ class DetailedSpecificationController extends GetxController {
   void toggleAddOnsArea({String? specificationId}) {
     if (addonsAreas.contains(specificationId)) {
       addonsAreas.remove(specificationId);
-    
     } else {
       addonsAreas.add(specificationId!);
     }
@@ -145,11 +142,12 @@ class DetailedSpecificationController extends GetxController {
         .map((item) => double.tryParse(item.pricePerUnit ?? '0.0') ?? 0.0)
         .fold(0.0, (prev, element) => prev + element);
 
-    // Sum the prices from selected add-ons
+    // // Sum the prices from selected add-ons
     total += addOnsOption
         .where((item) => addonsAreas.contains(item.id.toString()))
         .map((item) => double.tryParse(item.pricePerUnit ?? '0.0') ?? 0.0)
         .fold(0.0, (prev, element) => prev + element);
+
 
     // Update the reactive totalPrice variable
     totalPrice.value = total;
