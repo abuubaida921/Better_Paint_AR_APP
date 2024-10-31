@@ -7,7 +7,7 @@ class ResponseModel {
   ResponseModel({
     required this.isSuccess,
     required this.statusCode,
-    this.errorMessage = 'Something went wrong!',
+    this.errorMessage = 'Something went wrong. Please try again!',
     required this.responseData,
   });
 }

@@ -236,12 +236,15 @@ class DetailedSpecificationView
                                 GlobalController gController =
                                     Get.find<GlobalController>();
 
-                                gController.addUserData(
-                                    gController.roomSrviceId.value,
-                                    gController.roomServiceName.value,
-                                    gController.roomName.value,
-                                    controller.selectedAreas,
-                                    controller.addonsAreas, controller.totalPrice.value.toString());
+                                gController.addQuoteGenerateData(
+                                    serviceId: gController.roomSrviceId.value,
+                                    serviceName:
+                                        gController.roomServiceName.value,
+                                    roomName: gController.roomName.value,
+                                    spAreas: controller.selectedAreas,
+                                    addOnsOption: controller.addonsAreas,
+                                    totalPrice:
+                                        controller.totalPrice.value.toString());
                                 Get.offUntil(
                                   GetPageRoute(
                                     routeName: RoutesNames.roomSelectionScreen,
@@ -288,20 +291,24 @@ class DetailedSpecificationView
                             width: 150.w,
                             child: ElevatedButton(
                               onPressed: () {
-                                GlobalController gController =
-                                    Get.find<GlobalController>();
+                                // GlobalController gController =
+                                //     Get.find<GlobalController>();
 
-                                gController.addUserData(
-                                    gController.roomSrviceId.value,
-                                    gController.roomServiceName.value,
-                                    gController.roomName.value,
-                                    controller.selectedAreas,
-                                    controller.addonsAreas, controller.totalPrice.toString());
+                                // gController.addUserData(
+                                //     serviceId: gController.roomSrviceId.value,
+                                //     serviceName:
+                                //         gController.roomServiceName.value,
+                                //     roomName: gController.roomName.value,
+                                //     spAreas: controller.selectedAreas,
+                                //     addOnsOption: controller.addonsAreas,
+                                //     totalPrice:
+                                //         controller.totalPrice.toString());
 
-                                print(jsonEncode(
-                                    Get.find<GlobalController>().dataList));
+                                // print(jsonEncode(
+                                //     Get.find<GlobalController>().dataList));
 
-                                Get.toNamed(RoutesNames.quoteEmailGenerateScreen);
+                                Get.toNamed(
+                                    RoutesNames.quoteEmailGenerateScreen);
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: btnColor,
@@ -391,7 +398,7 @@ void showOptionsModal(BuildContext context) {
   showModalBottomSheet(
     context: context,
     builder: (BuildContext context) {
-      return OptionsModal();
+      return const OptionsModal();
     },
   );
 }

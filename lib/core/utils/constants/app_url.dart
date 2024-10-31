@@ -7,4 +7,5 @@ AppUrl._();
  static const String serviceUrl = '$baseUrl/service/';
  static const String specificationUrl = '$baseUrl/specificationa-of-area/';
  static const String addOnsUrl = '$baseUrl/add_ons/';
+ static const String quotationGenerate = '$baseUrl/quotation-generate/';
 }

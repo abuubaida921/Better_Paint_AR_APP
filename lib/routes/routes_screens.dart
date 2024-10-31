@@ -83,7 +83,7 @@ List<GetPage<dynamic>>? routes = [
   ),
    GetPage(
     name: RoutesNames.quoteEmailGenerateScreen,
-    page: () => const QuoteGenerateEmailView(),
+    page: () =>  QuoteGenerateEmailView(),
     binding: QuoteGenerateBinding()
   ),
 ];

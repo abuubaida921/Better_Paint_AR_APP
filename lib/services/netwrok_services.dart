@@ -86,8 +86,8 @@ class NetworkCaller {
   }
 
   // post Request With currentUserHeader //
-  Future<ResponseModel> postRequest(String url, Map<String, dynamic> body,
-      {String? token}) async {
+  Future<ResponseModel> postRequest(String url, body, {String? token}) async {
+    print(body);
     final http.Response response = await http
         .post(Uri.parse(url),
             headers:
@@ -100,6 +100,7 @@ class NetworkCaller {
       },
     );
 
+
     // Handling the response
     final decodedResponse = jsonDecode(response.body);
 
@@ -107,11 +108,13 @@ class NetworkCaller {
     print(decodedResponse['status_code']);
 
     if (decodedResponse['status_code'] == 200 ||
-        decodedResponse['status_code'] == 201) {
+        decodedResponse['status_code'] == 201 ||
+        response.statusCode == 200) {
       return ResponseModel(
         isSuccess: decodedResponse['status'],
         statusCode: decodedResponse['status_code'],
         responseData: decodedResponse,
+        errorMessage: decodedResponse['message']
         // No error message in successful response
       );
     } else if (decodedResponse['status_code'] == 401) {
