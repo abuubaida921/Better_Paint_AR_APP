@@ -24,7 +24,7 @@ class GlobalController extends GetxController {
 
   // --------------------------------------- //
   List<Map<String, dynamic>> roomDataList = [];
-  List<Map<String, dynamic>> finalQuoteData = [];
+  Map<String, dynamic> finalQuoteData = {};
 
   void addQuoteGenerateData({
     required String serviceId,
@@ -41,7 +41,7 @@ class GlobalController extends GetxController {
     // Create room data structure
     Map<String, dynamic> roomData = {
       "service": {"id": serviceId, "service_name": serviceName},
-      "room_name": roomName,
+      "quote_room_name": roomName,
       "specification_of_areas": spAreas,
       "add_ons": addOnsOption,
       "total_price": totalPrice,
@@ -52,19 +52,16 @@ class GlobalController extends GetxController {
 
     // Add customer data if email, name, or address are not null //
     if (email != null || name != null || address != null) {
-      finalQuoteData = [
-        {
-          "rooms": roomDataList,
-          "customer": {
-            "email": email,
-            "name": name,
-            "address": address,
-          },
-        }
-      ];
+      finalQuoteData = {
+        "rooms": roomDataList,
+        "customer": {
+          "email": email,
+          "name": name,
+          "address": address,
+        },
+      };
     }
   }
-
 
   var roomName = ''.obs;
   var roomServiceName = ''.obs;

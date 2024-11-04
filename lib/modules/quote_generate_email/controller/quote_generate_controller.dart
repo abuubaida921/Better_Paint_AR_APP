@@ -48,7 +48,7 @@ class QuoteGenerateController extends GetxController {
         Get.find<GlobalController>().finalQuoteData,
       );
 
-
+      
 
       if (response.isSuccess == 'success') {
         if (response.statusCode == 201) {

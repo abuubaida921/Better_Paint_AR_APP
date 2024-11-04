@@ -114,30 +114,33 @@ class QuoteGenerateEmailView extends GetView<QuoteGenerateController> {
                             controller.userAddress != '' ||
                             controller.userName != '') {
                           gController.addQuoteGenerateData(
-                               serviceId: gController.roomSrviceId.value,
-                                    serviceName:
-                                        gController.roomServiceName.value,
-                                    roomName: gController.roomName.value,
-                                    spAreas: detailedSpecificationController.selectedAreas,
-                                    addOnsOption: detailedSpecificationController.addonsAreas,
-                                    totalPrice:detailedSpecificationController.totalPrice.toString(),
+                              serviceId: gController.roomSrviceId.value,
+                              serviceName: gController.roomServiceName.value,
+                              roomName: gController.roomName.value,
+                              spAreas:
+                                  detailedSpecificationController.selectedAreas,
+                              addOnsOption:
+                                  detailedSpecificationController.addonsAreas,
+                              totalPrice: detailedSpecificationController
+                                  .totalPrice
+                                  .toString(),
                               email: controller.emailAddress.value,
                               name: controller.userName.value,
                               address: controller.userAddress.value);
 
-                          print(jsonEncode(gController.finalQuoteData));    
+                          print(jsonEncode(gController.finalQuoteData));
 
-                          // bool isSuccess = await controller.QuoteInfoSubmit();
-                          // if (isSuccess) {
-                          //   AppUtils.successToast(
-                          //       message: controller.errorMessage);
-                          //   Get.toNamed(
-                          //     RoutesNames.invoiceScreen,
-                          //   );
-                          // } else {
-                          //   AppUtils.errorToast(
-                          //       message: controller.errorMessage);
-                          // }
+                          bool isSuccess = await controller.QuoteInfoSubmit();
+                          if (isSuccess) {
+                            AppUtils.successToast(
+                                message: controller.errorMessage);
+                            Get.toNamed(
+                              RoutesNames.invoiceScreen,
+                            );
+                          } else {
+                            AppUtils.errorToast(
+                                message: controller.errorMessage);
+                          }
                           controller.emailtextEditingController.clear();
                           controller.nametextEditingController.clear();
                           controller.addresstextEditingController.clear();

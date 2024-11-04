@@ -101,6 +101,9 @@ class NetworkCaller {
     );
 
 
+    print("===== ${response.statusCode} ========");
+
+
     // Handling the response
     final decodedResponse = jsonDecode(response.body);
 
@@ -131,7 +134,7 @@ class NetworkCaller {
         statusCode: decodedResponse['status_code'],
         responseData: decodedResponse,
         errorMessage: decodedResponse['message'] ??
-            'Error', // Assign specific error message
+            'Bad Request', // Assign specific error message
       );
     } else if (decodedResponse['status_code'] == 500) {
       return ResponseModel(
