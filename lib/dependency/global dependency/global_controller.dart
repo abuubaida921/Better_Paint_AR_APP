@@ -22,6 +22,7 @@ class GlobalController extends GetxController {
     }
   }
 
+  // == Post Data Format for Quote Generate == //
   // --------------------------------------- //
   List<Map<String, dynamic>> roomDataList = [];
   Map<String, dynamic> finalQuoteData = {};
@@ -30,9 +31,8 @@ class GlobalController extends GetxController {
     required String serviceId,
     required String serviceName,
     required String roomName,
-    required List<String> spAreas,
-    List<String>?
-        addOnsOption, // Assuming add_ons should be a list of integers as in your example
+    required List<int> spAreas,
+    List<int>? addOnsOption,
     required String totalPrice,
     String? email,
     String? name,

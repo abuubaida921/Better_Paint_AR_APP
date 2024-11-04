@@ -49,9 +49,9 @@ class DetailedSpecificationController extends GetxController {
 
   final List<SpecificationDetails> addOnsOption = <SpecificationDetails>[].obs;
 
-  // Set to hold the selected areas Ids //
-  RxList<String> selectedAreas = RxList([]);
-  RxList<String> addonsAreas = RxList([]);
+  // Set to hold the selected and Add-Ons areas Ids //
+  RxList<int> selectedAreas = RxList([]);
+  RxList<int> addonsAreas = RxList([]);
 
   Future<void> getSpecificationList() async {
     try {
@@ -113,7 +113,7 @@ class DetailedSpecificationController extends GetxController {
   }
 
   // Function to handle area selection/deselection
-  void toggleArea({String? specificationId}) {
+  void toggleArea({int? specificationId}) {
     if (selectedAreas.contains(specificationId)) {
       selectedAreas.remove(specificationId);
     } else {
@@ -122,7 +122,7 @@ class DetailedSpecificationController extends GetxController {
     calculateTotalPrice();
   }
 
-  void toggleAddOnsArea({String? specificationId}) {
+  void toggleAddOnsArea({int? specificationId}) {
     if (addonsAreas.contains(specificationId)) {
       addonsAreas.remove(specificationId);
     } else {
@@ -138,13 +138,13 @@ class DetailedSpecificationController extends GetxController {
 
     // Sum the prices from selected areas
     total += specificationOptions
-        .where((item) => selectedAreas.contains(item.id.toString()))
+        .where((item) => selectedAreas.contains(item.id))
         .map((item) => double.tryParse(item.pricePerUnit ?? '0.0') ?? 0.0)
         .fold(0.0, (prev, element) => prev + element);
 
     // // Sum the prices from selected add-ons
     total += addOnsOption
-        .where((item) => addonsAreas.contains(item.id.toString()))
+        .where((item) => addonsAreas.contains(item.id))
         .map((item) => double.tryParse(item.pricePerUnit ?? '0.0') ?? 0.0)
         .fold(0.0, (prev, element) => prev + element);
 

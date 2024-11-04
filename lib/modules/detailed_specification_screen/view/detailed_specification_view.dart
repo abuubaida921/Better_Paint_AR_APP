@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:better_painting/dependency/global%20dependency/global_controller.dart';
 import 'package:better_painting/main.dart';
 import 'package:better_painting/modules/detailed_specification_screen/controller/detailed_specification_controller.dart';
@@ -81,12 +80,10 @@ class DetailedSpecificationView
                                           price: items.pricePerUnit,
                                           items.name!,
                                           specificationid: items.id.toString(),
-                                          isSelected: controller.selectedAreas
-                                              .contains(items.id.toString()),
+                                          isSelected: controller.selectedAreas.contains(items.id),
                                           onTap: () {
                                             controller.toggleArea(
-                                                specificationId:
-                                                    items.id.toString());
+                                                specificationId: items.id);
                                           },
                                         ),
                                       );
@@ -152,25 +149,22 @@ class DetailedSpecificationView
                                         var items =
                                             controller.addOnsOption[index];
                                         return Obx(
-                                          // Assign Checker if the addOnsOption id contain in addOnsArea //
-                                          () => controller.addonsAreas.contains(
+                                          // Showing Card of AddonsoOptions that are contain in addons-Areas Id List //
+              
+                                          () => 
+                                          controller.addonsAreas.contains(
                                                   controller
-                                                      .addOnsOption[index].id
-                                                      .toString())
-                                              ? _buildDetailOption(
+                                                      .addOnsOption[index].id)
+                                              ? 
+                                              _buildDetailOption(
                                                   price: items.pricePerUnit,
                                                   items.name!,
-                                                  specificationid:
-                                                      items.id.toString(),
-                                                  isSelected: controller
-                                                      .addonsAreas
-                                                      .contains(
-                                                          items.id.toString()),
+                                                  specificationid:items.id.toString(),
+                                                  isSelected: controller.addonsAreas.contains(items.id),
                                                   onTap: () {
                                                     controller.toggleAddOnsArea(
-                                                        specificationId: items
-                                                            .id
-                                                            .toString());
+                                                        specificationId:
+                                                            items.id);
                                                   },
                                                 )
                                               : const SizedBox(),
@@ -443,7 +437,7 @@ class OptionsModal extends GetView<DetailedSpecificationController> {
                             ),
                             trailing: const Icon(Icons.arrow_forward_ios),
                             onTap: () {
-                              controller.addonsAreas.add(item.id.toString());
+                              controller.addonsAreas.add(item.id!);
                               controller.calculateTotalPrice();
                             },
                           ),
