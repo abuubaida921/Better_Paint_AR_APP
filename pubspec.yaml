@@ -44,6 +44,19 @@ dependencies:
   connectivity_plus: ^6.0.5
   shared_preferences: ^2.3.2
   flutter_screenutil: ^5.9.3
+  flutter_launcher_icons: ^0.14.1
+
+
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/better_paint_circle_logo.png"
+  min_sdk_android: 24 # android min sdk min:16, default 21
+  #remove_alpha_ios: true
+  adaptive_icon_background: "#FFFDE8E9" # Background color for adaptive icons
+  adaptive_icon_foreground: "assets/images/better_paint_circle_logo.png" # Foreground layer for adaptive icons
+
 
 dev_dependencies:
   flutter_test:
