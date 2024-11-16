@@ -78,7 +78,7 @@ class _ARHomePageState extends State<ARHomePage> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Text(
-            'Welcome to Better Painting AR Experience',
+            'Welcome to Better Paintings at home estimate app',
             style: TextStyle(
               color: const Color(backgroundColor),
               fontSize: 28.sp,
@@ -90,7 +90,7 @@ class _ARHomePageState extends State<ARHomePage> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Text(
-            'Discover our augmented reality services to enhance your world with digital experiences.',
+            'Quickly customize and get a quote that fits your needs!',
             style: TextStyle(
               color: const Color(backgroundColor),
               fontSize: 16.sp,
