@@ -72,7 +72,7 @@ class RoomSelectionView
                     width: 150.w,
                     child: ElevatedButton(
                       onPressed: () {
-                        if (controller.roomName != '') {
+                        if (controller.roomName.value != '') {
                           // Pass the selected areas and room name to the next screen
                           Get.toNamed(RoutesNames.detailedSpecificationScreen, 
                           // arguments: {

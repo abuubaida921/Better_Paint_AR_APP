@@ -5,8 +5,8 @@ import 'package:better_painting/dependency/global%20dependency/global_controller
 import 'package:better_painting/main.dart';
 import 'package:better_painting/modules/detailed_specification_screen/controller/detailed_specification_controller.dart';
 import 'package:better_painting/modules/quote_generate_email/controller/quote_generate_controller.dart';
-import 'package:better_painting/modules/room_selection_screen/controller/room_selection_controller.dart';
 import 'package:better_painting/routes/routes_names.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -14,9 +14,9 @@ import 'package:get/get.dart';
 class QuoteGenerateEmailView extends GetView<QuoteGenerateController> {
   QuoteGenerateEmailView({super.key});
 
-  GlobalController gController = Get.find<GlobalController>();
+  final GlobalController gController = Get.find<GlobalController>();
 
-  DetailedSpecificationController detailedSpecificationController =
+  final DetailedSpecificationController detailedSpecificationController =
       Get.find<DetailedSpecificationController>();
 
   @override
@@ -110,9 +110,9 @@ class QuoteGenerateEmailView extends GetView<QuoteGenerateController> {
                     width: 150.w,
                     child: ElevatedButton(
                       onPressed: () async {
-                        if (controller.emailAddress != '' ||
-                            controller.userAddress != '' ||
-                            controller.userName != '') {
+                        if (controller.emailAddress.value != '' ||
+                            controller.userAddress.value != '' ||
+                            controller.userName.value != '') {
                           gController.addQuoteGenerateData(
                               serviceId: gController.roomSrviceId.value,
                               serviceName: gController.roomServiceName.value,
@@ -128,9 +128,11 @@ class QuoteGenerateEmailView extends GetView<QuoteGenerateController> {
                               name: controller.userName.value,
                               address: controller.userAddress.value);
 
-                          print(jsonEncode(gController.finalQuoteData));
+                          if (kDebugMode) {
+                            print(jsonEncode(gController.finalQuoteData));
+                          }
 
-                          bool isSuccess = await controller.QuoteInfoSubmit();
+                          bool isSuccess = await controller.quoteInfoSubmit();
                           if (isSuccess) {
                             AppUtils.successToast(
                                 message: controller.errorMessage);

@@ -26,7 +26,7 @@ class _PickImageScreenState extends State<PickImageScreen> {
   @override
   void initState() {
     super.initState();
-    roomName = Get.arguments['roomName'].toString() ?? 'Unnamed Room';
+    roomName = Get.arguments['roomName']?? 'Unnamed Room';
     selectedAreas = (Get.arguments['selectedAreas']);
   }
 
@@ -44,7 +44,7 @@ class _PickImageScreenState extends State<PickImageScreen> {
   // Function to pick images from the gallery
   Future<void> _pickImageFromGallery() async {
     final List<XFile> pickedImages = await _picker.pickMultiImage();
-    if (pickedImages != null) {
+    if (pickedImages.isNotEmpty) {
       setState(() {
         _addRoom(pickedImages);
       });

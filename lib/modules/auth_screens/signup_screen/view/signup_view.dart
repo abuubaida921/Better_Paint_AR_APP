@@ -11,7 +11,7 @@ import 'package:get/get.dart';
 class SignupView extends GetView<SignUpController> {
   SignupView({super.key});
 
-  SignUpController signUpController = Get.put(SignUpController());
+  final SignUpController signUpController = Get.put(SignUpController());
 
   @override
   Widget build(BuildContext context) {

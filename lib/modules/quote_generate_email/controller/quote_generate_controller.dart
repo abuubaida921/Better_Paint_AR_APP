@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:better_painting/core/utils/constants/app_url.dart';
@@ -37,7 +36,7 @@ class QuoteGenerateController extends GetxController {
   get errorMessage => _errorMessage.value;
 
   // Quote Generate Request //
- Future<bool> QuoteInfoSubmit() async {
+ Future<bool> quoteInfoSubmit() async {
  
   try {
     if (await GlobalController().checkInternetConnectivity()) {

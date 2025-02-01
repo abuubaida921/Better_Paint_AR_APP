@@ -16,8 +16,7 @@ class ARMeasurementScreen extends StatefulWidget {
 }
 
 class _ARMeasurementScreenState extends State<ARMeasurementScreen> {
-  @override
-   final List<Offset> _points = []; // Points to store drawn lines
+  final List<Offset> _points = []; // Points to store drawn lines
 
   // Calculate distance between two points
   double _calculateDistance(Offset start, Offset end) {

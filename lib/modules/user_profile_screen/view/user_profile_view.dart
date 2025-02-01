@@ -107,7 +107,7 @@ class UserProfileView extends GetView<UserProfileController> {
                 padding: const EdgeInsets.all(12.0),
                 child: Column(
                   children: [
-                    custome_userProfile_tile(
+                    CustomUserProfileTile(
                       title: '${AppStoredData.userprofileData!.firstName} ${AppStoredData.userprofileData!.lastName}',
                       leadingIcon: Icons.person,
                       trailingIcon: Icons.edit_square,
@@ -115,7 +115,7 @@ class UserProfileView extends GetView<UserProfileController> {
                     SizedBox(
                       height: 5.h,
                     ),
-                    custome_userProfile_tile(
+                    CustomUserProfileTile(
                       title: '${AppStoredData.userprofileData!.email}',
                       leadingIcon: Icons.email,
                       trailingIcon: Icons.edit_square,
@@ -123,7 +123,7 @@ class UserProfileView extends GetView<UserProfileController> {
                     SizedBox(
                       height: 5.h,
                     ),
-                    custome_userProfile_tile(
+                    const CustomUserProfileTile(
                       title: '********',
                       leadingIcon: Icons.lock,
                       trailingIcon: Icons.edit_square,
@@ -131,7 +131,7 @@ class UserProfileView extends GetView<UserProfileController> {
                     SizedBox(
                       height: 5.h,
                     ),
-                    custome_userProfile_tile(
+                    const CustomUserProfileTile(
                       title: 'Support',
                       leadingIcon: Icons.support_agent_outlined,
                       trailingIcon: Icons.edit_square,
@@ -139,7 +139,7 @@ class UserProfileView extends GetView<UserProfileController> {
                     SizedBox(
                       height: 5.h,
                     ),
-                    custome_userProfile_tile(
+                    const CustomUserProfileTile(
                       title: 'Sent us an e-mail',
                       leadingIcon: Icons.person,
                       trailingIcon: Icons.edit_square,
@@ -147,7 +147,7 @@ class UserProfileView extends GetView<UserProfileController> {
                     SizedBox(
                       height: 5.h,
                     ),
-                    custome_userProfile_tile(
+                    const CustomUserProfileTile(
                       title: 'invoice',
                       leadingIcon: Icons.receipt_rounded,
                       trailingIcon: Icons.edit_square,
@@ -155,7 +155,7 @@ class UserProfileView extends GetView<UserProfileController> {
                     SizedBox(
                       height: 5.h,
                     ),
-                    custome_userProfile_tile(
+                    CustomUserProfileTile(
                       title: 'logout',
                       leadingIcon: Icons.logout_outlined,
                       onTap: () {
@@ -173,13 +173,13 @@ class UserProfileView extends GetView<UserProfileController> {
   }
 }
 
-class custome_userProfile_tile extends StatelessWidget {
-  String title;
-  IconData? leadingIcon;
-  IconData? trailingIcon;
-  void Function()? onTap;
-  custome_userProfile_tile(
-      {super.key, required this.title, this.leadingIcon, this.trailingIcon, void Function()? onTap});
+class CustomUserProfileTile extends StatelessWidget {
+  final String title;
+  final IconData? leadingIcon;
+  final IconData? trailingIcon;
+  final void Function()? onTap;
+  const CustomUserProfileTile(
+      {super.key, required this.title, this.leadingIcon, this.trailingIcon, this.onTap});
 
   @override
   Widget build(BuildContext context) {

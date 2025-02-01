@@ -1,5 +1,6 @@
 import 'package:better_painting/core/utils/constants/error_string.dart';
 import 'package:better_painting/core/utils/utility/app_utils.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -16,7 +17,9 @@ class GlobalController extends GetxController {
         connectivityResult.contains(ConnectivityResult.ethernet)) {
       return true;
     } else {
-      print('No Connection');
+      if (kDebugMode) {
+        print('No Connection');
+      }
       AppUtils.errorToast(message: ErrorStrings.networkErrorMessage);
       return false;
     }

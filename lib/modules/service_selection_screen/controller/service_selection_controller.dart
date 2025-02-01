@@ -2,6 +2,7 @@ import 'package:better_painting/core/utils/constants/app_url.dart';
 import 'package:better_painting/data/models/response_model/response_model.dart';
 import 'package:better_painting/data/models/service_response_model/service_response_model.dart';
 import 'package:better_painting/services/netwrok_services.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
 import '../../../dependency/global dependency/global_controller.dart';
@@ -43,7 +44,9 @@ class ServiceSelectionController extends GetxController {
         }
       }
     } catch (ex) {
-      print(ex);
+      if (kDebugMode) {
+        print(ex);
+      }
     } finally {
       _isLoading.value = false;
     }

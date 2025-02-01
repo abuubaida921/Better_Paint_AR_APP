@@ -6,6 +6,7 @@ import 'package:better_painting/data/models/auth_respone_model/auth_response_mod
 import 'package:better_painting/data/models/response_model/response_model.dart';
 import 'package:better_painting/dependency/global%20dependency/global_controller.dart';
 import 'package:better_painting/services/netwrok_services.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -91,7 +92,9 @@ class SignUpController extends GetxController {
               AuthResponseModel.fromJson(response.responseData);
 
           if (response.statusCode == 400) {
-           print(_authResponseModel!.errorDetails!.message);
+           if (kDebugMode) {
+             print(_authResponseModel!.errorDetails!.message);
+           }
             _errorMessage.value =
                 _authResponseModel?.errorDetails?.message ?? 'This email is already exist';
           } else {

@@ -1,11 +1,11 @@
 import 'package:better_painting/core/utils/constants/app_url.dart';
 import 'package:better_painting/data/models/addons_respone_model/addons_response_model.dart';
-import 'package:better_painting/data/models/area_spectificaiton_model/area_specificaiton_model.dart';
 import 'package:better_painting/data/models/response_model/response_model.dart';
 import 'package:better_painting/data/models/specification_response_model/specification_details.dart';
 import 'package:better_painting/data/models/specification_response_model/specification_respone_model.dart';
 import 'package:better_painting/dependency/global%20dependency/global_controller.dart';
 import 'package:better_painting/services/netwrok_services.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -75,7 +75,9 @@ class DetailedSpecificationController extends GetxController {
         }
       }
     } catch (ex) {
-      print(ex);
+      if (kDebugMode) {
+        print(ex);
+      }
     } finally {
       _isLoading.value = false;
     }
@@ -106,7 +108,9 @@ class DetailedSpecificationController extends GetxController {
         }
       }
     } catch (ex) {
-      print(ex);
+      if (kDebugMode) {
+        print(ex);
+      }
     } finally {
       _isAddOnsLoading.value = false;
     }
