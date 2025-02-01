@@ -120,6 +120,29 @@ class _ARHomePageState extends State<ARHomePage> {
             ),
           ),
         ),
+        const SizedBox(height: 20),
+        Center(
+          child: ElevatedButton(
+            onPressed: () {
+              Get.toNamed(RoutesNames.projectGalleryScreen);
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: btnColor,
+              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
+            ),
+            child: Text(
+              'Project Gallery',
+              style: TextStyle(
+                fontSize: 18.sp,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
         const SizedBox(height: 40),
       ],
     );
