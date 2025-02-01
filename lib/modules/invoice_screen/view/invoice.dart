@@ -1,7 +1,11 @@
 import 'package:better_painting/main.dart';
 import 'package:flutter/material.dart';
 
-class InvoiceScreen extends StatelessWidget {
+import '../../quote_generate_email/controller/quote_generate_controller.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+
+class InvoiceScreen extends GetView<QuoteGenerateController> {
   final String customerName = "John Doe";
   final String customerAddress = "123 Main St, City, Country";
   final String customerContact = "john.doe@email.com";
@@ -11,6 +15,8 @@ class InvoiceScreen extends StatelessWidget {
     {"description": "Ceiling Painting", "quantity": 1, "price": 80.0},
     {"description": "Trim Work", "quantity": 5, "price": 40.0},
   ];
+
+  //{status: success, status_code: 201, message: Data Successfully created, details: {rooms: [{service: {id: 1, service_name: Interior}, quote_room_name: r1, specification_of_areas: [1, 2, 3], add_ons: [], total_price: 244.0, quote: 61}], customer: {email: ubaida.test@gmail.com, name: Ubaida, address: Dhaka}}}
 
    InvoiceScreen({super.key});
 
@@ -66,7 +72,7 @@ class InvoiceScreen extends StatelessWidget {
           ),
         ),
         Text(
-          invoiceDate,
+        DateFormat('MMMM d, y').format(DateTime.now()),
           style: const TextStyle(
             fontSize: 16,
             color: Colors.grey,
