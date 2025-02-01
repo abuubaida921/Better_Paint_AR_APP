@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:better_painting/core/utils/constants/error_string.dart';
 import 'package:better_painting/core/utils/utility/app_utils.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 import '../data/models/response_model/response_model.dart';
@@ -27,6 +28,10 @@ class NetworkCaller {
 
   // Get Request with _mainHeaders //
   Future<ResponseModel> getRequest(String url, {String? token}) async {
+    if (kDebugMode) {
+      print('=========================================');
+      print('Hitted Api => $url');
+    }
     final http.Response response = await http
         .get(Uri.parse(url),
             headers:
@@ -39,7 +44,10 @@ class NetworkCaller {
     );
 
     final decodedResponse = jsonDecode(response.body);
-
+    if (kDebugMode) {
+      print('Response from Api => $decodedResponse');
+      print('=========================================');
+    }
     if (decodedResponse['status_code'] == 200 ||
         decodedResponse['status_code'] == 201) {
       return ResponseModel(
@@ -87,7 +95,11 @@ class NetworkCaller {
 
   // post Request With currentUserHeader //
   Future<ResponseModel> postRequest(String url, body, {String? token}) async {
-    print(body);
+    if (kDebugMode) {
+      print('=========================================');
+      print('Hitted Api => $url');
+      print('With body data => $body');
+    }
     final http.Response response = await http
         .post(Uri.parse(url),
             headers:
@@ -100,15 +112,13 @@ class NetworkCaller {
       },
     );
 
-
-    print("===== ${response.statusCode} ========");
-
-
     // Handling the response
     final decodedResponse = jsonDecode(response.body);
 
-    print("=++++++++=");
-    print(decodedResponse['status_code']);
+    if (kDebugMode) {
+      print('Response from Api => $decodedResponse');
+      print('=========================================');
+    }
 
     if (decodedResponse['status_code'] == 200 ||
         decodedResponse['status_code'] == 201 ||
