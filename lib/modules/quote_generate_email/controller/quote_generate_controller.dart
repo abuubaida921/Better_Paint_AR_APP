@@ -7,9 +7,11 @@ import 'package:better_painting/dependency/global%20dependency/global_controller
 import 'package:better_painting/services/netwrok_services.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 
 import '../../../data/models/quote_generation_model/quote_invoice_response_model.dart';
+import 'package:http/http.dart' as http;
 
 class QuoteGenerateController extends GetxController {
   // Create a TextEditingController to manage the text
@@ -21,6 +23,7 @@ class QuoteGenerateController extends GetxController {
   RxString emailAddress = ''.obs;
   RxString userName = ''.obs;
   RxString userAddress = ''.obs;
+  final finalAmountToPay =0.0.obs;
 
   @override
   void onInit() {
@@ -89,4 +92,52 @@ class QuoteGenerateController extends GetxController {
   return false;
 }
 
+Future<void> makePayment(BuildContext context)async{
+  try{
+    final paymentIntentData = await createPaymentIntent('${finalAmountToPay.value.toStringAsFixed(2)}', 'USD')??{};
+    await Stripe.instance.initPaymentSheet(paymentSheetParameters: SetupPaymentSheetParameters(
+      paymentIntentClientSecret: paymentIntentData['client_secret'],
+      style: ThemeMode.light,
+      customFlow: false,
+      merchantDisplayName: 'Better Paint'
+    ),).then((value){
+      displayPaymentSheet(context);
+    });
+  }catch(err){
+    if(kDebugMode){
+      print(err);
+    }
+  }
+}
+dynamic createPaymentIntent(String amount, String currency) async{
+   try{
+     final body={
+       'amount':amount,
+       'currency':currency,
+     };
+     final response = await http.post(
+       Uri.parse(AppUrl.paymentUrl),
+       body:body,
+       headers: {'Content-Type':'application/x-www-form-urlencoded'});
+     return jsonDecode(response.body);
+   }catch(err){
+     if(kDebugMode){
+       print(err);
+     }
+   }
+}
+void displayPaymentSheet(BuildContext context)async{
+   try{
+
+     await Stripe.instance.presentPaymentSheet().then((value){
+       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Paid Successfully')));
+     }).onError((err, stackTrace){
+       throw Exception(err);
+     });
+   }on StripeException catch(e){
+     if(kDebugMode){
+       print('Error is in payment ------> $e');
+     }
+   }
+}
 }

@@ -9,4 +9,5 @@ AppUrl._();
  static const String addOnsUrl = '$baseUrl/add_ons/';
  static const String quotationGenerate = '$baseUrl/quotation-generate/';
  static const String galleryUrl = '$baseUrl/gallery-category/';
+ static const String paymentUrl = '$baseUrl/payment/';
 }

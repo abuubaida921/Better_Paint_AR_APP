@@ -3,6 +3,7 @@ import 'package:better_painting/routes/routes_names.dart';
 import 'package:better_painting/routes/routes_screens.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
@@ -29,8 +30,9 @@ Map<int, Color> colorSwatch = {
 // Create a MaterialColor from the swatch
 MaterialColor customSwatch = MaterialColor(primaryColor, colorSwatch);
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Stripe.publishableKey = 'stripePublishableKey';
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
