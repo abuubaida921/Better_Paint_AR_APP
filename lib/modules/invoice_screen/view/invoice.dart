@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:better_painting/main.dart';
 import 'package:flutter/material.dart';
 
@@ -95,9 +97,9 @@ class InvoiceScreen extends GetView<QuoteGenerateController> {
           ),
         ),
         const SizedBox(height: 8),
-        Text(customerName, style: const TextStyle(fontSize: 16)),
-        Text(customerAddress, style: const TextStyle(fontSize: 16)),
-        Text(customerContact, style: const TextStyle(fontSize: 16)),
+        Text('${controller.quoteInvoiceResponseModel.details!.customer!.name}', style: const TextStyle(fontSize: 16)),
+        Text('${controller.quoteInvoiceResponseModel.details!.customer!.address}', style: const TextStyle(fontSize: 16)),
+        Text('${controller.quoteInvoiceResponseModel.details!.customer!.email}', style: const TextStyle(fontSize: 16)),
       ],
     );
   }
@@ -138,20 +140,20 @@ class InvoiceScreen extends GetView<QuoteGenerateController> {
                 ),
               ],
             ),
-            for (var service in services)
+            for (var service in controller.quoteInvoiceResponseModel.details!.rooms!)
               TableRow(
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(service["description"]),
+                    child: Text(service.quoteRoomName??''),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(service["quantity"].toString()),
+                    child: Text('${service.specificationOfAreas!.length+service.addOns!.length}'),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text("\$${service["price"].toStringAsFixed(2)}"),
+                    child: Text("\$${service.totalPrice.toString()}"),
                   ),
                 ],
               ),
@@ -163,7 +165,7 @@ class InvoiceScreen extends GetView<QuoteGenerateController> {
 
   // Total Amount Section
   Widget _buildTotalAmount() {
-    double subtotal = services.fold(0, (sum, item) => sum + item["quantity"] * item["price"]);
+    double subtotal = controller.quoteInvoiceResponseModel.details!.rooms!.fold(0, (sum, item) => sum + double.parse(item.totalPrice??'0'));
     double tax = subtotal * 0.15; // 15% tax
     double total = subtotal + tax;
 

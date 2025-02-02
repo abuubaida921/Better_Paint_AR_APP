@@ -1,11 +1,15 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:better_painting/core/utils/constants/app_url.dart';
 import 'package:better_painting/data/models/response_model/response_model.dart';
 import 'package:better_painting/dependency/global%20dependency/global_controller.dart';
 import 'package:better_painting/services/netwrok_services.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../data/models/quote_generation_model/quote_invoice_response_model.dart';
 
 class QuoteGenerateController extends GetxController {
   // Create a TextEditingController to manage the text
@@ -35,6 +39,9 @@ class QuoteGenerateController extends GetxController {
   final _errorMessage = ''.obs; // Corrected declaration as RxString
   get errorMessage => _errorMessage.value;
 
+  QuoteInvoiceResponseModel _quoteInvoiceResponseModel = QuoteInvoiceResponseModel();
+  QuoteInvoiceResponseModel get quoteInvoiceResponseModel => _quoteInvoiceResponseModel;
+
   // Quote Generate Request //
  Future<bool> quoteInfoSubmit() async {
  
@@ -47,11 +54,15 @@ class QuoteGenerateController extends GetxController {
         Get.find<GlobalController>().finalQuoteData,
       );
 
-      
+      if (kDebugMode) {
+        print('jsonEncode(response.responseData)');
+        print(jsonEncode(response.responseData));
+      }
 
       if (response.isSuccess == 'success') {
         if (response.statusCode == 201) {
         _errorMessage.value = response.errorMessage;
+        _quoteInvoiceResponseModel=QuoteInvoiceResponseModel.fromJson(response.responseData);
           return true;
         } else {
           log("Unexpected successful response status code: ${response.statusCode}");
