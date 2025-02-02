@@ -152,7 +152,9 @@ class ProjectGalleryView extends GetView<ProjectGalleryController> {
                       childAspectRatio: 1,
                     ),
                     itemBuilder: (context, index) {
-                      return ClipRRect(
+                      return GestureDetector(
+                          onTap: () => showFullScreenImage(context,controller, index), // Open full-screen popup
+                      child:ClipRRect(
                         borderRadius: BorderRadius.circular(8),
                         child: Image.network(
                           controller.galleryItem[index].image,
@@ -168,7 +170,7 @@ class ProjectGalleryView extends GetView<ProjectGalleryController> {
                               'https://cdn-icons-png.flaticon.com/512/13434/13434972.png',
                               fit: BoxFit.cover);
                         },
-                      ));
+                      )));
                     },
                   ):
                   const Center(child: Text('No image available')),
@@ -179,6 +181,79 @@ class ProjectGalleryView extends GetView<ProjectGalleryController> {
           ),
         ],
       )),
+    );
+  }
+  void showFullScreenImage(BuildContext context, ProjectGalleryController controller, int index) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return Dialog(
+              backgroundColor: Colors.black,
+              insetPadding: EdgeInsets.zero,
+              child: Stack(
+                children: [
+                  // Zoomable image
+                  Center(
+                    child: InteractiveViewer(
+                      panEnabled: true,
+                      minScale: 1,
+                      maxScale: 4,
+                      child: Image.network(
+                        controller.galleryItem[index].image,
+                        fit: BoxFit.contain,
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Icon(Icons.broken_image, size: 100, color: Colors.grey),
+                      ),
+                    ),
+                  ),
+
+                  // Close button
+                  Positioned(
+                    top: 40,
+                    right: 20,
+                    child: IconButton(
+                      icon: const Icon(Icons.close, color: Colors.white, size: 30),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                  ),
+
+                  // Left arrow button
+                  if (index > 0) // Show only if not first image
+                    Positioned(
+                      left: 20,
+                      top: MediaQuery.of(context).size.height / 2 - 30,
+                      child: IconButton(
+                        icon: const Icon(Icons.arrow_back_ios, color: Colors.white, size: 40),
+                        onPressed: () {
+                          setState(() {
+                            index--; // Move to previous image
+                          });
+                        },
+                      ),
+                    ),
+
+                  // Right arrow button
+                  if (index < controller.galleryItem.length - 1) // Show only if not last image
+                    Positioned(
+                      right: 20,
+                      top: MediaQuery.of(context).size.height / 2 - 30,
+                      child: IconButton(
+                        icon: const Icon(Icons.arrow_forward_ios, color: Colors.white, size: 40),
+                        onPressed: () {
+                          setState(() {
+                            index++; // Move to next image
+                          });
+                        },
+                      ),
+                    ),
+                ],
+              ),
+            );
+          },
+        );
+      },
     );
   }
 
