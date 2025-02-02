@@ -4,27 +4,21 @@ import 'package:better_painting/core/utils/constants/app_url.dart';
 import 'package:better_painting/data/models/response_model/response_model.dart';
 import 'package:better_painting/dependency/global%20dependency/global_controller.dart';
 import 'package:better_painting/services/netwrok_services.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
-class ProjectGalleryController extends GetxController {
-  // Create a TextEditingController to manage the text
-  late TextEditingController emailtextEditingController;
-  late TextEditingController nametextEditingController;
-  late TextEditingController addresstextEditingController;
+import '../../../data/models/gallery_response_model/gallery_details_model.dart';
+import '../../../data/models/gallery_response_model/gallery_model.dart';
+import '../../../data/models/gallery_response_model/gallery_response_model.dart';
 
-  // To store room name
-  RxString emailAddress = ''.obs;
-  RxString userName = ''.obs;
-  RxString userAddress = ''.obs;
+class ProjectGalleryController extends GetxController {
+  final selectedButtonIndex = 0.obs;
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    emailtextEditingController = TextEditingController();
-    nametextEditingController = TextEditingController();
-    addresstextEditingController = TextEditingController();
+    getGalleryImages();
   }
 
   // Sign Up loading indicator //
@@ -35,47 +29,40 @@ class ProjectGalleryController extends GetxController {
   final _errorMessage = ''.obs; // Corrected declaration as RxString
   get errorMessage => _errorMessage.value;
 
-  // Quote Generate Request //
- Future<bool> quoteInfoSubmit() async {
- 
-  try {
-    if (await GlobalController().checkInternetConnectivity()) {
-      _isLoading.value = true;
 
-      final ResponseModel response = await NetworkCaller().postRequest(
-        AppUrl.quotationGenerate,
-        Get.find<GlobalController>().finalQuoteData,
-      );
-
-      
-
-      if (response.isSuccess == 'success') {
-        if (response.statusCode == 201) {
-        _errorMessage.value = response.errorMessage;
-          return true;
-        } else {
-          log("Unexpected successful response status code: ${response.statusCode}");
-          return false;
-        }
-      } else {
-        if (response.statusCode == 404) {
-           _errorMessage.value = response.errorMessage;
-        } else {
-           _errorMessage.value = response.errorMessage;
-        }
-        return false;
-      }
-    } else {
-      _errorMessage.value = "No internet connection.";
-    }
-  } catch (ex) {
-    log("An error occurred: ${ex.toString()}");
-    _errorMessage.value = "An unexpected error occurred. Please try again.";
-    return false;
-  } finally {
-    _isLoading.value = false;
+  void setButtonIndex(int index) {
+    selectedButtonIndex(index);
   }
-  return false;
-}
+
+  GalleryResponseModel _galleryResponseModel = GalleryResponseModel();
+  GalleryResponseModel get galleryResponseModel => _galleryResponseModel;
+  final galleryItem = <GalleryModel>[].obs;
+
+  Future<void> getGalleryImages() async {
+    try {
+      if (await GlobalController().checkInternetConnectivity()) {
+        _isLoading.value = true;
+        final ResponseModel response =
+        await NetworkCaller().getRequest(AppUrl.galleryUrl);
+        if (response.isSuccess == 'success') {
+          _galleryResponseModel = GalleryResponseModel.fromJson(response.responseData);
+          _errorMessage.value = response.errorMessage;
+          for(GalleryDetailsModel v in galleryResponseModel.details!){
+            for(GalleryModel w in v.galleryModel!){
+              galleryItem.add(w);
+            }
+          }
+        } else {
+          _errorMessage.value = response.errorMessage;
+        }
+      }
+    } catch (ex) {
+      if (kDebugMode) {
+        print(ex);
+      }
+    } finally {
+      _isLoading.value = false;
+    }
+  }
 
 }

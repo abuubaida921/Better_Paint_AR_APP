@@ -10,6 +10,7 @@ const int primaryColor = 0xFFB22331; // Base color #b22331
 const int blackColor = 0xFF252525;
 const int backgroundColor = 0xFF052138;
 const Color btnColor = Color.fromARGB(255, 15, 46, 74); // Base color #b22331
+const Color selectedBtnColor = Color.fromARGB(255, 231, 6, 6); // Base color #b22331
 const Color baseColor = Color(backgroundColor); // Base color #b22331
 
 Map<int, Color> colorSwatch = {

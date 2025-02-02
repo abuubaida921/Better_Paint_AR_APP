@@ -8,4 +8,5 @@ AppUrl._();
  static const String specificationUrl = '$baseUrl/specificationa-of-area/';
  static const String addOnsUrl = '$baseUrl/add_ons/';
  static const String quotationGenerate = '$baseUrl/quotation-generate/';
+ static const String galleryUrl = '$baseUrl/gallery-category/';
 }
