@@ -32,6 +32,29 @@ class ProjectGalleryController extends GetxController {
 
   void setButtonIndex(int index) {
     selectedButtonIndex(index);
+    galleryItem.clear();
+    for(GalleryDetailsModel v in galleryResponseModel.details!){
+      if(index==0) {
+        for (GalleryModel w in v.galleryModel!) {
+          galleryItem.add(w);
+        }
+      }
+      if(index==1 && v.name=='Interior') {
+        for (GalleryModel w in v.galleryModel!) {
+          galleryItem.add(w);
+        }
+      }
+      if(index==2 && v.name=='Exterior') {
+        for (GalleryModel w in v.galleryModel!) {
+          galleryItem.add(w);
+        }
+      }
+      if(index==3 && v.name=='Cabinets') {
+        for (GalleryModel w in v.galleryModel!) {
+          galleryItem.add(w);
+        }
+      }
+    }
   }
 
   GalleryResponseModel _galleryResponseModel = GalleryResponseModel();

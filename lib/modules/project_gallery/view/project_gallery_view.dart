@@ -139,6 +139,7 @@ class ProjectGalleryView extends GetView<ProjectGalleryController> {
                   ),
                   SizedBox(height: 20.h),
 
+                  controller.galleryItem.isNotEmpty?
                   GridView.builder(
                     itemCount: controller.galleryItem.length, // List of image URLs or assets
                     padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -169,7 +170,8 @@ class ProjectGalleryView extends GetView<ProjectGalleryController> {
                         },
                       ));
                     },
-                  ),
+                  ):
+                  const Center(child: Text('No image available')),
 
                 ],
               ),
